@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: '3by3';
+    src: url('@/assets/fonts/pxlxxl.regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'gothic';
+    src: url('@/assets/fonts/EightBitDragon-anqx.ttf') format('truetype');
+}
+
+.font-gothic {
+    font-family: 'gothic', serif;
+}
+
+.font-pixel {
+    font-family: '3by3', serif;
+}
+
+#root, html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#gameTitle {
+    -webkit-text-stroke: 4px black;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.gameTitle { grid-area: 1 / 1 / 2 / 3; }
+.startButton { grid-area: 2 / 1 / 3 / 3; }
