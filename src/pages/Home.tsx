@@ -2,7 +2,7 @@ import logo from '@/assets/images/witch.png';
 import { Page } from '@/App.tsx';
 import Button from '@/components/Button.tsx';
 
-interface HomeProps extends Page {
+interface HomeProps extends Omit<Page, 'messages'> {
   gameTitle: string;
   startButton: string;
 }

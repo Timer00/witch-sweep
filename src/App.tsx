@@ -9,8 +9,10 @@ import WitchWon from '@/pages/WitchWon.tsx';
 import YouWon from '@/pages/YouWon.tsx';
 
 import content from '@/assets/content.json';
+
+const defaultMessages = ['default message 1','default message 2'];
 export interface Page {
-  messages?: string[];
+  messages: string[];
   nextPage: nextPage;
 }
 
@@ -29,12 +31,12 @@ const App = () => {
       key={0}
       nextPage={nextPage}
     />,
-    <Intro messages={content.pages[1].messages} key={1} nextPage={nextPage} />,
+    <Intro messages={content.pages[1].messages || defaultMessages} key={1} nextPage={nextPage} />,
     <HowLong key={2} nextPage={nextPage} setTimerMinutes={setTimerMinutes} />,
-    <Intro messages={content.pages[3].messages} key={3} nextPage={nextPage} />,
+    <Intro messages={content.pages[3].messages || defaultMessages} key={3} nextPage={nextPage} />,
     <AreYouReady
       key={4}
-      messages={content.pages[4].messages || ['default message 1','default message 2']}
+      messages={content.pages[4].messages || defaultMessages}
       nextPage={nextPage}
       goButton={content.pages[4].goButton || "Default go button"}
     />,
@@ -47,13 +49,13 @@ const App = () => {
       timerHeader={content.pages[5].timerHeader || "Default timer header"}
     />,
     <YouWon
-      messages={content.pages[6].messages}
+      messages={content.pages[6].messages || defaultMessages}
       restartButton={content.pages[6].restartButton || "Default restart button"}
       key={6}
       nextPage={() => setPage(0)}
     />,
     <WitchWon
-      messages={content.pages[7].messages}
+      messages={content.pages[7].messages || defaultMessages}
       restartButton={content.pages[7].restartButton || "Default restart button"}
       key={7}
       nextPage={() => setPage(0)}
