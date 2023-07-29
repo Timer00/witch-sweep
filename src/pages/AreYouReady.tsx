@@ -4,6 +4,7 @@ import Dialog from '@/components/Dialog.tsx';
 
 interface AreYouReadyProps extends Page {
   goButton: string;
+  messages: string[];
 }
 
 const AreYouReady = ({ nextPage, messages, goButton }: AreYouReadyProps) => {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Home from '@/pages/Home.tsx';
 import bg from '@/assets/images/room.png';
 import Intro from '@/pages/Intro.tsx';
@@ -24,7 +24,7 @@ const App = () => {
 
   const pages = [
     <Home
-      startButton={content.pages[0].startButton}
+      startButton={content.pages[0].startButton || "Default start button"}
       gameTitle={content.gameTitle}
       key={0}
       nextPage={nextPage}
@@ -34,27 +34,27 @@ const App = () => {
     <Intro messages={content.pages[3].messages} key={3} nextPage={nextPage} />,
     <AreYouReady
       key={4}
-      messages={content.pages[4].messages}
+      messages={content.pages[4].messages || ['default message 1','default message 2']}
       nextPage={nextPage}
-      goButton={content.pages[4].goButton}
+      goButton={content.pages[4].goButton || "Default go button"}
     />,
     <TimerScreen
       key={5}
       nextPage={nextPage}
       setPage={setPage}
       timerMinutes={timerMinutes}
-      doneButton={content.pages[5].doneButton}
-      timerHeader={content.pages[5].timerHeader}
+      doneButton={content.pages[5].doneButton || "Default done button"}
+      timerHeader={content.pages[5].timerHeader || "Default timer header"}
     />,
     <YouWon
       messages={content.pages[6].messages}
-      restartButton={content.pages[6].restartButton}
+      restartButton={content.pages[6].restartButton || "Default restart button"}
       key={6}
       nextPage={() => setPage(0)}
     />,
     <WitchWon
       messages={content.pages[7].messages}
-      restartButton={content.pages[7].restartButton}
+      restartButton={content.pages[7].restartButton || "Default restart button"}
       key={7}
       nextPage={() => setPage(0)}
     />,
