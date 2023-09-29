@@ -1,4 +1,4 @@
-import logo from '@/assets/images/witch.png';
+import logo from '@/assets/images/witch_talk.png';
 import { nextPage, setTimerMinutes } from '@/App.tsx';
 import DialogBox from '@/components/DialogBox.tsx';
 

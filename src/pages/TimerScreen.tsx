@@ -1,4 +1,4 @@
-import logo from '@/assets/images/witch.png';
+import logo from '@/assets/images/witch_talk.png';
 import { Page, setPage } from '@/App.tsx';
 import DialogBox from '@/components/DialogBox.tsx';
 import Timer from '@/components/Timer.tsx';

@@ -1,4 +1,4 @@
-import logo from '@/assets/images/witch.png';
+import logo from '@/assets/images/witch_talk.png';
 import { Page } from '@/App.tsx';
 
 import Dialog from '@/components/Dialog.tsx';

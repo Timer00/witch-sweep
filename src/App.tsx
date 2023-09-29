@@ -73,10 +73,9 @@ const App = () => {
   return (
     <div className="h-full w-full text-center">
       <div className="absolute inset-0">
-        <img
+        <video
           className="h-full w-full object-cover"
           src={bg}
-          alt="witches room"
         />
       </div>
 
