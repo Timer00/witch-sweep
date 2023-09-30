@@ -4,6 +4,9 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
   const [playing, setPlaying] = useState(false);
   const [source, setSource] = useState<string | undefined>(undefined);
   const [loop, setLoop] = useState(false);
+  const [videoEndAction, setVideoEndAction] = useState(()=> ()=>{});
+
+  const setActionOnVideoEnd = (action) => setVideoEndAction(action);
 
   const toggle = () => setPlaying(!playing);
 
@@ -14,7 +17,6 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
   const switchVideo = (newVideoFile: string) => {
     setSource(newVideoFile);
     videoEl.current?.load();
-    play();
   };
 
   useEffect(() => {
@@ -22,7 +24,10 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
   }, [playing]);
 
   useEffect(() => {
-    const handleVideoEnd = () => setPlaying(false);
+    const handleVideoEnd = () => {
+      videoEndAction();
+      setPlaying(false)
+    };
     videoEl?.current?.addEventListener("ended", handleVideoEnd);
 
     return () => {
@@ -37,10 +42,12 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
     play,
     switchVideo,
     setLoop,
+    setActionOnVideoEnd,
     videoProps: {
       src: source,
       loop,
-      autoPlay: true
+      autoPlay: true,
+      muted: 'muted'
     }
   };
 };

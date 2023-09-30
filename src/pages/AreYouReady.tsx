@@ -1,15 +1,16 @@
 import logo from '@/assets/images/witch_talk.png';
-import { Page } from '@/App.tsx';
+import { PageProps } from '@/App.tsx';
 import Dialog from '@/components/Dialog.tsx';
+import PageContainer from "@/components/PageContainer.tsx";
 
-interface AreYouReadyProps extends Page {
+interface AreYouReadyProps extends PageProps {
   goButton: string;
   messages: string[];
 }
 
 const AreYouReady = ({ nextPage, messages, goButton }: AreYouReadyProps) => {
   return (
-    <div className="flex h-full items-center justify-center p-32">
+    <PageContainer>
       <img
         src={logo}
         alt="logo"
@@ -21,7 +22,7 @@ const AreYouReady = ({ nextPage, messages, goButton }: AreYouReadyProps) => {
         hideNextButton
         buttonText={goButton}
       />
-    </div>
+    </PageContainer>
   );
 };
 

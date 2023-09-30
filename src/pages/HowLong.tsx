@@ -1,12 +1,11 @@
 import logo from '@/assets/images/witch_talk.png';
 import { nextPage, setTimerMinutes } from '@/App.tsx';
 import DialogBox from '@/components/DialogBox.tsx';
+import PageContainer from "@/components/PageContainer.tsx";
 
 const HowLong = ({
-  nextPage,
   setTimerMinutes,
 }: {
-  nextPage: nextPage;
   setTimerMinutes: setTimerMinutes;
 }) => {
   const setHowLong = (minutes: number) => {
@@ -15,7 +14,7 @@ const HowLong = ({
   };
 
   return (
-    <div className="flex h-full items-center justify-center p-32">
+    <PageContainer>
       <img
         src={logo}
         alt="logo"
@@ -49,7 +48,7 @@ const HowLong = ({
           </div>
         </div>
       </DialogBox>
-    </div>
+    </PageContainer>
   );
 };
 

@@ -1,28 +1,29 @@
 import logo from '@/assets/images/witch_talk.png';
-import { Page, setPage } from '@/App.tsx';
+import { PageProps, setPage } from '@/App.tsx';
 import DialogBox from '@/components/DialogBox.tsx';
 import Timer from '@/components/Timer.tsx';
 import Button from '@/components/Button.tsx';
+import PageContainer from "@/components/PageContainer.tsx";
+import { usePage } from "@/hooks/usePage.tsx";
 
-interface TimerScreenProps extends Omit<Page,'messages'> {
+interface TimerScreenProps extends Omit<PageProps,'messages'> {
   timerMinutes: number;
-  setPage: setPage;
   doneButton: string;
   timerHeader: string;
 }
 
 const TimerScreen = ({
-  nextPage,
   timerMinutes,
-  setPage,
   doneButton,
   timerHeader,
 }: TimerScreenProps) => {
+  const { setPage } = usePage();
+
   const time = new Date();
   time.setSeconds(time.getSeconds() + 60 * timerMinutes); // 10 minutes timer
 
   return (
-    <div className="flex h-full items-center justify-center p-32">
+    <PageContainer>
       <img
         src={logo}
         alt="logo"
@@ -32,17 +33,17 @@ const TimerScreen = ({
         <h1 className="text-3xl font-bold">{timerHeader}</h1>
         <Timer
           expiryTimestamp={time}
-          onExpire={() => setPage(7)}
+          onExpire={() => setPage('youLost')}
           autoStart={true}
         />
         <Button
           className="m-10 border-black font-mono text-black"
-          onClick={nextPage}
+          onClick={()=>setPage('youWon')}
         >
           {doneButton}
         </Button>
       </DialogBox>
-    </div>
+    </PageContainer>
   );
 };
 

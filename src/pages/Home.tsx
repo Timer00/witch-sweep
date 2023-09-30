@@ -1,15 +1,16 @@
 import logo from '@/assets/images/witch_talk.png';
-import { Page } from '@/App.tsx';
+import { PageProps } from '@/App.tsx';
 import Button from '@/components/Button.tsx';
+import PageContainer from "@/components/PageContainer.tsx";
 
-interface HomeProps extends Omit<Page, 'messages'> {
+interface HomeProps extends Omit<PageProps, 'messages'> {
   gameTitle: string;
   startButton: string;
 }
 
 const Home = ({ nextPage, gameTitle, startButton }: HomeProps) => {
   return (
-    <div className="flex h-full items-center justify-center p-32">
+    <PageContainer>
       <div className="parent text-white">
         <div className="gameTitle flex items-center justify-center">
           <p id={'gameTitle'}
@@ -28,7 +29,7 @@ const Home = ({ nextPage, gameTitle, startButton }: HomeProps) => {
         alt="logo"
         className="absolute left-[1%] top-[42%] w-1/2"
       />
-    </div>
+    </PageContainer>
   );
 };
 
