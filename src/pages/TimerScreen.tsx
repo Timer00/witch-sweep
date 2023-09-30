@@ -4,8 +4,6 @@ import DialogBox from '@/components/DialogBox.tsx';
 import Timer from '@/components/Timer.tsx';
 import Button from '@/components/Button.tsx';
 
-
-
 interface TimerScreenProps extends Omit<Page,'messages'> {
   timerMinutes: number;
   setPage: setPage;

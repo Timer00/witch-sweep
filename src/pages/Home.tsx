@@ -13,7 +13,7 @@ const Home = ({ nextPage, gameTitle, startButton }: HomeProps) => {
       <div className="parent text-white">
         <div className="gameTitle flex items-center justify-center">
           <p id={'gameTitle'}
-            className="bg-gradient-to-r from-yellow-300 to-yellow-700 bg-clip-text p-8 font-black text-transparent selection:bg-transparent md:text-6xl lg:text-8xl">
+            className="bg-gradient-to-r from-yellow-300 to-yellow-700 bg-clip-text p-8 font-black text-transparent selection:bg-transparent md:text-4xl lg:text-6xl">
             {gameTitle}
           </p>
         </div>

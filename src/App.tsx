@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Home from '@/pages/Home.tsx';
-import bg from '@/assets/images/room.png';
+import castleLoop from '@/assets/videos/castle_loop.mov';
+import castleIntro from '@/assets/videos/castle_intro.mov';
 import Intro from '@/pages/Intro.tsx';
 import HowLong from '@/pages/HowLong.tsx';
 import TimerScreen from '@/pages/TimerScreen.tsx';
@@ -9,6 +10,7 @@ import WitchWon from '@/pages/WitchWon.tsx';
 import YouWon from '@/pages/YouWon.tsx';
 
 import content from '@/assets/content.json';
+import { useVideo } from "@/hooks/useVideo.ts";
 
 const defaultMessages = ['default message 1','default message 2'];
 export interface Page {
@@ -23,6 +25,14 @@ export type nextPage = () => void;
 const App = () => {
   const [page, setPage] = useState<number>(0);
   const [timerMinutes, setTimerMinutes] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const { play, switchVideo, videoProps, setLoop } = useVideo(videoRef);
+
+  useEffect(()=>{
+    setLoop(true);
+    switchVideo(castleLoop);
+    play();
+  }, [videoRef])
 
   const pages = [
     <Home
@@ -74,8 +84,9 @@ const App = () => {
     <div className="h-full w-full text-center">
       <div className="absolute inset-0">
         <video
+          ref={videoRef}
           className="h-full w-full object-cover"
-          src={bg}
+          {...videoProps}
         />
       </div>
 
