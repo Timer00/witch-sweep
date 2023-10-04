@@ -4,21 +4,20 @@ import DialogBox from '@/components/DialogBox.tsx';
 import Timer from '@/components/Timer.tsx';
 import Button from '@/components/Button.tsx';
 import PageContainer from "@/components/PageContainer.tsx";
-import { usePage } from "@/hooks/usePage.tsx";
 
-interface TimerScreenProps extends Omit<PageProps,'messages'> {
-  timerMinutes: number;
-  doneButton: string;
-  timerHeader: string;
+interface TimerScreenProps extends Omit<PageProps, 'messages'> {
+  timerMinutes: number
+  doneButton: string
+  timerHeader: string
+  setPage: setPage
 }
 
 const TimerScreen = ({
   timerMinutes,
   doneButton,
   timerHeader,
+  setPage,
 }: TimerScreenProps) => {
-  const { setPage } = usePage();
-
   const time = new Date();
   time.setSeconds(time.getSeconds() + 60 * timerMinutes); // 10 minutes timer
 
@@ -33,12 +32,12 @@ const TimerScreen = ({
         <h1 className="text-3xl font-bold">{timerHeader}</h1>
         <Timer
           expiryTimestamp={time}
-          onExpire={() => setPage('youLost')}
+          onExpire={() => setPage(7)}
           autoStart={true}
         />
         <Button
           className="m-10 border-black font-mono text-black"
-          onClick={()=>setPage('youWon')}
+          onClick={() => setPage(6)}
         >
           {doneButton}
         </Button>

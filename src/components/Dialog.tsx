@@ -3,22 +3,20 @@
 import Message from '@/components/Message.tsx';
 import { useEffect, useState } from 'react';
 import DialogBox from '@/components/DialogBox.tsx';
-import { nextPage } from '@/App.tsx';
+import { PageProps } from '@/App.tsx';
 import Button from '@/components/Button.tsx'; //highlight-line
 
-import content from '@/assets/content.json';
+interface DialogProps extends PageProps {
+  hideNextButton?: boolean;
+  buttonText?: string;
+}
 
 const Dialog = ({
   messages,
   nextPage,
   hideNextButton = false,
   buttonText = '',
-}: {
-  messages: string[];
-  nextPage: nextPage;
-  hideNextButton?: boolean;
-  buttonText?: string;
-}) => {
+}: DialogProps) => {
   const [currentMessage, setCurrentMessage] = useState(0);
   const [showButton, setShowbutton] = useState(false);
   const [hideNextButtonHook, setHideNextButtonHook] = useState(false);
@@ -30,7 +28,6 @@ const Dialog = ({
     if (hideNextButton) {
       setHideNextButtonHook(true);
     }
-    console.log(messages);
   }, []);
 
   useEffect(() => {
@@ -50,7 +47,8 @@ const Dialog = ({
 
   return (
     <DialogBox>
-      <div className="mb-4 mr-auto text-3xl font-bold">{content.witchName}</div>
+      {/*TODO: Replace with name from configuration*/}
+      <div className="mb-4 mr-auto text-3xl font-bold">{'Anabella Declutter'}</div>
       <Message message={messages[currentMessage]} key={currentMessage} />
       <div
         onClick={handleClick}

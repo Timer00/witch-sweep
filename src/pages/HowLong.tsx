@@ -1,13 +1,16 @@
 import logo from '@/assets/images/witch_talk.png';
-import { nextPage, setTimerMinutes } from '@/App.tsx';
+import { PageProps, setTimerMinutes } from '@/App.tsx';
 import DialogBox from '@/components/DialogBox.tsx';
 import PageContainer from "@/components/PageContainer.tsx";
 
+interface HowLongProps extends PageProps {
+  setTimerMinutes: setTimerMinutes;
+}
+
 const HowLong = ({
   setTimerMinutes,
-}: {
-  setTimerMinutes: setTimerMinutes;
-}) => {
+  nextPage
+}: HowLongProps) => {
   const setHowLong = (minutes: number) => {
     setTimerMinutes(minutes);
     nextPage();

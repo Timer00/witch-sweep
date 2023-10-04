@@ -1,19 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import Home from '@/pages/Home.tsx';
-import castleLoop from '@/assets/videos/castle_loop.mov';
-import castleIntro from '@/assets/videos/castle_intro.mov';
 import Intro from '@/pages/Intro.tsx';
 import HowLong from '@/pages/HowLong.tsx';
 import TimerScreen from '@/pages/TimerScreen.tsx';
 import AreYouReady from '@/pages/AreYouReady.tsx';
 import WitchWon from '@/pages/WitchWon.tsx';
 import YouWon from '@/pages/YouWon.tsx';
+import Page from "@/components/Page.tsx";
+import { castleIntro, castleLoop, room } from "@/assets";
 
-import content from '@/assets/content.json';
-import { useVideo } from "@/hooks/useVideo.ts";
-
-const defaultMessages = ['default message 1','default message 2'];
-export interface Page {
+export interface PageProps {
   messages: string[];
   nextPage: nextPage;
 }
@@ -25,74 +21,155 @@ export type nextPage = () => void;
 const App = () => {
   const [page, setPage] = useState<number>(0);
   const [timerMinutes, setTimerMinutes] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const { play, switchVideo, videoProps, setLoop } = useVideo(videoRef);
-
-  useEffect(()=>{
-    setLoop(true);
-    switchVideo(castleLoop);
-    play();
-  }, [videoRef])
-
-  const pages = [
-    <Home
-      startButton={content.pages[0].startButton || "Default start button"}
-      gameTitle={content.gameTitle}
-      key={0}
-      nextPage={nextPage}
-    />,
-    <Intro messages={content.pages[1].messages || defaultMessages} key={1} nextPage={nextPage} />,
-    <HowLong key={2} nextPage={nextPage} setTimerMinutes={setTimerMinutes} />,
-    <Intro messages={content.pages[3].messages || defaultMessages} key={3} nextPage={nextPage} />,
-    <AreYouReady
-      key={4}
-      messages={content.pages[4].messages || defaultMessages}
-      nextPage={nextPage}
-      goButton={content.pages[4].goButton || "Default go button"}
-    />,
-    <TimerScreen
-      key={5}
-      nextPage={nextPage}
-      setPage={setPage}
-      timerMinutes={timerMinutes}
-      doneButton={content.pages[5].doneButton || "Default done button"}
-      timerHeader={content.pages[5].timerHeader || "Default timer header"}
-    />,
-    <YouWon
-      messages={content.pages[6].messages || defaultMessages}
-      restartButton={content.pages[6].restartButton || "Default restart button"}
-      key={6}
-      nextPage={() => setPage(0)}
-    />,
-    <WitchWon
-      messages={content.pages[7].messages || defaultMessages}
-      restartButton={content.pages[7].restartButton || "Default restart button"}
-      key={7}
-      nextPage={() => setPage(0)}
-    />,
-  ];
 
   function nextPage() {
-    if (page < pages.length - 1) {
+    if (page < pageConfigurations.pages.length - 1) {
       setPage(page + 1);
     } else {
       setPage(0);
     }
   }
 
+  // Need a system that conditionally shows the page only when the next video is finished.
+
+  const pageConfigurations = {
+    "witchName": "Anabella Declutter",
+    "pages": [
+      {
+        "page": Home,
+        video: [castleLoop],
+        settings: {
+          loop: true,
+          showOnEnd: false
+        },
+        props: {
+          nextPage,
+          "startButton": "Start!",
+          "gameTitle": "Hexen Schloss",
+        }
+      },
+      {
+        "page": Intro,
+        video: [castleIntro, room],
+        settings: {
+          loop: true,
+          showOnEnd: false
+        },
+        props: {
+          nextPage,
+          "messages": [
+            "Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi!",
+            "Du willst also aufräumen?! Ich wette ich kriege mein Hexenschloss viel schneller geputzt!",
+            "Sag mir doch erstmal wie viel Zeit du glaubst fürs Aufräumen zu brauchen..."
+          ]
+        }
+      },
+      {
+        video: [room],
+        settings: {
+          loop: true,
+          showOnEnd: false
+        },
+        "page": HowLong,
+        props: {
+          nextPage,
+          setTimerMinutes,
+          "description": "The amount of time for the timer is chosen here."
+        }
+      },
+      {
+        "page": Intro,
+        settings: {
+          loop: true,
+          showOnEnd: false
+        },
+        video: [room],
+        props: {
+          nextPage,
+          "description": "Time mechanic explanation.",
+          "messages": [
+            "Aha... hier ist der Deal: wenn du es schaffst fertig zu sein, bevor die Zeit rum ist dann bekommst du eine Münze...",
+            "aber sollte die Zeit rum rein, und ich bin schneller ... hehehe ... dann kriege ich die Münze!"
+          ]
+        }
+      },
+      {
+        "page": AreYouReady,
+        settings: {
+          loop: true,
+          showOnEnd: false
+        },
+        video: [room],
+        props: {
+          nextPage,
+          "description": "Page asking if player is ready.",
+          "messages": ["Bist du bereit?"],
+          "goButton": "Los geht's!"
+        }
+      },
+      {
+        "page": TimerScreen,
+        settings: {
+          loop: true,
+          showOnEnd: false
+        },
+        video: [room],
+        props: {
+          nextPage,
+          setPage,
+          timerMinutes,
+          "description": "Page that shows the timer.",
+          "doneButton": "Ich bin fertig!",
+          "timerHeader": ""
+        }
+      },
+      {
+        "page": YouWon,
+        settings: {
+          loop: true,
+          showOnEnd: false
+        },
+        video: [room],
+        props: {
+          nextPage: () => setPage(0),
+          "restartButton": "Revanche!",
+          "messages": [
+            "Sehr sehr gut gemacht! Ich kann nicht glauben dass du mich geschlagen hast... hier! Nimm die Münze! Du hast sie verdient!",
+            "Na? Traust du dich mich nochmal herauszufordern?"
+          ]
+        }
+      },
+      {
+        "page": WitchWon,
+        settings: {
+          loop: true,
+          showOnEnd: false
+        },
+        video: [room],
+        props: {
+          nextPage: () => setPage(0),
+          "restartButton": "Revanche!",
+          "messages": [
+            "Oh nein, die Zeit ist um... hehehehe... gewonnen! Jetzt werde ich reich!",
+            "Na? Traust du dich mich nochmal herauszufordern?"
+          ]
+        }
+      }
+    ]
+  }
+
+  const currentConfiguration = pageConfigurations.pages[page];
+  console.log(currentConfiguration);
+
   return (
     <div className="h-full w-full text-center">
-      <div className="absolute inset-0">
-        <video
-          ref={videoRef}
-          className="h-full w-full object-cover"
-          {...videoProps}
-        />
-      </div>
-
-      <div className="relative z-10 h-full">{pages[page]}</div>
+      <Page
+        PageComponent={() => <currentConfiguration.page {...currentConfiguration.props} />}
+        video={currentConfiguration.video}
+        settings={currentConfiguration.settings}
+      />
     </div>
   );
-};
+}
 
 export default App;
