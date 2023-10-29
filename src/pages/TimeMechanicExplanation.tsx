@@ -1,18 +1,15 @@
-import logo from '@/assets/images/witch_talk.png';
 import { PageProps } from '@/App.tsx';
 import PageContainer from "@/components/PageContainer.tsx";
 import { useEffect, useRef } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 import { room } from "@/assets";
+import logo from "@/assets/images/witch_talk.png";
 import WitchDialog from "@/components/WitchDialog.tsx";
 
-interface WitchWonProps extends PageProps {
-  messages: string[]
-  buttonText: string
-  hideNextButton: boolean
-}
+type IntroProps = PageProps;
 
-const WitchWon = (props: WitchWonProps) => {
+const TimeMechanicExplanation = (props: IntroProps) => {
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const { switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
@@ -25,6 +22,7 @@ const WitchWon = (props: WitchWonProps) => {
     handleVideo()
   }, []);
 
+
   return (
     <PageContainer>
       <video
@@ -36,4 +34,4 @@ const WitchWon = (props: WitchWonProps) => {
   );
 };
 
-export default WitchWon;
+export default TimeMechanicExplanation;

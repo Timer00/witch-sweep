@@ -1,27 +1,37 @@
 import logo from '@/assets/images/witch_talk.png';
 import { PageProps } from '@/App.tsx';
-import Dialog from '@/components/Dialog.tsx';
 import PageContainer from "@/components/PageContainer.tsx";
+import WitchDialog from "@/components/WitchDialog.tsx";
+import { useEffect, useRef } from "react";
+import { useVideo } from "@/hooks/useVideo.ts";
+import { room } from "@/assets";
 
 interface AreYouReadyProps extends PageProps {
-  goButton: string;
-  messages: string[];
+  messages: string[]
+  buttonText: string
+  hideNextButton: boolean
 }
 
-const AreYouReady = ({ nextPage, messages, goButton }: AreYouReadyProps) => {
+const AreYouReady = (props: AreYouReadyProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const { switchVideo, videoProps, setLoop} = useVideo(videoRef);
+
+  const handleVideo = async () => {
+    setLoop(false);
+    switchVideo(room);
+  }
+
+  useEffect(() => {
+    handleVideo()
+  }, []);
+
   return (
     <PageContainer>
-      <img
-        src={logo}
-        alt="logo"
-        className="absolute left-[1%] top-[42%] z-0 w-1/2"
-      />
-      <Dialog
-        messages={messages}
-        nextPage={nextPage}
-        hideNextButton
-        buttonText={goButton}
-      />
+      <video
+        className="absolute inset-0 w-full h-full object-contain" ref={videoRef} {...videoProps}>
+        Your browser does not support the video tag.
+      </video>
+      <WitchDialog imageSrc={logo} {...props} />
     </PageContainer>
   );
 };

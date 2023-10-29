@@ -1,23 +1,22 @@
-import { PageProps } from '@/App.tsx';
+import { HelpType, PageProps } from '@/App.tsx';
 import Button from '@/components/Button.tsx';
 import PageContainer from "@/components/PageContainer.tsx";
 import { castleLoop } from "@/assets";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 
-interface HomeProps extends Omit<PageProps, 'messages'> {
-  gameTitle: string;
-  startButton: string;
-  setPlayerName: (name: string) => void;
+interface WhatDoYouNeedHelpWithProps extends Omit<PageProps, 'messages'> {
+  options: HelpType[];
+  question: string;
+  setHelpType: (type: HelpType) => void;
 }
 
-const Home = ({ nextPage, gameTitle, startButton, setPlayerName }: HomeProps) => {
-  const [username, setUsername] = useState<string>("");
+const WhatDoYouNeedHelpWith = ({ nextPage, options, question, setHelpType }: WhatDoYouNeedHelpWithProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
-  const handleStart = () => {
-    setPlayerName(username);
+  const handleSelectOption = (text) => {
+    setHelpType(text);
     nextPage();
   }
 
@@ -37,16 +36,11 @@ const Home = ({ nextPage, gameTitle, startButton, setPlayerName }: HomeProps) =>
           <div className="gameTitle flex items-center justify-center">
             <p id={'gameTitle'}
                className="bg-gradient-to-r from-yellow-300 to-yellow-700 bg-clip-text p-8 font-black text-transparent selection:bg-transparent md:text-4xl lg:text-6xl">
-              {gameTitle}
+              {question}
             </p>
           </div>
-          <div className="p-12">
-            <label className="text-2xl font-bold">Deine name</label><br />
-            <input onChange={({ target: { value } }) => setUsername(value)}
-                   className="mt-4 text-xl text-center bg-transparent border" placeholder="_ _ _ _ _ _ _ _ _ _ _" />
-          </div>
-          <div className="lg:mt-28">
-            <Button disabled={username.length < 3} onClick={handleStart}>{startButton}</Button>
+          <div className="mt-28 flex gap-12 items-center justify-center">
+            {options.map(text => <Button onClick={() => handleSelectOption(text)}>{text}</Button>)}
           </div>
         </div>
       </div>
@@ -54,4 +48,4 @@ const Home = ({ nextPage, gameTitle, startButton, setPlayerName }: HomeProps) =>
   );
 };
 
-export default Home;
+export default WhatDoYouNeedHelpWith;
