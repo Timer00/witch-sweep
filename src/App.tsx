@@ -6,7 +6,6 @@ import TimerScreen from '@/pages/TimerScreen.tsx';
 import AreYouReady from '@/pages/AreYouReady.tsx';
 import WitchWon from '@/pages/WitchWon.tsx';
 import YouWon from '@/pages/YouWon.tsx';
-import Page from "@/components/Page.tsx";
 import { castleIntro, castleLoop, room } from "@/assets";
 
 export interface PageProps {
@@ -37,11 +36,6 @@ const App = () => {
     "pages": [
       {
         "page": Home,
-        video: [castleLoop],
-        settings: {
-          loop: true,
-          showOnEnd: false
-        },
         props: {
           nextPage,
           "startButton": "Start!",
@@ -50,11 +44,6 @@ const App = () => {
       },
       {
         "page": Intro,
-        video: [castleIntro, room],
-        settings: {
-          loop: true,
-          showOnEnd: false
-        },
         props: {
           nextPage,
           "messages": [
@@ -157,17 +146,14 @@ const App = () => {
       }
     ]
   }
+  const currentConfiguration= pageConfigurations.pages[page];
+  const PageToShow = currentConfiguration.page;
 
-  const currentConfiguration = pageConfigurations.pages[page];
-  console.log(currentConfiguration);
+  console.log(page);
 
   return (
-    <div className="h-full w-full text-center">
-      <Page
-        PageComponent={() => <currentConfiguration.page {...currentConfiguration.props} />}
-        video={currentConfiguration.video}
-        settings={currentConfiguration.settings}
-      />
+    <div className="h-full w-full text-center bg-black">
+      <PageToShow {...currentConfiguration.props}/>
     </div>
   );
 }

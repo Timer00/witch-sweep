@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
 
-const PageContainer  = ({ children }: { children: ReactNode}) => <div className="flex h-full items-center justify-center p-32">{children}</div>
+const PageContainer  = ({ children }: { children: ReactNode}) => <div className="relative flex items-center justify-center min-h-screen">{children}</div>
 
 export default PageContainer;

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { castleLoop, room } from "@/assets";
+import { room } from "@/assets";
 import { useVideo } from "@/hooks/useVideo.ts";
 import { PageProps } from "@/App.tsx";
 
@@ -32,7 +32,11 @@ const Page = ({ PageComponent, video = [room], settings = {} }: PageComponentPro
     }
   }, [settings, onNextPage]);
 
-  return showPage
+  return (
+    <>
+      <PageComponent  />
+    </>
+  )
 };
 
 
