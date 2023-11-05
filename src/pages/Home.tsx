@@ -39,7 +39,7 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
           <div className="gameTitle flex items-center justify-center">
             <img
               id={"gameTitle"}
-              className="w-2/3 p-8"
+              className="w-2/3 p-6"
               src={logo}
               alt="Hocus Focus"
             />

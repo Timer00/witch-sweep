@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Home, { type HomeProps } from "@/pages/Home.tsx";
 import Intro from "@/pages/Intro.tsx";
 import HowLong from "@/pages/HowLong.tsx";
@@ -28,6 +28,10 @@ const App = () => {
   const [, setPlayerName] = useState<string>("");
   const [helpType, setHelpType] = useState<HelpType>("cleaning");
   const [timerMinutes, setTimerMinutes] = useState(0);
+
+  useEffect(()=> {
+    void screen.orientation.lock('landscape');
+  }, [])
 
   function nextPage() {
     if (page < pageConfigurations.pages.length - 1) {
