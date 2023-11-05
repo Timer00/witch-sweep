@@ -1,5 +1,5 @@
-import { useTimer } from 'react-timer-hook';
-import { nextPage } from '@/App.tsx';
+import { useTimer } from "react-timer-hook";
+import { nextPage } from "@/App.tsx";
 import { twMerge } from "tailwind-merge";
 
 interface TimerProps {
@@ -13,18 +13,19 @@ export default function Timer({
   expiryTimestamp,
   onExpire,
   autoStart,
-  className
+  className,
 }: TimerProps) {
   const { seconds, minutes } = useTimer({
     expiryTimestamp,
     autoStart,
-    onExpire
+    onExpire,
   });
 
   return (
-    <div className={twMerge("text-center text-8xl",className)}>
+    <div className={twMerge("text-center text-8xl", className)}>
       <div>
-        <span>{minutes}</span>:<span>{seconds < 10 ? "0" + seconds : seconds}</span>
+        <span>{minutes}</span>:
+        <span>{seconds < 10 ? "0" + seconds : seconds}</span>
       </div>
       {/*<button onClick={start}>Start</button>*/}
       {/*<button onClick={pause}>Pause</button>*/}

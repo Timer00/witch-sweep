@@ -11,9 +11,7 @@ const PageContainer = ({ children, className }: PageContainerProps) => {
     "relative flex items-center justify-center min-h-screen",
     className
   );
-  return (
-    <div className={mergedClassName}>{children}</div>
-  )
-}
+  return <div className={mergedClassName}>{children}</div>;
+};
 
 export default PageContainer;

@@ -1,10 +1,12 @@
-import { useState, useEffect, RefObject } from 'react';
+import { useState, useEffect, RefObject } from "react";
 
 export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
   const [playing, setPlaying] = useState(false);
   const [source, setSource] = useState<string | undefined>(undefined);
   const [loop, setLoop] = useState(false);
-  const [videoEndAction, setVideoEndAction] = useState<Function>(() => () => {});
+  const [videoEndAction, setVideoEndAction] = useState<Function>(
+    () => () => {}
+  );
 
   const toggle = () => setPlaying(!playing);
 
@@ -14,7 +16,7 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
 
   const switchVideo = (newVideoFile: string) => {
     setSource(newVideoFile);
-    console.log('Load video: ', newVideoFile);
+    console.log("Load video: ", newVideoFile);
     videoEl.current?.load();
   };
 
@@ -25,7 +27,7 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
   useEffect(() => {
     const handleVideoEnd = () => {
       videoEndAction();
-      setPlaying(false)
+      setPlaying(false);
       videoEl?.current?.removeEventListener("ended", handleVideoEnd);
     };
     videoEl?.current?.addEventListener("ended", handleVideoEnd);
@@ -47,7 +49,7 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
       src: source,
       loop,
       autoPlay: true,
-      muted: true
-    }
+      muted: true,
+    },
   };
 };

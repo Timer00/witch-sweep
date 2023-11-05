@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function useCoins() {
   const [coins, setCoins] = useState<number>(() => {
-    const coinsInLocalStorage = localStorage.getItem('coins');
+    const coinsInLocalStorage = localStorage.getItem("coins");
     if (coinsInLocalStorage) {
       return parseInt(coinsInLocalStorage, 10);
     } else {
@@ -12,14 +12,14 @@ function useCoins() {
 
   // Save coins to localStorage when the `coins` state changes
   useEffect(() => {
-    localStorage.setItem('coins', coins.toString());
+    localStorage.setItem("coins", coins.toString());
   }, [coins]);
 
   // Method to add coins
   const addCoins = (amount: number) => {
     setCoins((prevCoins) => {
       const newCoins = prevCoins + amount;
-      localStorage.setItem('coins', newCoins.toString());
+      localStorage.setItem("coins", newCoins.toString());
       return newCoins;
     });
   };
@@ -32,7 +32,7 @@ function useCoins() {
         alert("You don't have enough coins!");
         return prevCoins;
       }
-      localStorage.setItem('coins', newCoins.toString());
+      localStorage.setItem("coins", newCoins.toString());
       return newCoins;
     });
   };

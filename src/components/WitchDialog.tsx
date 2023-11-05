@@ -4,17 +4,28 @@ interface WitchDialogProps extends DialogProps {
   imageSrc: string;
 }
 
-const WitchDialog = ({ messages, nextPage, imageSrc, buttonText, hideNextButton }: WitchDialogProps) => {
+const WitchDialog = ({
+  messages,
+  nextPage,
+  imageSrc,
+  buttonText,
+  hideNextButton,
+}: WitchDialogProps) => {
   return (
-    <div className="w-[100vw] h-[100vh] z-10 flex flex-row lg:flex-col justify-center lg:justify-end items-end lg:items-center pb-1 lg:p-12">
-      <div className="w-1/12 h-1/5">
+    <div className="z-10 flex h-[100vh] w-[100vw] flex-row items-end justify-center pb-1 lg:flex-col lg:items-center lg:justify-end lg:p-12">
+      <div className="h-1/5 w-1/12">
         <img
           src={imageSrc}
           alt="logo"
-          className="left-[-10%] top-[10%] w-1/2 absolute"
+          className="absolute left-[-10%] top-[10%] w-1/2"
         />
       </div>
-      <Dialog messages={messages} nextPage={nextPage} buttonText={buttonText} hideNextButton={hideNextButton} />
+      <Dialog
+        messages={messages}
+        nextPage={nextPage}
+        buttonText={buttonText}
+        hideNextButton={hideNextButton}
+      />
     </div>
   );
 };

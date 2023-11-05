@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Home, { HomeProps } from '@/pages/Home.tsx';
-import Intro from '@/pages/Intro.tsx';
-import HowLong from '@/pages/HowLong.tsx';
-import TimerScreen, { TimerScreenProps } from '@/pages/TimerScreen.tsx';
-import AreYouReady from '@/pages/AreYouReady.tsx';
-import WitchWon from '@/pages/WitchWon.tsx';
-import YouWon from '@/pages/YouWon.tsx';
+import React, { useState } from "react";
+import Home, { type HomeProps } from "@/pages/Home.tsx";
+import Intro from "@/pages/Intro.tsx";
+import HowLong from "@/pages/HowLong.tsx";
+import TimerScreen, { type TimerScreenProps } from "@/pages/TimerScreen.tsx";
+import AreYouReady from "@/pages/AreYouReady.tsx";
+import WitchWon from "@/pages/WitchWon.tsx";
+import YouWon from "@/pages/YouWon.tsx";
 import WhatDoYouNeedHelpWith from "@/pages/WhatDoYouNeedHelpWith.tsx";
 import TimeMechanicExplanation from "@/pages/TimeMechanicExplanation.tsx";
 import Coins from "@/components/Coins.tsx";
@@ -20,13 +20,13 @@ export type setPage = React.Dispatch<React.SetStateAction<number>>;
 export type setTimerMinutes = React.Dispatch<React.SetStateAction<number>>;
 export type nextPage = () => void;
 
-export type HelpType = 'homework' | 'cleaning';
+export type HelpType = "homework" | "cleaning";
 
 const App = () => {
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
-  const [playerName, setPlayerName] = useState<string>('');
-  const [helpType, setHelpType] = useState<HelpType>('cleaning');
+  const [, setPlayerName] = useState<string>("");
+  const [helpType, setHelpType] = useState<HelpType>("cleaning");
   const [timerMinutes, setTimerMinutes] = useState(0);
 
   function nextPage() {
@@ -38,83 +38,80 @@ const App = () => {
   }
 
   const pageConfigurations = {
-    "witchName": "Anabella Declutter",
-    "pages": [
+    witchName: "Anabella Declutter",
+    pages: [
       {
-        "page": Home,
+        page: Home,
         props: {
           nextPage,
           setPlayerName,
-          "startButton": "Start!",
-        } as HomeProps
+          startButton: "Start!",
+        } as HomeProps,
       },
       {
-        "page": WhatDoYouNeedHelpWith,
+        page: WhatDoYouNeedHelpWith,
         props: {
           nextPage,
           setHelpType,
           question: "What do you need help with?",
-          options: [
-            'cleaning',
-            'homework'
-          ] as HelpType[]
-        }
+          options: ["cleaning", "homework"] as HelpType[],
+        },
       },
       {
-        "page": Intro,
+        page: Intro,
         props: {
           nextPage,
           messages: {
             cleaning: [
               "Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi!",
               "Du willst also aufräumen?! Ich wette ich kriege mein Hexenschloss viel schneller geputzt!",
-              "Sag mir doch erstmal wie viel Zeit du glaubst fürs Aufräumen zu brauchen..."
+              "Sag mir doch erstmal wie viel Zeit du glaubst fürs Aufräumen zu brauchen...",
             ],
             homework: [
               "Hello hello hello, dis homewok!",
               "Home work, home wok, woke home!",
-              "Home wok, wok is nice, gibs"
-            ]
-          }[helpType]
-        }
+              "Home wok, wok is nice, gibs",
+            ],
+          }[helpType],
+        },
       },
       {
-        "page": HowLong,
+        page: HowLong,
         props: {
           nextPage,
           setTimerMinutes,
-          "description": "The amount of time for the timer is chosen here."
-        }
+          description: "The amount of time for the timer is chosen here.",
+        },
       },
       {
-        "page": TimeMechanicExplanation,
+        page: TimeMechanicExplanation,
         props: {
           nextPage,
-          "description": "Time mechanic explanation.",
-          "messages": [
+          description: "Time mechanic explanation.",
+          messages: [
             "Aha... hier ist der Deal: wenn du es schaffst fertig zu sein, bevor die Zeit rum ist dann bekommst du eine Münze...",
-            "aber sollte die Zeit rum rein, und ich bin schneller ... hehehe ... dann kriege ich die Münze!"
-          ]
-        }
+            "aber sollte die Zeit rum rein, und ich bin schneller ... hehehe ... dann kriege ich die Münze!",
+          ],
+        },
       },
       {
-        "page": AreYouReady,
+        page: AreYouReady,
         props: {
           nextPage,
-          "hideNextButton": true,
-          "description": "Page asking if player is ready.",
-          "messages": ["Bist du bereit?"],
-          "buttonText": "Los geht's!"
-        }
+          hideNextButton: true,
+          description: "Page asking if player is ready.",
+          messages: ["Bist du bereit?"],
+          buttonText: "Los geht's!",
+        },
       },
       {
-        "page": TimerScreen,
-        "description": "Page that shows the timer.",
+        page: TimerScreen,
+        description: "Page that shows the timer.",
         props: {
           cleaning: {
             nextPage,
             timerMinutes,
-            "doneButton": "Fertig!",
+            doneButton: "Fertig!",
             onTimeOver: () => {
               setPage(8);
             },
@@ -122,13 +119,13 @@ const App = () => {
               addCoins(Math.floor(time / 10));
               setPage(7);
             },
-            "timerHeader": ""
+            timerHeader: "",
           } as TimerScreenProps,
           homework: {
             nextPage,
             timerMinutes,
-            "doneButton": "Give up :(",
-            "timerHeader": "",
+            doneButton: "Give up :(",
+            timerHeader: "",
             onTimeOver: (time: number) => {
               addCoins(Math.floor(time / 10));
               setPage(7);
@@ -136,45 +133,47 @@ const App = () => {
             onClickButton: () => {
               setPage(8);
             },
-          } as TimerScreenProps
+          } as TimerScreenProps,
         }[helpType],
       },
       {
-        "page": YouWon,
+        page: YouWon,
         props: {
           nextPage: () => setPage(0),
-          "buttonText": "Revanche!",
-          "messages": [
+          buttonText: "Revanche!",
+          messages: [
             "Sehr sehr gut gemacht! Ich kann nicht glauben dass du mich geschlagen hast... hier! Nimm die Münze! Du hast sie verdient!",
-            "Na? Traust du dich mich nochmal herauszufordern?"
-          ]
-        }
+            "Na? Traust du dich mich nochmal herauszufordern?",
+          ],
+        },
       },
       {
-        "page": WitchWon,
+        page: WitchWon,
         props: {
           nextPage: () => setPage(0),
-          "buttonText": "Revanche!",
-          "messages": [
+          buttonText: "Revanche!",
+          messages: [
             "Oh nein, die Zeit ist um... hehehehe... gewonnen! Jetzt werde ich reich!",
-            "Na? Traust du dich mich nochmal herauszufordern?"
-          ]
-        }
-      }
-    ]
-  }
+            "Na? Traust du dich mich nochmal herauszufordern?",
+          ],
+        },
+      },
+    ],
+  };
 
   const currentConfiguration = pageConfigurations.pages[page];
-  const PageToShow = currentConfiguration.page
+  const PageToShow = currentConfiguration.page;
 
   console.log(page);
 
   return (
-    <div className="h-full w-full text-center bg-black">
+    <div className="h-full w-full bg-black text-center">
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/*// @ts-ignore*/}
       <PageToShow {...currentConfiguration.props} />
       <Coins amount={coins} />
     </div>
   );
-}
+};
 
 export default App;

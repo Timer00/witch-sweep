@@ -1,11 +1,11 @@
-import { type PageProps } from '@/App.tsx';
-import Button from '@/components/Button.tsx';
+import { type PageProps } from "@/App.tsx";
+import Button from "@/components/Button.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import { castleLoop, logo } from "@/assets";
 import { useEffect, useRef, useState } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 
-export interface HomeProps extends Omit<PageProps, 'messages'> {
+export interface HomeProps extends Omit<PageProps, "messages"> {
   startButton: string;
   setPlayerName: (name: string) => void;
 }
@@ -18,7 +18,7 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
   const handleStart = () => {
     setPlayerName(username);
     nextPage();
-  }
+  };
 
   useEffect(() => {
     setLoop(true);
@@ -28,21 +28,35 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
   return (
     <PageContainer>
       <video
-        className="absolute inset-0 w-full h-full object-contain" ref={videoRef} {...videoProps}>
+        className="absolute inset-0 h-full w-full object-contain"
+        ref={videoRef}
+        {...videoProps}
+      >
         Your browser does not support the video tag.
       </video>
       <div className="relative z-10 lg:pt-36">
-        <div className="text-white flex flex-col">
+        <div className="flex flex-col text-white">
           <div className="gameTitle flex items-center justify-center">
-            <img id={'gameTitle'} className="p-8 w-2/3" src={logo} alt='Hocus Focus'/>
+            <img
+              id={"gameTitle"}
+              className="w-2/3 p-8"
+              src={logo}
+              alt="Hocus Focus"
+            />
           </div>
           <div className="p-8">
-            <label className="text-2xl font-bold">Deine name</label><br />
-            <input onChange={({ target: { value } }) => setUsername(value)}
-                   className="mt-4 text-xl text-center bg-transparent border" placeholder="_ _ _ _ _ _ _ _ _ _ _" />
+            <label className="text-2xl font-bold">Deine name</label>
+            <br />
+            <input
+              onChange={({ target: { value } }) => setUsername(value)}
+              className="mt-4 border bg-transparent text-center text-xl"
+              placeholder="_ _ _ _ _ _ _ _ _ _ _"
+            />
           </div>
           <div className="lg:mt-28">
-            <Button disabled={username.length < 3} onClick={handleStart}>{startButton}</Button>
+            <Button disabled={username.length < 3} onClick={handleStart}>
+              {startButton}
+            </Button>
           </div>
         </div>
       </div>

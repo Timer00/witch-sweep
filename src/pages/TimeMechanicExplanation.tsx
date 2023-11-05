@@ -1,4 +1,4 @@
-import { PageProps } from '@/App.tsx';
+import { PageProps } from "@/App.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import { useEffect, useRef } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
@@ -9,24 +9,25 @@ import WitchDialog from "@/components/WitchDialog.tsx";
 type IntroProps = PageProps;
 
 const TimeMechanicExplanation = (props: IntroProps) => {
-
   const videoRef = useRef<HTMLVideoElement>(null);
   const { switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
   const handleVideo = async () => {
     setLoop(false);
     switchVideo(room);
-  }
+  };
 
   useEffect(() => {
-    handleVideo()
+    handleVideo();
   }, []);
-
 
   return (
     <PageContainer>
       <video
-        className="absolute inset-0 w-full h-full object-contain" ref={videoRef} {...videoProps}>
+        className="absolute inset-0 h-full w-full object-contain"
+        ref={videoRef}
+        {...videoProps}
+      >
         Your browser does not support the video tag.
       </video>
       <WitchDialog imageSrc={logo} {...props} />
