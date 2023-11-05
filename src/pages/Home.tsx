@@ -1,17 +1,16 @@
 import { type PageProps } from '@/App.tsx';
 import Button from '@/components/Button.tsx';
 import PageContainer from "@/components/PageContainer.tsx";
-import { castleLoop } from "@/assets";
+import { castleLoop, logo } from "@/assets";
 import { useEffect, useRef, useState } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 
-interface HomeProps extends Omit<PageProps, 'messages'> {
-  gameTitle: string;
+export interface HomeProps extends Omit<PageProps, 'messages'> {
   startButton: string;
   setPlayerName: (name: string) => void;
 }
 
-const Home = ({ nextPage, gameTitle, startButton, setPlayerName }: HomeProps) => {
+const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
   const [username, setUsername] = useState<string>("");
   const videoRef = useRef<HTMLVideoElement>(null);
   const { switchVideo, videoProps, setLoop } = useVideo(videoRef);
@@ -23,7 +22,7 @@ const Home = ({ nextPage, gameTitle, startButton, setPlayerName }: HomeProps) =>
 
   useEffect(() => {
     setLoop(true);
-    switchVideo(castleLoop as string);
+    switchVideo(castleLoop);
   }, [videoRef]);
 
   return (
@@ -35,12 +34,9 @@ const Home = ({ nextPage, gameTitle, startButton, setPlayerName }: HomeProps) =>
       <div className="relative z-10 lg:pt-36">
         <div className="text-white flex flex-col">
           <div className="gameTitle flex items-center justify-center">
-            <p id={'gameTitle'}
-               className="bg-gradient-to-r from-yellow-300 to-yellow-700 bg-clip-text p-8 font-black text-transparent selection:bg-transparent md:text-4xl lg:text-6xl">
-              {gameTitle}
-            </p>
+            <img id={'gameTitle'} className="p-8 w-2/3" src={logo} alt='Hocus Focus'/>
           </div>
-          <div className="p-12">
+          <div className="p-8">
             <label className="text-2xl font-bold">Deine name</label><br />
             <input onChange={({ target: { value } }) => setUsername(value)}
                    className="mt-4 text-xl text-center bg-transparent border" placeholder="_ _ _ _ _ _ _ _ _ _ _" />

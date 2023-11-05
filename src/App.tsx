@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import Home from '@/pages/Home.tsx';
+import Home, { HomeProps } from '@/pages/Home.tsx';
 import Intro from '@/pages/Intro.tsx';
 import HowLong from '@/pages/HowLong.tsx';
-import TimerScreen from '@/pages/TimerScreen.tsx';
+import TimerScreen, { TimerScreenProps } from '@/pages/TimerScreen.tsx';
 import AreYouReady from '@/pages/AreYouReady.tsx';
 import WitchWon from '@/pages/WitchWon.tsx';
 import YouWon from '@/pages/YouWon.tsx';
 import WhatDoYouNeedHelpWith from "@/pages/WhatDoYouNeedHelpWith.tsx";
 import TimeMechanicExplanation from "@/pages/TimeMechanicExplanation.tsx";
 import Coins from "@/components/Coins.tsx";
+import useCoins from "@/hooks/useCoins.tsx";
 
 export interface PageProps {
   messages: string[];
@@ -22,6 +23,7 @@ export type nextPage = () => void;
 export type HelpType = 'homework' | 'cleaning';
 
 const App = () => {
+  const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
   const [playerName, setPlayerName] = useState<string>('');
   const [helpType, setHelpType] = useState<HelpType>('cleaning');
@@ -44,8 +46,7 @@ const App = () => {
           nextPage,
           setPlayerName,
           "startButton": "Start!",
-          "gameTitle": "Hexen Schloss",
-        }
+        } as HomeProps
       },
       {
         "page": WhatDoYouNeedHelpWith,
@@ -108,14 +109,35 @@ const App = () => {
       },
       {
         "page": TimerScreen,
+        "description": "Page that shows the timer.",
         props: {
-          nextPage,
-          setPage,
-          timerMinutes,
-          "description": "Page that shows the timer.",
-          "doneButton": "Fertig!",
-          "timerHeader": ""
-        }
+          cleaning: {
+            nextPage,
+            timerMinutes,
+            "doneButton": "Fertig!",
+            onTimeOver: () => {
+              setPage(8);
+            },
+            onClickButton: (time: number) => {
+              addCoins(Math.floor(time / 10));
+              setPage(7);
+            },
+            "timerHeader": ""
+          } as TimerScreenProps,
+          homework: {
+            nextPage,
+            timerMinutes,
+            "doneButton": "Give up :(",
+            "timerHeader": "",
+            onTimeOver: (time: number) => {
+              addCoins(Math.floor(time / 10));
+              setPage(7);
+            },
+            onClickButton: () => {
+              setPage(8);
+            },
+          } as TimerScreenProps
+        }[helpType],
       },
       {
         "page": YouWon,
@@ -143,14 +165,14 @@ const App = () => {
   }
 
   const currentConfiguration = pageConfigurations.pages[page];
-  const PageToShow = currentConfiguration.page;
+  const PageToShow = currentConfiguration.page
 
   console.log(page);
 
   return (
     <div className="h-full w-full text-center bg-black">
       <PageToShow {...currentConfiguration.props} />
-      <Coins amount={12} />
+      <Coins amount={coins} />
     </div>
   );
 }
