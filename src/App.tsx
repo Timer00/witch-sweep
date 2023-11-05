@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Home from '@/pages/Home.tsx';
 import Intro from '@/pages/Intro.tsx';
 import HowLong from '@/pages/HowLong.tsx';
@@ -6,9 +6,9 @@ import TimerScreen from '@/pages/TimerScreen.tsx';
 import AreYouReady from '@/pages/AreYouReady.tsx';
 import WitchWon from '@/pages/WitchWon.tsx';
 import YouWon from '@/pages/YouWon.tsx';
-import { castleIntro, castleLoop, room } from "@/assets";
 import WhatDoYouNeedHelpWith from "@/pages/WhatDoYouNeedHelpWith.tsx";
 import TimeMechanicExplanation from "@/pages/TimeMechanicExplanation.tsx";
+import Coins from "@/components/Coins.tsx";
 
 export interface PageProps {
   messages: string[];
@@ -141,6 +141,7 @@ const App = () => {
       }
     ]
   }
+
   const currentConfiguration = pageConfigurations.pages[page];
   const PageToShow = currentConfiguration.page;
 
@@ -149,6 +150,7 @@ const App = () => {
   return (
     <div className="h-full w-full text-center bg-black">
       <PageToShow {...currentConfiguration.props} />
+      <Coins amount={12} />
     </div>
   );
 }

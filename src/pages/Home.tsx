@@ -1,4 +1,4 @@
-import { PageProps } from '@/App.tsx';
+import { type PageProps } from '@/App.tsx';
 import Button from '@/components/Button.tsx';
 import PageContainer from "@/components/PageContainer.tsx";
 import { castleLoop } from "@/assets";
@@ -23,7 +23,7 @@ const Home = ({ nextPage, gameTitle, startButton, setPlayerName }: HomeProps) =>
 
   useEffect(() => {
     setLoop(true);
-    switchVideo(castleLoop);
+    switchVideo(castleLoop as string);
   }, [videoRef]);
 
   return (
