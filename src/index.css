@@ -20,14 +20,45 @@
     font-family: '3by3', serif;
 }
 
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('@/assets/fonts/open_dyslexic/OpenDyslexic-Regular.otf') format('opentype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('@/assets/fonts/open_dyslexic/OpenDyslexic-Italic.otf') format('opentype');
+    font-style: italic;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('@/assets/fonts/open_dyslexic/OpenDyslexic-Bold.otf') format('opentype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('@/assets/fonts/open_dyslexic/OpenDyslexic-BoldItalic.otf') format('opentype');
+    font-style: italic;
+    font-weight: bold;
+}
+
+.font-dyslexic {
+    font-family: 'OpenDyslexic', serif;
+}
+
+/* Add other variations as needed */
+
+
 #root, html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-}
-
-#gameTitle {
-    -webkit-text-stroke: 4px black;
 }
 
 .center {
@@ -44,5 +75,10 @@
     grid-row-gap: 0px;
 }
 
-.gameTitle { grid-area: 1 / 1 / 2 / 3; }
-.startButton { grid-area: 2 / 1 / 3 / 3; }
+.gameTitle {
+    grid-area: 1 / 1 / 2 / 3;
+}
+
+.startButton {
+    grid-area: 2 / 1 / 3 / 3;
+}
