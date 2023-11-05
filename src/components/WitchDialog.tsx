@@ -12,7 +12,7 @@ const WitchDialog = ({
   hideNextButton,
 }: WitchDialogProps) => {
   return (
-    <div className="z-10 flex h-[100vh] w-[100vw] flex-row items-end justify-center pb-1 lg:flex-col lg:items-center lg:justify-end lg:p-12">
+    <div className="flex z-0 h-[100vh] w-[100vw] flex-row items-end justify-center pb-1 lg:flex-col lg:items-center lg:justify-end lg:p-12">
       <div className="h-1/5 w-1/12">
         <img
           src={imageSrc}

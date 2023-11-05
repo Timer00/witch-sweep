@@ -10,6 +10,7 @@ import WhatDoYouNeedHelpWith from "@/pages/WhatDoYouNeedHelpWith.tsx";
 import TimeMechanicExplanation from "@/pages/TimeMechanicExplanation.tsx";
 import Coins from "@/components/Coins.tsx";
 import useCoins from "@/hooks/useCoins.tsx";
+import Info, { InfoButton } from "@/pages/Info.tsx";
 
 export interface PageProps {
   messages: string[];
@@ -23,15 +24,16 @@ export type nextPage = () => void;
 export type HelpType = "homework" | "cleaning";
 
 const App = () => {
+  const [showInfo, setShowInfo] = useState(false);
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
   const [, setPlayerName] = useState<string>("");
   const [helpType, setHelpType] = useState<HelpType>("cleaning");
   const [timerMinutes, setTimerMinutes] = useState(0);
 
-  useEffect(()=> {
-    void screen.orientation.lock('landscape');
-  }, [])
+  useEffect(() => {
+    void screen.orientation.lock("landscape");
+  }, []);
 
   function nextPage() {
     if (page < pageConfigurations.pages.length - 1) {
@@ -170,12 +172,16 @@ const App = () => {
 
   console.log(page);
 
+  useEffect(() => console.log(showInfo), [showInfo]);
+
   return (
     <div className="h-full w-full bg-black text-center">
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/*// @ts-ignore*/}
       <PageToShow {...currentConfiguration.props} />
       <Coins amount={coins} />
+      <InfoButton onClick={() => setShowInfo(true)} />
+      {showInfo && <Info onClose={()=> setShowInfo(false)} />}
     </div>
   );
 };

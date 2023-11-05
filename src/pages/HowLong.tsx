@@ -40,7 +40,7 @@ const HowLong = ({ setTimerMinutes, nextPage }: HowLongProps) => {
       <img
         src={logo}
         alt="logo"
-        className="absolute left-[-2%] top-[1%] z-0 w-1/2"
+        className="absolute left-[-2%] top-[1%] z-2 w-1/2"
       />
       <DialogBox>
         <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-10">

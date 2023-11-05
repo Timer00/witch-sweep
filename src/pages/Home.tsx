@@ -34,7 +34,7 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
       >
         Your browser does not support the video tag.
       </video>
-      <div className="relative z-10 lg:pt-36">
+      <div className="relative z-2 lg:pt-36">
         <div className="flex flex-col text-white">
           <div className="gameTitle flex items-center justify-center">
             <img

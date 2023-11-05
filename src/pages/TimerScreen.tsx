@@ -45,7 +45,7 @@ const TimerScreen = ({
       >
         Your browser does not support the video tag.
       </video>
-      <div className="z-10 flex h-screen flex-col justify-between p-5 text-amber-50">
+      <div className="z-0 flex h-screen flex-col justify-between p-5 text-amber-50">
         {/*<h1 className="text-3xl font-bold">{timerHeader}</h1>*/}
         <Timer
           className="text-4xl underline underline-offset-8"
