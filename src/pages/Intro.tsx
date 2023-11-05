@@ -14,7 +14,7 @@ const Intro = (props: IntroProps) => {
     useVideo(videoRef);
   const [showUI, setShowUI] = useState(false);
 
-  const handleVideo = async () => {
+  const handleVideo = () => {
     setLoop(false);
     switchVideo(castleIntro);
     setVideoEndAction(() => () => {

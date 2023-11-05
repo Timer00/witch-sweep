@@ -16,7 +16,7 @@ const YouWon = (props: YouWonProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
-  const handleVideo = async () => {
+  const handleVideo = () => {
     setLoop(false);
     switchVideo(room);
   };
