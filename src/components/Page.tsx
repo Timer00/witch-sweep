@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { room } from "@/assets";
 import { useVideo } from "@/hooks/useVideo.ts";
-import { PageProps } from "@/App.tsx";
+import { type PageProps } from "@/App.tsx";
 
 type PageComponent = React.ComponentType<PageProps>;
 

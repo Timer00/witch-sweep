@@ -1,5 +1,5 @@
 import { useTimer } from "react-timer-hook";
-import { nextPage } from "@/App.tsx";
+import { type nextPage } from "@/App.tsx";
 import { twMerge } from "tailwind-merge";
 
 interface TimerProps {

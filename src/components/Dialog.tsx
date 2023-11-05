@@ -3,7 +3,7 @@
 import Message from "@/components/Message.tsx";
 import { useEffect, useState } from "react";
 import DialogBox from "@/components/DialogBox.tsx";
-import { PageProps } from "@/App.tsx";
+import { type PageProps } from "@/App.tsx";
 import Button from "@/components/Button.tsx"; //highlight-line
 
 export interface DialogProps extends PageProps {

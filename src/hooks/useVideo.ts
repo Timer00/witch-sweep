@@ -1,4 +1,4 @@
-import { useState, useEffect, RefObject } from "react";
+import { useState, useEffect, type RefObject } from "react";
 
 export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
   const [playing, setPlaying] = useState(false);

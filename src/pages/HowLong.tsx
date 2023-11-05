@@ -1,5 +1,5 @@
 import logo from "@/assets/images/witch_talk.png";
-import { PageProps, setTimerMinutes } from "@/App.tsx";
+import { type PageProps, type setTimerMinutes } from "@/App.tsx";
 import DialogBox from "@/components/DialogBox.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import { useEffect, useRef } from "react";

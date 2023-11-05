@@ -1,5 +1,5 @@
 import logo from "@/assets/images/witch_talk.png";
-import { PageProps } from "@/App.tsx";
+import { type PageProps } from "@/App.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import WitchDialog from "@/components/WitchDialog.tsx";
 import { useEffect, useRef } from "react";

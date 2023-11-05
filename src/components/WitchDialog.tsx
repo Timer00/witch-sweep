@@ -1,4 +1,4 @@
-import Dialog, { DialogProps } from "@/components/Dialog.tsx";
+import Dialog, { type DialogProps } from "@/components/Dialog.tsx";
 
 interface WitchDialogProps extends DialogProps {
   imageSrc: string;
