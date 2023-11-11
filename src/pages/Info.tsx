@@ -1,21 +1,10 @@
 import { useState } from "react";
+import FullScreen from "@/components/FullScreen.tsx";
 
-interface InfoButtonProps {
-  onClick: () => void;
-}
-
-export const InfoButton = ({ onClick }: InfoButtonProps) => (
+export const InfoButton = ({ onClick }: { onClick: () => void }) => (
   <button onClick={onClick} className="z-2 absolute left-32 top-[-16px] m-4">
     <div className="flex items-center space-x-1 p-2 text-white underline underline-offset-8">
       <span className="text-lg font-semibold text-white">Münzen & Hilfe</span>
-    </div>
-  </button>
-);
-
-const CloseButton = ({ onClick }: InfoButtonProps) => (
-  <button onClick={onClick} className="z-3 m-4">
-    <div className="flex items-center space-x-1 px-4 border-black border-4 active:bg-black active:text-white">
-      <span className="text-lg font-semibold">X</span>
     </div>
   </button>
 );
@@ -81,15 +70,14 @@ interface InfoProps {
 
 const Info = ({ onClose }: InfoProps) => {
   return (
-    <div className="z-2 absolute left-0 top-0 flex h-full w-full flex-col justify-start overflow-auto bg-amber-50 p-4">
+    <FullScreen onClose={onClose}>
       <h1 className="mb-4 text-2xl font-bold center">
         WICHTIGE INFORMATIONEN FÜR ERZIEHUNGSBERECHTIGE
-        <CloseButton onClick={onClose}/>
       </h1>
       {faqs.map((faq, index) => (
         <Collapse key={index} question={faq.question} answer={faq.answer} />
       ))}
-    </div>
+    </FullScreen>
   );
 };
 
