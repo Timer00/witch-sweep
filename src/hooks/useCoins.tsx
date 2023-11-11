@@ -1,38 +1,19 @@
-import { useState, useEffect } from "react";
+import { useCoinsContext } from "@/context/CoinsProvider.tsx";
 
 function useCoins() {
-  const [coins, setCoins] = useState<number>(() => {
-    const coinsInLocalStorage = localStorage.getItem("coins");
-    if (coinsInLocalStorage) {
-      return parseInt(coinsInLocalStorage, 10);
-    } else {
-      return 0;
-    }
-  });
+  const { coins, setCoins } = useCoinsContext();
 
-  // Save coins to localStorage when the `coins` state changes
-  useEffect(() => {
-    localStorage.setItem("coins", coins.toString());
-  }, [coins]);
-
-  // Method to add coins
   const addCoins = (amount: number) => {
-    setCoins((prevCoins) => {
-      const newCoins = prevCoins + amount;
-      localStorage.setItem("coins", newCoins.toString());
-      return newCoins;
-    });
+    setCoins((prevCoins) => prevCoins + amount);
   };
 
-  // Method to spend coins
-  const spendCoins = (amount) => {
+  const spendCoins = (amount: number) => {
     setCoins((prevCoins) => {
       const newCoins = prevCoins - amount;
       if (newCoins < 0) {
         alert("You don't have enough coins!");
         return prevCoins;
       }
-      localStorage.setItem("coins", newCoins.toString());
       return newCoins;
     });
   };
