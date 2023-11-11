@@ -12,6 +12,7 @@ import Coins from "@/components/Coins.tsx";
 import useCoins from "@/hooks/useCoins.tsx";
 import Info, { InfoButton } from "@/pages/Info.tsx";
 import SpendCoins from "@/pages/SpendCoins.tsx";
+import FullscreenDisclaimer from "@/pages/FullscreenDisclaimer.tsx";
 
 export interface PageProps {
   messages: string[];
@@ -33,9 +34,9 @@ const App = () => {
   const [helpType, setHelpType] = useState<HelpType>("cleaning");
   const [timerMinutes, setTimerMinutes] = useState(0);
 
-  useEffect(() => {
-    void screen.orientation.lock("landscape");
-  }, []);
+  // useEffect(() => {
+  //   void screen.orientation.lock("landscape");
+  // }, []);
 
   function nextPage() {
     if (page < pageConfigurations.pages.length - 1) {
@@ -185,6 +186,7 @@ const App = () => {
       <InfoButton onClick={() => setShowInfo(true)} />
       {showInfo && <Info onClose={()=> setShowInfo(false)} />}
       {showCoinSpend && <SpendCoins onClose={()=> setShowCoinSpend(false)} />}
+      <FullscreenDisclaimer/>
     </div>
   );
 };
