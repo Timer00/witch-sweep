@@ -12,6 +12,7 @@ import Coins from "@/components/Coins.tsx";
 import useCoins from "@/hooks/useCoins.tsx";
 import Info, { InfoButton } from "@/pages/Info.tsx";
 import SpendCoins from "@/pages/SpendCoins.tsx";
+import FullscreenDisclaimer from "@/pages/FullscreenDisclaimer.tsx";
 
 export interface PageProps {
   messages: string[];
@@ -185,6 +186,7 @@ const App = () => {
       <InfoButton onClick={() => setShowInfo(true)} />
       {showInfo && <Info onClose={()=> setShowInfo(false)} />}
       {showCoinSpend && <SpendCoins onClose={()=> setShowCoinSpend(false)} />}
+      <FullscreenDisclaimer/>
     </div>
   );
 };
