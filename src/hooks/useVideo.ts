@@ -1,6 +1,7 @@
 import { useState, useEffect, type RefObject } from "react";
 
 export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
+  const [loading, setLoading] = useState(true); // New state to track loading
   const [playing, setPlaying] = useState(false);
   const [source, setSource] = useState<string | undefined>(undefined);
   const [loop, setLoop] = useState(false);
@@ -15,29 +16,37 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
   const play = () => videoEl.current?.play();
 
   const switchVideo = (newVideoFile: string) => {
+    setLoading(true);
     setSource(newVideoFile);
     console.log("Load video: ", newVideoFile);
     videoEl.current?.load();
   };
 
   useEffect(() => {
-    // playing ? videoEl.current?.play() : videoEl.current?.pause();
-  }, [playing, videoEl]);
+    const { current } = videoEl;
 
-  useEffect(() => {
+    if (!current) return;
+
+    const handleCanPlay = () => {
+      setLoading(false); // Set loading to false when video can play
+    };
+    current.addEventListener("canplay", handleCanPlay);
+
     const handleVideoEnd = () => {
       videoEndAction();
       setPlaying(false);
-      videoEl?.current?.removeEventListener("ended", handleVideoEnd);
+      current?.removeEventListener("ended", handleVideoEnd);
     };
-    videoEl?.current?.addEventListener("ended", handleVideoEnd);
+    current?.addEventListener("ended", handleVideoEnd);
 
     return () => {
-      videoEl?.current?.removeEventListener("ended", handleVideoEnd);
+      current.removeEventListener("canplay", handleCanPlay);
+      current?.removeEventListener("ended", handleVideoEnd);
     };
-  }, [playing, videoEndAction]);
+  }, [playing, videoEndAction, videoEl]);
 
   return {
+    loading,
     playing,
     toggle,
     pause,
@@ -50,6 +59,8 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
       loop,
       autoPlay: true,
       muted: true,
+      playsInline: true,
+      preload: "auto",
     },
   };
 };

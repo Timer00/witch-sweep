@@ -12,7 +12,6 @@ import Coins from "@/components/Coins.tsx";
 import useCoins from "@/hooks/useCoins.tsx";
 import Info, { InfoButton } from "@/pages/Info.tsx";
 import SpendCoins from "@/pages/SpendCoins.tsx";
-import FullscreenDisclaimer from "@/pages/FullscreenDisclaimer.tsx";
 
 export interface PageProps {
   messages: string[];
@@ -182,11 +181,10 @@ const App = () => {
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/*// @ts-ignore*/}
       <PageToShow {...currentConfiguration.props} />
-      <Coins amount={coins} onClick={() => setShowCoinSpend(true)} />
+      <Coins pageIndex={page} amount={coins} onClick={() => setShowCoinSpend(true)} />
       <InfoButton onClick={() => setShowInfo(true)} />
       {showInfo && <Info onClose={()=> setShowInfo(false)} />}
       {showCoinSpend && <SpendCoins onClose={()=> setShowCoinSpend(false)} />}
-      <FullscreenDisclaimer/>
     </div>
   );
 };

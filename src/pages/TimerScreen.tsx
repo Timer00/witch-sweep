@@ -5,6 +5,7 @@ import PageContainer from "@/components/PageContainer.tsx";
 import { useEffect, useRef } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 import { cleaning } from "@/assets";
+import Video from "@/components/Video.tsx";
 
 export interface TimerScreenProps extends Omit<PageProps, "messages"> {
   timerMinutes: number;
@@ -25,7 +26,7 @@ const TimerScreen = ({
   time.setSeconds(time.getSeconds() + 60 * timerMinutes); // 10 minutes timer
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { switchVideo, videoProps, setLoop } = useVideo(videoRef);
+  const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
   const handleVideo = () => {
     setLoop(true);
@@ -38,13 +39,7 @@ const TimerScreen = ({
 
   return (
     <PageContainer>
-      <video
-        className="absolute inset-0 h-full w-full object-contain"
-        ref={videoRef}
-        {...videoProps}
-      >
-        Your browser does not support the video tag.
-      </video>
+      <Video videoRef={videoRef} videoProps={videoProps} loading={loading} />
       <div className="z-0 flex h-screen flex-col justify-between p-5 text-amber-50">
         {/*<h1 className="text-3xl font-bold">{timerHeader}</h1>*/}
         <Timer

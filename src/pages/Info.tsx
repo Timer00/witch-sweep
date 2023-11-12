@@ -1,10 +1,11 @@
 import { useState } from "react";
 import FullScreen from "@/components/FullScreen.tsx";
+import { InfoIcon } from "@/assets/icons/InfoIcon.tsx";
 
 export const InfoButton = ({ onClick }: { onClick: () => void }) => (
   <button onClick={onClick} className="z-2 absolute left-32 top-[-16px] m-4">
     <div className="flex items-center space-x-1 p-2 text-white underline underline-offset-8">
-      <span className="text-lg font-semibold text-white">Münzen & Hilfe</span>
+      <span className="text-lg font-semibold text-white"><InfoIcon/></span>
     </div>
   </button>
 );
@@ -71,12 +72,14 @@ interface InfoProps {
 const Info = ({ onClose }: InfoProps) => {
   return (
     <FullScreen onClose={onClose}>
-      <h1 className="mb-4 text-2xl font-bold center">
-        WICHTIGE INFORMATIONEN FÜR ERZIEHUNGSBERECHTIGE
-      </h1>
-      {faqs.map((faq, index) => (
-        <Collapse key={index} question={faq.question} answer={faq.answer} />
-      ))}
+      <div className=" px-8 w-full h-full overflow-y-scroll">
+        <h1 className="mb-4 text-2xl font-bold center">
+          WICHTIGE INFORMATIONEN FÜR ERZIEHUNGSBERECHTIGE
+        </h1>
+        {faqs.map((faq, index) => (
+          <Collapse key={index} question={faq.question} answer={faq.answer} />
+        ))}
+      </div>
     </FullScreen>
   );
 };
