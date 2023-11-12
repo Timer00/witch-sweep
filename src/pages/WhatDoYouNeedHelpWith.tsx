@@ -46,8 +46,8 @@ const WhatDoYouNeedHelpWith = ({
             <Title>{question}</Title>
           </div>
           <div className="font-dyslexic mt-28 flex items-center justify-center gap-12 font-medium">
-            {options.map((text) => (
-              <Button onClick={() => handleSelectOption(text)}>{text}</Button>
+            {options.map((text, index) => (
+              <Button key={index} onClick={() => handleSelectOption(text)}>{text}</Button>
             ))}
           </div>
         </div>

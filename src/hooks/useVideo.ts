@@ -50,7 +50,8 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
       loop,
       autoPlay: true,
       muted: true,
-      playsInline: true
+      playsInline: true,
+      preload: 'auto'
     },
   };
 };
