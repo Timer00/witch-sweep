@@ -124,7 +124,7 @@ const App = () => {
               setPage(8);
             },
             onClickButton: (time: number) => {
-              addCoins(Math.floor(time / 10));
+              addCoins(Math.ceil(time / 10));
               setPage(7);
             },
             timerHeader: "",
@@ -135,7 +135,7 @@ const App = () => {
             doneButton: "Give up :(",
             timerHeader: "",
             onTimeOver: (time: number) => {
-              addCoins(Math.floor(time / 10));
+              addCoins(Math.ceil(time / 10));
               setPage(7);
             },
             onClickButton: () => {
