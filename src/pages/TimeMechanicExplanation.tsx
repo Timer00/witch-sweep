@@ -5,12 +5,13 @@ import { useVideo } from "@/hooks/useVideo.ts";
 import { room } from "@/assets";
 import logo from "@/assets/images/witch_talk.png";
 import WitchDialog from "@/components/WitchDialog.tsx";
+import Video from "@/components/Video.tsx";
 
 type IntroProps = PageProps;
 
 const TimeMechanicExplanation = (props: IntroProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { switchVideo, videoProps, setLoop } = useVideo(videoRef);
+  const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
   const handleVideo = () => {
     setLoop(false);
@@ -23,13 +24,7 @@ const TimeMechanicExplanation = (props: IntroProps) => {
 
   return (
     <PageContainer>
-      <video
-        className="absolute inset-0 h-full w-full object-contain"
-        ref={videoRef}
-        {...videoProps}
-      >
-        Your browser does not support the video tag.
-      </video>
+      <Video videoRef={videoRef} videoProps={videoProps} loading={loading} />
       <WitchDialog imageSrc={logo} {...props} />
     </PageContainer>
   );

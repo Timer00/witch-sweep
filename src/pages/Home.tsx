@@ -4,6 +4,7 @@ import PageContainer from "@/components/PageContainer.tsx";
 import { castleLoop, logo } from "@/assets";
 import { useEffect, useRef, useState } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
+import Video from "@/components/Video.tsx";
 
 export interface HomeProps extends Omit<PageProps, "messages"> {
   startButton: string;
@@ -13,7 +14,7 @@ export interface HomeProps extends Omit<PageProps, "messages"> {
 const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
   const [username, setUsername] = useState<string>("");
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { switchVideo, videoProps, setLoop } = useVideo(videoRef);
+  const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
   const handleStart = () => {
     setPlayerName(username);
@@ -27,14 +28,8 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
 
   return (
     <PageContainer>
-      <video
-        className="absolute inset-0 h-full w-full object-contain"
-        ref={videoRef}
-        {...videoProps}
-      >
-        Your browser does not support the video tag.
-      </video>
-      <div className="relative z-2 lg:pt-36">
+      <Video videoRef={videoRef} videoProps={videoProps} loading={loading}/>
+      <div className="z-2 relative lg:pt-36">
         <div className="flex flex-col text-white">
           <div className="gameTitle flex items-center justify-center">
             <img

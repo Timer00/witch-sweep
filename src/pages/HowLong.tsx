@@ -5,6 +5,7 @@ import PageContainer from "@/components/PageContainer.tsx";
 import { useEffect, useRef } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 import { room } from "@/assets";
+import Video from "@/components/Video.tsx";
 
 interface HowLongProps extends PageProps {
   setTimerMinutes: setTimerMinutes;
@@ -12,7 +13,7 @@ interface HowLongProps extends PageProps {
 
 const HowLong = ({ setTimerMinutes, nextPage }: HowLongProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { switchVideo, videoProps, setLoop } = useVideo(videoRef);
+  const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
   const handleVideo = () => {
     setLoop(false);
@@ -30,17 +31,11 @@ const HowLong = ({ setTimerMinutes, nextPage }: HowLongProps) => {
 
   return (
     <PageContainer>
-      <video
-        className="absolute inset-0 h-full w-full object-contain"
-        ref={videoRef}
-        {...videoProps}
-      >
-        Your browser does not support the video tag.
-      </video>
+      <Video videoRef={videoRef} videoProps={videoProps} loading={loading} />
       <img
         src={logo}
         alt="logo"
-        className="absolute left-[-2%] top-[1%] z-2 w-1/2"
+        className="z-2 absolute left-[-2%] top-[1%] w-1/2"
       />
       <DialogBox>
         <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-10">
