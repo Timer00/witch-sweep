@@ -1,10 +1,11 @@
 import { useState } from "react";
 import FullScreen from "@/components/FullScreen.tsx";
+import { InfoIcon } from "@/assets/icons/InfoIcon.tsx";
 
 export const InfoButton = ({ onClick }: { onClick: () => void }) => (
   <button onClick={onClick} className="z-2 absolute left-32 top-[-16px] m-4">
     <div className="flex items-center space-x-1 p-2 text-white underline underline-offset-8">
-      <span className="text-lg font-semibold text-white">Münzen & Hilfe</span>
+      <span className="text-lg font-semibold text-white"><InfoIcon/></span>
     </div>
   </button>
 );

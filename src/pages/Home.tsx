@@ -39,18 +39,16 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
           <div className="gameTitle flex items-center justify-center">
             <img
               id={"gameTitle"}
-              className="w-2/3 p-6"
+              className="w-2/4 p-6"
               src={logo}
               alt="Hocus Focus"
             />
           </div>
           <div className="p-8">
-            <label className="text-2xl font-bold">Deine name</label>
-            <br />
             <input
               onChange={({ target: { value } }) => setUsername(value)}
               className="mt-4 border bg-transparent text-center text-xl"
-              placeholder="_ _ _ _ _ _ _ _ _ _ _"
+              placeholder="John Doe..."
             />
           </div>
           <div className="lg:mt-28">
