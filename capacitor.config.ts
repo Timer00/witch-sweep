@@ -1,12 +1,14 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'com.hocusfocus.app',
-  appName: 'HocusFocus',
-  webDir: 'dist',
+  appId: "com.hocusfocus.app",
+  appName: "HocusFocus",
+  webDir: "dist",
   server: {
-    androidScheme: 'https'
-  }
+    url: "http://192.168.1.102:5173/",
+    cleartext: true,
+    androidScheme: "https",
+  },
 };
 
 export default config;

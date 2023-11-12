@@ -72,12 +72,14 @@ interface InfoProps {
 const Info = ({ onClose }: InfoProps) => {
   return (
     <FullScreen onClose={onClose}>
-      <h1 className="mb-4 text-2xl font-bold center">
-        WICHTIGE INFORMATIONEN FÜR ERZIEHUNGSBERECHTIGE
-      </h1>
-      {faqs.map((faq, index) => (
-        <Collapse key={index} question={faq.question} answer={faq.answer} />
-      ))}
+      <div className=" px-8 w-full h-full overflow-y-scroll">
+        <h1 className="mb-4 text-2xl font-bold center">
+          WICHTIGE INFORMATIONEN FÜR ERZIEHUNGSBERECHTIGE
+        </h1>
+        {faqs.map((faq, index) => (
+          <Collapse key={index} question={faq.question} answer={faq.answer} />
+        ))}
+      </div>
     </FullScreen>
   );
 };
