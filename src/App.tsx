@@ -181,7 +181,7 @@ const App = () => {
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/*// @ts-ignore*/}
       <PageToShow {...currentConfiguration.props} />
-      <Coins amount={coins} onClick={() => setShowCoinSpend(true)} />
+      <Coins pageIndex={page} amount={coins} onClick={() => setShowCoinSpend(true)} />
       <InfoButton onClick={() => setShowInfo(true)} />
       {showInfo && <Info onClose={()=> setShowInfo(false)} />}
       {showCoinSpend && <SpendCoins onClose={()=> setShowCoinSpend(false)} />}
