@@ -11,13 +11,22 @@ export interface HomeProps extends Omit<PageProps, "messages"> {
   setPlayerName: (name: string) => void;
 }
 
+const localUsername = localStorage.getItem('username');
+
 const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
-  const [username, setUsername] = useState<string>("");
+  const [username, setUsername] = useState<string>(()=>{
+    console.log(localUsername);
+    if (localUsername)
+      return localUsername;
+    else
+      return "";
+  });
   const videoRef = useRef<HTMLVideoElement>(null);
   const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
   const handleStart = () => {
     setPlayerName(username);
+    void localUsername !== username && localStorage.setItem('username', username);
     nextPage();
   };
 
@@ -41,6 +50,7 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
           </div>
           <div className="p-8">
             <input
+              value={username}
               onChange={({ target: { value } }) => setUsername(value)}
               className="mt-4 border bg-transparent text-center text-xl"
               placeholder="John Doe..."
