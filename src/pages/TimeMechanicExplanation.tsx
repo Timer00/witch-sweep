@@ -3,7 +3,6 @@ import PageContainer from "@/components/PageContainer.tsx";
 import { useEffect, useRef } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 import { room } from "@/assets";
-import logo from "@/assets/images/witch_talk.png";
 import WitchDialog from "@/components/WitchDialog.tsx";
 import Video from "@/components/Video.tsx";
 
@@ -25,7 +24,7 @@ const TimeMechanicExplanation = (props: IntroProps) => {
   return (
     <PageContainer>
       <Video videoRef={videoRef} videoProps={videoProps} loading={loading} />
-      <WitchDialog imageSrc={logo} {...props} />
+      <WitchDialog {...props} />
     </PageContainer>
   );
 };

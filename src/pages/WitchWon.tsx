@@ -1,4 +1,3 @@
-import logo from "@/assets/images/witch_talk.png";
 import { type PageProps } from "@/App.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import { useEffect, useRef } from "react";
@@ -8,7 +7,6 @@ import WitchDialog from "@/components/WitchDialog.tsx";
 import Video from "@/components/Video.tsx";
 
 interface WitchWonProps extends PageProps {
-  messages: string[];
   buttonText: string;
   hideNextButton: boolean;
 }
@@ -29,7 +27,7 @@ const WitchWon = (props: WitchWonProps) => {
   return (
     <PageContainer>
       <Video videoRef={videoRef} videoProps={videoProps} loading={loading} />
-      <WitchDialog imageSrc={logo} {...props} />
+      <WitchDialog {...props} />
     </PageContainer>
   );
 };
