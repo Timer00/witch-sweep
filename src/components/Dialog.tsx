@@ -3,9 +3,17 @@
 import Message from "@/components/Message.tsx";
 import { useEffect, useState } from "react";
 import DialogBox from "@/components/DialogBox.tsx";
-import { type PageProps } from "@/App.tsx";
-import Button from "@/components/Button.tsx"; //highlight-line
+import { type PageProps, Witch } from "@/App.tsx";
+import Button from "@/components/Button.tsx";
+import { witch1Coin, witch2Coin, witchHello, witchSad, witchTalk } from "@/assets"; //highlight-line
 
+const witches = {
+  [Witch.hello]: witchHello,
+  [Witch.talk]: witchTalk,
+  [Witch.sad]: witchSad,
+  [Witch.coin]: witch1Coin,
+  [Witch.coins]: witch2Coin,
+}
 export interface DialogProps extends PageProps {
   hideNextButton?: boolean;
   buttonText?: string;
@@ -17,7 +25,7 @@ const Dialog = ({
   hideNextButton = false,
   buttonText = "",
 }: DialogProps) => {
-  const [currentMessage, setCurrentMessage] = useState(0);
+  const [currentMessageNumber, setCurrentMessageNumber] = useState(0);
   const [showButton, setShowbutton] = useState(false);
   const [hideNextButtonState, setHideNextButtonHook] = useState(false);
 
@@ -31,48 +39,60 @@ const Dialog = ({
   }, []);
 
   useEffect(() => {
-    if (currentMessage > messages.length - 2 && buttonText.length !== 0) {
+    if (currentMessageNumber > messages.length - 2 && buttonText.length !== 0) {
       setShowbutton(true);
       setHideNextButtonHook(true);
     }
-  }, [currentMessage]);
+  }, [currentMessageNumber]);
 
   const handleClick = () => {
-    if (currentMessage < messages.length - 1) {
-      setCurrentMessage(currentMessage + 1);
+    if (currentMessageNumber < messages.length - 1) {
+      setCurrentMessageNumber(currentMessageNumber + 1);
     } else {
       buttonText.length === 0 ? nextPage() : "";
     }
   };
 
+  const currentMessage = messages[currentMessageNumber];
+
   return (
-    <DialogBox>
-      {/*TODO: Replace with name from configuration*/}
-      <div className="mb-4 text-center text-xl font-bold lg:text-3xl">
-        {"Anabella Declutter"}
+    <>
+      <div className="h-1/5 w-1/12">
+        <img
+          src={witches[currentMessage.witch]}
+          alt="logo"
+          className="absolute left-[-10%] top-[10%] w-1/2"
+        />
       </div>
-      <div className={`flex gap-3 lg:flex-col ${showButton ? "flex-col" : ""}`}>
-        <Message message={messages[currentMessage]} key={currentMessage} />
-        <div
-          onClick={handleClick}
-          className={`${
-            hideNextButtonState ? "hidden" : ""
-          } cursor-pointer text-right text-lg font-extrabold lg:mt-4`}
-        >
-          {">>"}
+      <DialogBox>
+        {/*TODO: Replace with name from configuration*/}
+        <div className="mb-4 text-center text-xl font-bold lg:text-3xl">
+          {"Anabella Declutter"}
         </div>
-        {showButton ? (
-          <Button
-            className="m-10 font-mono lg:border-black lg:text-black"
-            onClick={nextPage}
+        <div className={`flex gap-3 lg:flex-col ${showButton ? "flex-col" : ""}`}>
+          <Message message={currentMessage.text} key={currentMessageNumber} />
+          <div
+            onClick={handleClick}
+            className={`${
+              hideNextButtonState ? "hidden" : ""
+            } cursor-pointer text-right text-lg font-extrabold lg:mt-4`}
           >
-            {buttonText}
-          </Button>
-        ) : (
-          ""
-        )}
-      </div>
-    </DialogBox>
+            {">>"}
+          </div>
+          {showButton ? (
+            <Button
+              className="m-5 font-mono lg:border-black lg:text-black"
+              onClick={nextPage}
+            >
+              {buttonText}
+            </Button>
+          ) : (
+            ""
+          )}
+        </div>
+      </DialogBox>
+    </>
+
   );
 };
 export default Dialog;

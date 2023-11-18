@@ -7,4 +7,24 @@ import room from "./videos/room.mov";
 import logo from "./images/logo.png";
 import coin from "./images/coin.png";
 
-export { castleLoop, castleIntro, cleaning, homework, zoom, room, logo, coin };
+import witchHello from "./images/witch_hello.png";
+import witchTalk from "./images/witch_talk.png";
+import witchSad from "./images/witch_sad.png";
+import witch1Coin from "./images/witch_1coin.png";
+import witch2Coin from "./images/witch_2coins.png";
+
+export {
+  castleLoop,
+  castleIntro,
+  cleaning,
+  homework,
+  zoom,
+  room,
+  logo,
+  coin,
+  witchHello,
+  witchTalk,
+  witchSad,
+  witch1Coin,
+  witch2Coin,
+};

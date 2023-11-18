@@ -14,8 +14,17 @@ import Info, { InfoButton } from "@/pages/Info.tsx";
 import SpendCoins from "@/pages/SpendCoins.tsx";
 import FullscreenDisclaimer from "@/pages/FullscreenDisclaimer.tsx";
 
+export enum Witch {
+  hello = "hello",
+  sad = "sad",
+  talk = "talk",
+  coin = "1",
+  coins = "2",
+}
+
+export type Messages = { witch: Witch; text: string }[];
 export interface PageProps {
-  messages: string[];
+  messages: Messages;
   nextPage: nextPage;
 }
 
@@ -24,8 +33,8 @@ export type setTimerMinutes = React.Dispatch<React.SetStateAction<number>>;
 export type nextPage = () => void;
 
 export enum HelpTypeInterface {
-  cleaning = 'Aufräumen',
-  homework = 'Hausaufgaben'
+  cleaning = "Aufräumen",
+  homework = "Hausaufgaben",
 }
 
 const App = () => {
@@ -34,7 +43,9 @@ const App = () => {
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
   const [, setPlayerName] = useState<string>("");
-  const [helpType, setHelpType] = useState<HelpTypeInterface>(HelpTypeInterface.cleaning);
+  const [helpType, setHelpType] = useState<HelpTypeInterface>(
+    HelpTypeInterface.cleaning
+  );
   const [timerMinutes, setTimerMinutes] = useState(0);
 
   // useEffect(() => {
@@ -66,7 +77,10 @@ const App = () => {
           nextPage,
           setHelpType,
           question: "Was möchtest du machen?",
-          options: [HelpTypeInterface.cleaning, HelpTypeInterface.homework] as HelpTypeInterface[],
+          options: [
+            HelpTypeInterface.cleaning,
+            HelpTypeInterface.homework,
+          ] as HelpTypeInterface[],
         },
       },
       {
@@ -75,16 +89,16 @@ const App = () => {
           nextPage,
           messages: {
             [HelpTypeInterface.cleaning]: [
-              "Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi!",
-              "Du willst also aufräumen?! Ich wette ich kriege mein Hexenschloss viel schneller geputzt!",
-              "Sag mir doch erstmal wie viel Zeit du glaubst fürs Aufräumen zu brauchen...",
+              { witch: Witch.hello , text: "Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi!" },
+              { witch: Witch.sad , text: "Ich muss unbedingt mein Zimmer putzen, willst du mir dabei helfen? Es tut immer gut, Gesellschaft zu haben! Ich *putze, du räumst auf!*" },
+              { witch: Witch.talk , text: "*Wie lange wollen* wir denn gemeinsam aufräumen und putzen?" },
             ],
             [HelpTypeInterface.homework]: [
-              "Hello hello hello, dis homewok!",
-              "Home work, home wok, woke home!",
-              "Home wok, wok is nice, gibs",
+              { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
+              { witch: Witch.sad , text: "In der Schule haben wir heute ganz viele neue Zaubersprüche gelernt… Jetzt muss ich einen Aufsatz über meinen Lieblingsspruch schreiben. Leiste mir doch *Gesellschaft beim Hausaufgaben machen!*" },
+              { witch: Witch.talk , text: "*Wie lange wollen wir zusammen Hausaufgaben machen*?" },
             ],
-          }[helpType],
+          }[helpType] as Messages,
         },
       },
       {
@@ -100,10 +114,14 @@ const App = () => {
         props: {
           nextPage,
           description: "Time mechanic explanation.",
-          messages: [
-            "Aha... hier ist der Deal: wenn du es schaffst fertig zu sein, bevor die Zeit rum ist dann bekommst du eine Münze...",
-            "aber sollte die Zeit rum rein, und ich bin schneller ... hehehe ... dann kriege ich die Münze!",
-          ],
+          messages: {
+            [HelpTypeInterface.cleaning]: [
+              { witch: Witch.hello , text: "Super! Machen wir eine *Herausforderung* daraus: Ich wette mit dir, ich bin schneller fertig als du!" },
+            ],
+            [HelpTypeInterface.homework]: [
+              { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
+            ],
+          }[helpType] as Messages,
         },
       },
       {
@@ -112,7 +130,14 @@ const App = () => {
           nextPage,
           hideNextButton: true,
           description: "Page asking if player is ready.",
-          messages: ["Bist du bereit?"],
+          messages: {
+            [HelpTypeInterface.cleaning]: [
+              { witch: Witch.hello , text: "Wenn du fertig wirst, *bevor die Zeit ausläuft*, dann kriegst du *eine/ zwei Münze(n)* von mir! Sollte der Timer aber auslaufen, dann bin ich vor dir fertig mit dem Putzen und ich habe gewonnen!" },
+            ],
+            [HelpTypeInterface.homework]: [
+              { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
+            ],
+          }[helpType] as Messages,
           buttonText: "Los geht's!",
         },
       },
@@ -154,22 +179,30 @@ const App = () => {
         page: YouWon,
         props: {
           nextPage: () => setPage(0),
-          buttonText: "Revanche!",
-          messages: [
-            "Sehr sehr gut gemacht! Ich kann nicht glauben dass du mich geschlagen hast... hier! Nimm die Münze! Du hast sie verdient!",
-            "Na? Traust du dich mich nochmal herauszufordern?",
-          ],
+          buttonText: "Zurück!",
+          messages: {
+            [HelpTypeInterface.cleaning]: [
+              { witch: Witch.hello , text: "Sehr gut gemacht! Ich kann nicht glauben, dass du mich geschlagen hast… hier! Nimm deinen Preis, *du hast es verdient!*" },
+            ],
+            [HelpTypeInterface.homework]: [
+              { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
+            ],
+          }[helpType] as Messages,
         },
       },
       {
         page: WitchWon,
         props: {
           nextPage: () => setPage(0),
-          buttonText: "Revanche!",
-          messages: [
-            "Oh nein, die Zeit ist um... hehehehe... gewonnen! Jetzt werde ich reich!",
-            "Na? Traust du dich mich nochmal herauszufordern?",
-          ],
+          buttonText: "Zurück!",
+          messages: {
+            [HelpTypeInterface.cleaning]: [
+              { witch: Witch.sad , text: "Schade! Jetzt bin ich vor dir fertig geworden… Naja, nächstes mal kann du mich bestimmt schlagen!" },
+            ],
+            [HelpTypeInterface.homework]: [
+              { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
+            ],
+          }[helpType] as Messages,
         },
       },
     ],
@@ -187,11 +220,15 @@ const App = () => {
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/*// @ts-ignore*/}
       <PageToShow {...currentConfiguration.props} />
-      <Coins pageIndex={page} amount={coins} onClick={() => setShowCoinSpend(true)} />
+      <Coins
+        pageIndex={page}
+        amount={coins}
+        onClick={() => setShowCoinSpend(true)}
+      />
       <InfoButton pageIndex={page} onClick={() => setShowInfo(true)} />
-      {showInfo && <Info onClose={()=> setShowInfo(false)} />}
-      {showCoinSpend && <SpendCoins onClose={()=> setShowCoinSpend(false)} />}
-      <FullscreenDisclaimer/>
+      {showInfo && <Info onClose={() => setShowInfo(false)} />}
+      {showCoinSpend && <SpendCoins onClose={() => setShowCoinSpend(false)} />}
+      <FullscreenDisclaimer />
     </div>
   );
 };
