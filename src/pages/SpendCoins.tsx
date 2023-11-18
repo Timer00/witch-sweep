@@ -18,12 +18,12 @@ const SpendCoins = ({ onClose }: SpendCoinsProps) => {
     <FullScreen onClose={onClose}>
       <div className="center h-full">
         <div>
-          <div className="mb-4 text-lg">Your Coins: {coins}</div>
+          <div className="mb-4 text-lg">Deine Münzen: {coins}</div>
           <button
             className="mb-4 rounded bg-amber-400 px-6 py-3 text-white hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-200"
             onClick={handleSpendClick}
           >
-            Spend Coins
+            Ausgeben
           </button>
           <input
             type="range"
@@ -33,7 +33,7 @@ const SpendCoins = ({ onClose }: SpendCoinsProps) => {
             onChange={(e) => setSpendAmount(parseInt(e.target.value))}
             className="h-2 w-full accent-black cursor-pointer appearance-none rounded-lg dark:bg-amber-200"
           />
-          <div className="mt-2">Amount: {spendAmount}</div>
+          <div className="mt-2">Menge: {spendAmount}</div>
         </div>
       </div>
     </FullScreen>

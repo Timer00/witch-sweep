@@ -1,4 +1,4 @@
-import { type HelpType, type PageProps } from "@/App.tsx";
+import { type HelpTypeInterface, type PageProps } from "@/App.tsx";
 import Button from "@/components/Button.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import { castleLoop } from "@/assets";
@@ -8,9 +8,9 @@ import Title from "@/components/Title.tsx";
 import Video from "@/components/Video.tsx";
 
 interface WhatDoYouNeedHelpWithProps extends Omit<PageProps, "messages"> {
-  options: HelpType[];
+  options: HelpTypeInterface[];
   question: string;
-  setHelpType: (type: HelpType) => void;
+  setHelpType: (type: HelpTypeInterface) => void;
 }
 
 const WhatDoYouNeedHelpWith = ({
@@ -22,7 +22,7 @@ const WhatDoYouNeedHelpWith = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
-  const handleSelectOption = (text: HelpType) => {
+  const handleSelectOption = (text: HelpTypeInterface) => {
     setHelpType(text);
     nextPage();
   };

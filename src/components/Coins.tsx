@@ -11,8 +11,8 @@ const Coins = ({ pageIndex, amount, onClick }: CoinsProps) => {
     <div onClick={onClick} className="absolute right-32 top-[-16px] m-4">
       <div className="flex items-center space-x-1 p-2">
         { pageIndex === 0 &&
-          <span className="w-[78px] text-xs font-semibold text-white">
-            {"Click here to spend: "}
+          <span className="w-[100px] text-xs font-semibold text-white">
+            {"Klicke hier zum Ausgeben: "}
           </span>
         }
         <img width={24} height={24} src={coin} alt="Coin icon" />

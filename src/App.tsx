@@ -23,7 +23,10 @@ export type setPage = React.Dispatch<React.SetStateAction<number>>;
 export type setTimerMinutes = React.Dispatch<React.SetStateAction<number>>;
 export type nextPage = () => void;
 
-export type HelpType = "homework" | "cleaning";
+export enum HelpTypeInterface {
+  cleaning = 'Aufräumen',
+  homework = 'Hausaufgaben'
+}
 
 const App = () => {
   const [showInfo, setShowInfo] = useState(false);
@@ -31,7 +34,7 @@ const App = () => {
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
   const [, setPlayerName] = useState<string>("");
-  const [helpType, setHelpType] = useState<HelpType>("cleaning");
+  const [helpType, setHelpType] = useState<HelpTypeInterface>(HelpTypeInterface.cleaning);
   const [timerMinutes, setTimerMinutes] = useState(0);
 
   // useEffect(() => {
@@ -62,8 +65,8 @@ const App = () => {
         props: {
           nextPage,
           setHelpType,
-          question: "What do you need help with?",
-          options: ["cleaning", "homework"] as HelpType[],
+          question: "Was möchtest du machen?",
+          options: [HelpTypeInterface.cleaning, HelpTypeInterface.homework] as HelpTypeInterface[],
         },
       },
       {
@@ -71,12 +74,12 @@ const App = () => {
         props: {
           nextPage,
           messages: {
-            cleaning: [
+            [HelpTypeInterface.cleaning]: [
               "Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi!",
               "Du willst also aufräumen?! Ich wette ich kriege mein Hexenschloss viel schneller geputzt!",
               "Sag mir doch erstmal wie viel Zeit du glaubst fürs Aufräumen zu brauchen...",
             ],
-            homework: [
+            [HelpTypeInterface.homework]: [
               "Hello hello hello, dis homewok!",
               "Home work, home wok, woke home!",
               "Home wok, wok is nice, gibs",
@@ -117,9 +120,10 @@ const App = () => {
         page: TimerScreen,
         description: "Page that shows the timer.",
         props: {
-          cleaning: {
+          [HelpTypeInterface.cleaning]: {
             nextPage,
             timerMinutes,
+            helpType: helpType,
             doneButton: "Fertig!",
             onTimeOver: () => {
               setPage(8);
@@ -130,9 +134,10 @@ const App = () => {
             },
             timerHeader: "",
           } as TimerScreenProps,
-          homework: {
+          [HelpTypeInterface.homework]: {
             nextPage,
             timerMinutes,
+            helpType: helpType,
             doneButton: "Give up :(",
             timerHeader: "",
             onTimeOver: (time: number) => {
@@ -183,7 +188,7 @@ const App = () => {
       {/*// @ts-ignore*/}
       <PageToShow {...currentConfiguration.props} />
       <Coins pageIndex={page} amount={coins} onClick={() => setShowCoinSpend(true)} />
-      <InfoButton onClick={() => setShowInfo(true)} />
+      <InfoButton pageIndex={page} onClick={() => setShowInfo(true)} />
       {showInfo && <Info onClose={()=> setShowInfo(false)} />}
       {showCoinSpend && <SpendCoins onClose={()=> setShowCoinSpend(false)} />}
       <FullscreenDisclaimer/>

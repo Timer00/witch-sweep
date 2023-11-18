@@ -1,13 +1,14 @@
-import { type PageProps } from "@/App.tsx";
+import { HelpTypeInterface, type PageProps } from "@/App.tsx";
 import Timer from "@/components/Timer.tsx";
 import Button from "@/components/Button.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import { useEffect, useRef } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
-import { cleaning } from "@/assets";
+import { cleaning, homework } from "@/assets";
 import Video from "@/components/Video.tsx";
 
 export interface TimerScreenProps extends Omit<PageProps, "messages"> {
+  helpType: HelpTypeInterface;
   timerMinutes: number;
   doneButton: string;
   timerHeader: string;
@@ -21,16 +22,21 @@ const TimerScreen = ({
   // timerHeader,
   onTimeOver,
   onClickButton,
+  helpType,
 }: TimerScreenProps) => {
   const time = new Date();
   time.setSeconds(time.getSeconds() + 60 * timerMinutes); // 10 minutes timer
-
   const videoRef = useRef<HTMLVideoElement>(null);
   const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
   const handleVideo = () => {
     setLoop(true);
-    switchVideo(cleaning);
+    switchVideo(
+      {
+        [HelpTypeInterface.cleaning]: cleaning,
+        [HelpTypeInterface.homework]: homework,
+      }[helpType]
+    );
   };
 
   useEffect(() => {

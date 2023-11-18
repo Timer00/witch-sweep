@@ -53,7 +53,7 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
               value={username}
               onChange={({ target: { value } }) => setUsername(value)}
               className="mt-4 border bg-transparent text-center text-xl"
-              placeholder="John Doe..."
+              placeholder="Dein Name…"
             />
           </div>
           <div className="lg:mt-28">
