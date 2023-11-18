@@ -1,0 +1,9 @@
+# Ignore build directory
+build/
+
+# Ignore test files
+*.test.js
+
+# Ignore any specific directories or files
+android/
+ios/

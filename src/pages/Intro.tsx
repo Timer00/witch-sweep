@@ -3,7 +3,6 @@ import PageContainer from "@/components/PageContainer.tsx";
 import { useEffect, useRef, useState } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 import { castleIntro, room } from "@/assets";
-import logo from "@/assets/images/witch_talk.png";
 import WitchDialog from "@/components/WitchDialog.tsx";
 import Video from "@/components/Video.tsx";
 
@@ -31,7 +30,7 @@ const Intro = (props: IntroProps) => {
   return (
     <PageContainer>
       <Video videoRef={videoRef} videoProps={videoProps} loading={loading} />
-      {showUI && <WitchDialog imageSrc={logo} {...props} />}
+      {showUI && <WitchDialog {...props} />}
     </PageContainer>
   );
 };

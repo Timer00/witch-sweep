@@ -1,19 +1,12 @@
 // DialogBox.js
 
 import Message from "@/components/Message.tsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DialogBox from "@/components/DialogBox.tsx";
 import { type PageProps, Witch } from "@/App.tsx";
 import Button from "@/components/Button.tsx";
 import { witch1Coin, witch2Coin, witchHello, witchSad, witchTalk } from "@/assets"; //highlight-line
 
-const witches = {
-  [Witch.hello]: witchHello,
-  [Witch.talk]: witchTalk,
-  [Witch.sad]: witchSad,
-  [Witch.coin]: witch1Coin,
-  [Witch.coins]: witch2Coin,
-}
 export interface DialogProps extends PageProps {
   hideNextButton?: boolean;
   buttonText?: string;
@@ -26,12 +19,20 @@ const Dialog = ({
   buttonText = "",
 }: DialogProps) => {
   const [currentMessageNumber, setCurrentMessageNumber] = useState(0);
-  const [showButton, setShowbutton] = useState(false);
+  const [showButton, setShowButton] = useState(false);
   const [hideNextButtonState, setHideNextButtonHook] = useState(false);
+
+  const witches = useRef({
+    [Witch.hello]: witchHello,
+    [Witch.talk]: witchTalk,
+    [Witch.sad]: witchSad,
+    [Witch.coin]: witch1Coin,
+    [Witch.coins]: witch2Coin,
+  })
 
   useEffect(() => {
     if (buttonText.length !== 0 && hideNextButton) {
-      setShowbutton(true);
+      setShowButton(true);
     }
     if (hideNextButton) {
       setHideNextButtonHook(true);
@@ -40,7 +41,7 @@ const Dialog = ({
 
   useEffect(() => {
     if (currentMessageNumber > messages.length - 2 && buttonText.length !== 0) {
-      setShowbutton(true);
+      setShowButton(true);
       setHideNextButtonHook(true);
     }
   }, [currentMessageNumber]);
@@ -59,7 +60,7 @@ const Dialog = ({
     <>
       <div className="h-1/5 w-1/12">
         <img
-          src={witches[currentMessage.witch]}
+          src={witches.current[currentMessage.witch]}
           alt="logo"
           className="absolute left-[-10%] top-[10%] w-1/2"
         />

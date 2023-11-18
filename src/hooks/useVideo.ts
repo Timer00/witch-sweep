@@ -5,7 +5,8 @@ export const useVideo = (videoEl: RefObject<HTMLVideoElement>) => {
   const [playing, setPlaying] = useState(false);
   const [source, setSource] = useState<string | undefined>(undefined);
   const [loop, setLoop] = useState(false);
-  const [videoEndAction, setVideoEndAction] = useState<Function>(
+  const [videoEndAction, setVideoEndAction] = useState<()=>void>(
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     () => () => {}
   );
 
