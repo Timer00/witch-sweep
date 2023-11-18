@@ -41,27 +41,27 @@ const HowLong = ({ setTimerMinutes, nextPage }: HowLongProps) => {
         <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-10">
           <div
             onClick={() => setHowLong(1)}
-            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-red-300"
-          >
-            <span className="text-center">5:00</span>
-          </div>
-          <div
-            onClick={() => setHowLong(10)}
-            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-blue-700"
+            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-amber-600"
           >
             <span className="text-center">10:00</span>
           </div>
           <div
             onClick={() => setHowLong(15)}
-            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-yellow-400"
+            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-amber-700"
           >
             <span className="text-center">15:00</span>
           </div>
           <div
             onClick={() => setHowLong(20)}
-            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-green-500"
+            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-orange-400"
           >
             <span className="text-center">20:00</span>
+          </div>
+          <div
+            onClick={() => setHowLong(25)}
+            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-orange-500"
+          >
+            <span className="text-center">25:00</span>
           </div>
         </div>
       </DialogBox>

@@ -132,7 +132,7 @@ const App = () => {
           description: "Page asking if player is ready.",
           messages: {
             [HelpTypeInterface.cleaning]: [
-              { witch: Witch.hello , text: "Wenn du fertig wirst, *bevor die Zeit ausläuft*, dann kriegst du *eine/ zwei Münze(n)* von mir! Sollte der Timer aber auslaufen, dann bin ich vor dir fertig mit dem Putzen und ich habe gewonnen!" },
+              { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `Wenn du fertig wirst, *bevor die Zeit ausläuft*, dann kriegst du *${timerMinutes < 20 ? "eine Münze" : "zwei Münzen"}* von mir! Sollte der Timer aber auslaufen, dann bin ich vor dir fertig mit dem Putzen und ich habe gewonnen!` },
             ],
             [HelpTypeInterface.homework]: [
               { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
