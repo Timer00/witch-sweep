@@ -119,7 +119,7 @@ const App = () => {
               { witch: Witch.hello , text: "Super! Machen wir eine *Herausforderung* daraus: Ich wette mit dir, ich bin schneller fertig als du!" },
             ],
             [HelpTypeInterface.homework]: [
-              { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
+              { witch: Witch.hello , text: "Alles klar! Ich habe aber eine *Herausforderung* für dich: Ich wette, ich kann viel länger an meinen Hausaufgaben sitzen als du." },
             ],
           }[helpType] as Messages,
         },
@@ -135,7 +135,7 @@ const App = () => {
               { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `Wenn du fertig wirst, *bevor die Zeit ausläuft*, dann kriegst du *${timerMinutes < 20 ? "eine Münze" : "zwei Münzen"}* von mir! Sollte der Timer aber auslaufen, dann bin ich vor dir fertig mit dem Putzen und ich habe gewonnen!` },
             ],
             [HelpTypeInterface.homework]: [
-              { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
+              { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `Wenn du so lange durchhältst, bis der Timer vorbei ist, dann bekommst du *${timerMinutes < 20 ? "eine Münze" : "zwei Münzen"}* von mir. Solltest du aber aufgeben, bevor die Zeit rum ist, dann habe ich gewonnen!` },
             ],
           }[helpType] as Messages,
           buttonText: "Los geht's!",
