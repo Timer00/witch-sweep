@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useCoins from "@/hooks/useCoins.tsx";
+import useCoins from "@/hooks/useCoins.ts";
 import FullScreen from "@/components/FullScreen.tsx";
 
 interface SpendCoinsProps {

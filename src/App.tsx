@@ -9,7 +9,7 @@ import YouWon from "@/pages/YouWon.tsx";
 import WhatDoYouNeedHelpWith from "@/pages/WhatDoYouNeedHelpWith.tsx";
 import TimeMechanicExplanation from "@/pages/TimeMechanicExplanation.tsx";
 import Coins from "@/components/Coins.tsx";
-import useCoins from "@/hooks/useCoins.tsx";
+import useCoins from "@/hooks/useCoins.ts";
 import Info, { InfoButton } from "@/pages/Info.tsx";
 import SpendCoins from "@/pages/SpendCoins.tsx";
 import FullscreenDisclaimer from "@/pages/FullscreenDisclaimer.tsx";
