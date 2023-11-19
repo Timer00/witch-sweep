@@ -12,22 +12,22 @@ const Button = ({
   children,
   className,
   onClick,
-  small,
-  ...rest
+  small
 }: ButtonProps) => {
   const mergedClassName = twMerge(
-    "rounded border-8 border-white px-2 py-2 font-extrabold text-white transition-all hover:bg-gray-200",
+    "rounded border-8 px-2 py-2 font-extrabold  transition-all hover:bg-gray-200",
     "disabled:opacity-50 disabled:hover:bg-transparent",
-    `${small ? "md:text-8xl lg:text-8xl" : "md:text-4xl lg:text-6xl"}`,
+    `${small ? "border-[#6f888c] text-[#6f888c] text-xs border-4" : "border-amber-50 md:text-4xl lg:text-6xl"}`,
     className
   );
+
+  console.log(mergedClassName);
 
   return (
     <button
       type="button"
       className={mergedClassName}
       onClick={onClick}
-      {...rest}
     >
       {children}
     </button>

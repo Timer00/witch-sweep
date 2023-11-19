@@ -55,7 +55,7 @@ const TimerScreen = ({
           autoStart={true}
         />
         <Button
-          className="m-3 border-amber-50"
+          className="m-3"
           small={helpType === HelpTypeInterface.homework}
           onClick={() => onClickButton(timerMinutes)}
         >
