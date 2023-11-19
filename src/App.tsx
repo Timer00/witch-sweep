@@ -155,7 +155,7 @@ const App = () => {
               setPage(8);
             },
             onClickButton: (time: number) => {
-              addCoins(Math.ceil(time / 10));
+              addCoins(Math.floor(time / 10));
               setPage(7);
             },
             timerHeader: "",
@@ -167,7 +167,7 @@ const App = () => {
             doneButton: "Aufgeben",
             timerHeader: "",
             onTimeOver: (time: number) => {
-              addCoins(Math.ceil(time / 10));
+              addCoins(Math.floor(time / 10));
               setPage(7);
             },
             onClickButton: () => {
