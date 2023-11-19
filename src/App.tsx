@@ -97,33 +97,15 @@ const App = () => {
           nextPage,
           messages: {
             [HelpTypeInterface.cleaning]: [
-              {
-                witch: Witch.hello,
-                text: "Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi!",
-              },
-              {
-                witch: Witch.sad,
-                text: "Ich muss unbedingt mein Zimmer putzen, willst du mir dabei helfen? Es tut immer gut, Gesellschaft zu haben! *Ich putze, du räumst auf!*",
-              },
-              {
-                witch: Witch.talk,
-                text: "*Wie lange wollen wir denn gemeinsam aufräumen und putzen?*",
-              },
+              { witch: Witch.hello , text: "Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi!" },
+              { witch: Witch.sad , text: "Ich muss unbedingt mein Zimmer putzen, willst du mir dabei helfen? Es tut immer gut, Gesellschaft zu haben! **Ich putze, du räumst auf!**" },
+              { witch: Witch.talk , text: "**Wie lange wollen wir denn gemeinsam aufräumen und putzen?**" },
             ],
             [HelpTypeInterface.homework]: [
-              { witch: Witch.hello, text: "Hi! Schön dass du da bist!" },
-              {
-                witch: Witch.sad,
-                text: "In der Schule haben wir heute ganz viele neue Zaubersprüche gelernt…",
-              },
-              {
-                witch: Witch.talk,
-                text: "Jetzt muss ich einen Aufsatz über meinen Lieblingsspruch schreiben. Leiste mir doch *Gesellschaft beim Hausaufgaben machen!*",
-              },
-              {
-                witch: Witch.talk,
-                text: "*Wie lange wollen wir zusammen Hausaufgaben machen?*",
-              },
+              { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
+              { witch: Witch.sad , text: "In der Schule haben wir heute ganz viele neue Zaubersprüche gelernt…" },
+              { witch: Witch.talk , text: "Jetzt muss ich einen Aufsatz über meinen Lieblingsspruch schreiben. Leiste mir doch **Gesellschaft beim Hausaufgaben machen!**" },
+              { witch: Witch.talk , text: "**Wie lange wollen wir zusammen Hausaufgaben machen?**" },
             ],
           }[helpType] as Messages,
         },
@@ -143,28 +125,12 @@ const App = () => {
           description: "Time mechanic explanation.",
           messages: {
             [HelpTypeInterface.cleaning]: [
-              {
-                witch: Witch.hello,
-                text: "Super! Machen wir eine *Herausforderung* daraus: Ich wette mit dir, ich bin schneller fertig als du!",
-              },
-              {
-                witch: timerMinutes < 20 ? Witch.coin : Witch.coins,
-                text: `Wenn du fertig wirst, *bevor die Zeit ausläuft*, dann kriegst du *${
-                  timerMinutes < 20 ? "eine Münze" : "zwei Münzen"
-                }* von mir! Sollte der Timer aber auslaufen, dann bin ich vor dir fertig mit dem Putzen und ich habe gewonnen!`,
-              },
+              { witch: Witch.hello , text: "Super! Machen wir eine **Herausforderung** daraus: Ich wette mit dir, ich bin schneller fertig als du!" },
+              { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `Wenn du fertig wirst, **bevor die Zeit ausläuft**, dann kriegst du **${timerMinutes < 20 ? "eine Münze" : "zwei Münzen"}** von mir! Sollte der Timer aber auslaufen, dann bin ich vor dir fertig mit dem Putzen und ich habe gewonnen!` },
             ],
             [HelpTypeInterface.homework]: [
-              {
-                witch: Witch.hello,
-                text: "Alles klar! Ich habe aber eine *Herausforderung* für dich: Ich wette, ich kann viel länger an meinen Hausaufgaben sitzen als du.",
-              },
-              {
-                witch: timerMinutes < 20 ? Witch.coin : Witch.coins,
-                text: `Wenn du so lange durchhältst, bis der Timer vorbei ist, dann bekommst du *${
-                  timerMinutes < 20 ? "eine Münze" : "zwei Münzen"
-                }* von mir. Solltest du aber aufgeben, bevor die Zeit rum ist, dann habe ich gewonnen!`,
-              },
+              { witch: Witch.hello , text: "Alles klar! Ich habe aber eine **Herausforderung** für dich: Ich wette, ich kann viel länger an meinen Hausaufgaben sitzen als du." },
+              { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `Wenn du so lange durchhältst, bis der Timer vorbei ist, dann bekommst du **${timerMinutes < 20 ? "eine Münze" : "zwei Münzen"}** von mir. Solltest du aber aufgeben, bevor die Zeit rum ist, dann habe ich gewonnen!` },
             ],
           }[helpType] as Messages,
         },
@@ -198,7 +164,7 @@ const App = () => {
               setPage(8);
             },
             onClickButton: (time: number) => {
-              addCoins(Math.ceil(time / 10));
+              addCoins(Math.floor(time / 10));
               setPage(7);
             },
             timerHeader: "",
@@ -210,7 +176,7 @@ const App = () => {
             doneButton: "Aufgeben",
             timerHeader: "",
             onTimeOver: (time: number) => {
-              addCoins(Math.ceil(time / 10));
+              addCoins(Math.floor(time / 10));
               setPage(7);
             },
             onClickButton: () => {
@@ -225,16 +191,10 @@ const App = () => {
           nextPage: () => setPage(9),
           messages: {
             [HelpTypeInterface.cleaning]: [
-              {
-                witch: Witch.hello,
-                text: "Sehr gut gemacht! Ich kann nicht glauben, dass du mich geschlagen hast… hier! Nimm deinen Preis, *du hast es verdient!*",
-              },
+              { witch: Witch.hello , text: "Sehr gut gemacht! Ich kann nicht glauben, dass du mich geschlagen hast… hier! Nimm deinen Preis, **du hast es verdient!**" },
             ],
             [HelpTypeInterface.homework]: [
-              {
-                witch: Witch.hello,
-                text: "Sehr gut gemacht! Ich kann nicht glauben, dass du mich geschlagen hast… hier! Nimm deinen Preis, *du hast es verdient!*",
-              },
+              { witch: Witch.hello , text: "Sehr gut gemacht! Ich kann nicht glauben, dass du mich geschlagen hast… hier! Nimm deinen Preis, **du hast es verdient!**" },
             ],
           }[helpType] as Messages,
         },
