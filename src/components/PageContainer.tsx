@@ -8,7 +8,7 @@ interface PageContainerProps {
 
 const PageContainer = ({ children, className }: PageContainerProps) => {
   const mergedClassName = twMerge(
-    "relative flex items-center justify-center min-h-screen",
+    "relative flex items-center justify-center h-full",
     className
   );
   return <div className={mergedClassName}>{children}</div>;
