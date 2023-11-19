@@ -1,14 +1,19 @@
 {
   "short_name": "HocusFocus",
-  "name": "HocusFocus",
+  "name": "Hocus Focus",
   "icons": [
     {
-      "src": "icons/icon-192.webp",
+      "src": "./icons/icon-192.webp",
       "sizes": "192x192",
-      "type": "image/webp"
+      "type": "image/png"
+    },
+    {
+      "src": "./icons/icon-512.webp",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "start_url": ".",
+  "start_url": "./",
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",

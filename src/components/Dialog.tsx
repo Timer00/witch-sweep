@@ -82,7 +82,7 @@ const Dialog = ({
           </div>
           {showButton ? (
             <Button
-              className="m-5 font-mono lg:border-black lg:text-black"
+              className="m-5 lg:border-black lg:text-black"
               onClick={nextPage}
             >
               {buttonText}
