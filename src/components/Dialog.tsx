@@ -55,6 +55,7 @@ const Dialog = ({
   };
 
   const currentMessage = messages[currentMessageNumber];
+  console.log({ messages,currentMessageNumber, currentMessage });
 
   return (
     <>

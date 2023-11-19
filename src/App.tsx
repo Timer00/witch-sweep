@@ -3,29 +3,28 @@ import Home, { type HomeProps } from "@/pages/Home.tsx";
 import Intro from "@/pages/Intro.tsx";
 import HowLong from "@/pages/HowLong.tsx";
 import TimerScreen, { type TimerScreenProps } from "@/pages/TimerScreen.tsx";
-import AreYouReady from "@/pages/AreYouReady.tsx";
-import WitchWon from "@/pages/WitchWon.tsx";
-import YouWon from "@/pages/YouWon.tsx";
 import WhatDoYouNeedHelpWith from "@/pages/WhatDoYouNeedHelpWith.tsx";
-import TimeMechanicExplanation from "@/pages/TimeMechanicExplanation.tsx";
 import Coins from "@/components/Coins.tsx";
 import useCoins from "@/hooks/useCoins.ts";
 import Info, { InfoButton } from "@/pages/Info.tsx";
 import SpendCoins from "@/pages/SpendCoins.tsx";
 import FullscreenDisclaimer from "@/pages/FullscreenDisclaimer.tsx";
+import Generic from "@/pages/Generic.tsx";
 
 export enum Witch {
   hello = "hello",
   sad = "sad",
   talk = "talk",
-  coin = "1",
-  coins = "2",
+  coin = "coin1",
+  coins = "coin2",
 }
 
 export type Messages = { witch: Witch; text: string }[];
 export interface PageProps {
   messages: Messages;
   nextPage: nextPage;
+  buttonText?: string;
+  hideNextButton?: boolean;
 }
 
 export type setPage = React.Dispatch<React.SetStateAction<number>>;
@@ -90,13 +89,14 @@ const App = () => {
           messages: {
             [HelpTypeInterface.cleaning]: [
               { witch: Witch.hello , text: "Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi!" },
-              { witch: Witch.sad , text: "Ich muss unbedingt mein Zimmer putzen, willst du mir dabei helfen? Es tut immer gut, Gesellschaft zu haben! Ich *putze, du räumst auf!*" },
-              { witch: Witch.talk , text: "*Wie lange wollen* wir denn gemeinsam aufräumen und putzen?" },
+              { witch: Witch.sad , text: "Ich muss unbedingt mein Zimmer putzen, willst du mir dabei helfen? Es tut immer gut, Gesellschaft zu haben! *Ich putze, du räumst auf!*" },
+              { witch: Witch.talk , text: "*Wie lange wollen wir denn gemeinsam aufräumen und putzen?*" },
             ],
             [HelpTypeInterface.homework]: [
               { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
-              { witch: Witch.sad , text: "In der Schule haben wir heute ganz viele neue Zaubersprüche gelernt… Jetzt muss ich einen Aufsatz über meinen Lieblingsspruch schreiben. Leiste mir doch *Gesellschaft beim Hausaufgaben machen!*" },
-              { witch: Witch.talk , text: "*Wie lange wollen wir zusammen Hausaufgaben machen*?" },
+              { witch: Witch.sad , text: "In der Schule haben wir heute ganz viele neue Zaubersprüche gelernt…" },
+              { witch: Witch.talk , text: "Jetzt muss ich einen Aufsatz über meinen Lieblingsspruch schreiben. Leiste mir doch *Gesellschaft beim Hausaufgaben machen!*" },
+              { witch: Witch.talk , text: "*Wie lange wollen wir zusammen Hausaufgaben machen?*" },
             ],
           }[helpType] as Messages,
         },
@@ -110,7 +110,7 @@ const App = () => {
         },
       },
       {
-        page: TimeMechanicExplanation,
+        page: Generic,
         props: {
           nextPage,
           description: "Time mechanic explanation.",
@@ -127,10 +127,9 @@ const App = () => {
         },
       },
       {
-        page: AreYouReady,
+        page: Generic,
         props: {
           nextPage,
-          hideNextButton: true,
           description: "Page asking if player is ready.",
           messages: {
             [HelpTypeInterface.cleaning]: [
@@ -178,10 +177,9 @@ const App = () => {
         }[helpType],
       },
       {
-        page: YouWon,
+        page: Generic,
         props: {
-          nextPage: () => setPage(0),
-          buttonText: "Zurück!",
+          nextPage: () => setPage(9),
           messages: {
             [HelpTypeInterface.cleaning]: [
               { witch: Witch.hello , text: "Sehr gut gemacht! Ich kann nicht glauben, dass du mich geschlagen hast… hier! Nimm deinen Preis, *du hast es verdient!*" },
@@ -193,10 +191,9 @@ const App = () => {
         },
       },
       {
-        page: WitchWon,
+        page: Generic,
         props: {
-          nextPage: () => setPage(0),
-          buttonText: "Zurück!",
+          nextPage: () => setPage(9),
           messages: {
             [HelpTypeInterface.cleaning]: [
               { witch: Witch.sad , text: "Schade! Jetzt bin ich vor dir fertig geworden… Naja, nächstes mal kann du mich bestimmt schlagen!" },
@@ -207,13 +204,29 @@ const App = () => {
           }[helpType] as Messages,
         },
       },
+      {
+        page: Generic,
+        props: {
+          nextPage: () => setPage(0),
+          hideNextButton: true,
+          buttonText: "Zurück!",
+          messages: {
+            [HelpTypeInterface.cleaning]: [
+              { witch: Witch.talk , text: "Danke, dass du mir Gesellschaft geleistet hast! Bis zum nächsten Mal!" },
+            ],
+            [HelpTypeInterface.homework]: [
+              { witch: Witch.talk , text: "Danke, dass du mir Gesellschaft geleistet hast! Bis zum nächsten Mal!" },
+            ],
+          }[helpType] as Messages,
+        },
+      },
     ],
   };
 
   const currentConfiguration = pageConfigurations.pages[page];
   const PageToShow = currentConfiguration.page;
 
-  console.log(page);
+  console.log(page, pageConfigurations);
 
   useEffect(() => console.log(showInfo), [showInfo]);
 
@@ -221,7 +234,7 @@ const App = () => {
     <div className="h-full w-full bg-black text-center">
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/*// @ts-ignore*/}
-      <PageToShow {...currentConfiguration.props} />
+      <PageToShow key={page} {...currentConfiguration.props} />
       <Coins
         pageIndex={page}
         amount={coins}
