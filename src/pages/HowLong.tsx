@@ -40,7 +40,7 @@ const HowLong = ({ setTimerMinutes, nextPage }: HowLongProps) => {
       <DialogBox>
         <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-10">
           <div
-            onClick={() => setHowLong(1)}
+            onClick={() => setHowLong(10)}
             className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-amber-600"
           >
             <span className="text-center">10:00</span>
