@@ -11,22 +11,20 @@ export interface HomeProps extends Omit<PageProps, "messages"> {
   setPlayerName: (name: string) => void;
 }
 
-const localUsername = localStorage.getItem('username');
-
 const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
   const [username, setUsername] = useState<string>(()=>{
-    console.log(localUsername);
-    if (localUsername)
-      return localUsername;
+    const localName = localStorage.getItem('username')
+    if (localName)
+      return localName
     else
-      return "";
+      return ""
   });
   const videoRef = useRef<HTMLVideoElement>(null);
   const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
   const handleStart = () => {
     setPlayerName(username);
-    void localUsername !== username && localStorage.setItem('username', username);
+    localStorage.setItem('username', username);
     nextPage();
   };
 

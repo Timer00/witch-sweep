@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Home, { type HomeProps } from "@/pages/Home.tsx";
 import Intro from "@/pages/Intro.tsx";
 import HowLong from "@/pages/HowLong.tsx";
@@ -246,10 +246,6 @@ const App = () => {
 
   const currentConfiguration = pageConfigurations.pages[page];
   const PageToShow = currentConfiguration.page;
-
-  console.log(page, pageConfigurations);
-
-  useEffect(() => console.log(showInfo), [showInfo]);
 
   return (
     <div className="flex h-full w-full items-center justify-center bg-black">

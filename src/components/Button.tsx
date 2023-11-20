@@ -21,8 +21,6 @@ const Button = ({
     className
   );
 
-  console.log(mergedClassName);
-
   return (
     <button
       type="button"
