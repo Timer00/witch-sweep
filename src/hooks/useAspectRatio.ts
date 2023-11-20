@@ -45,6 +45,7 @@ const useAspectRatio: UseAspectRatio = (width, height) => {
     };
 
     window.addEventListener("resize", updateSize);
+    window.addEventListener("orientationchange", updateSize);
     updateSize(); // Calculate initial dimensions
 
     // Cleanup
