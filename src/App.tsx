@@ -54,7 +54,7 @@ const App = () => {
   const [showCoinSpend, setShowCoinSpend] = useState(false);
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
-  const [, setPlayerName] = useState<string>("");
+  const [playerName, setPlayerName] = useState<string>("");
   const [helpType, setHelpType] = useState<HelpTypeInterface>(
     HelpTypeInterface.cleaning
   );
@@ -97,13 +97,13 @@ const App = () => {
           nextPage,
           messages: {
             [HelpTypeInterface.cleaning]: [
-              { witch: Witch.hello , text: "Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi!" },
-              { witch: Witch.sad , text: "Ich muss unbedingt mein Zimmer putzen, willst du mir dabei helfen? Es tut immer gut, Gesellschaft zu haben! **Ich putze, du räumst auf!**" },
-              { witch: Witch.talk , text: "**Wie lange wollen wir denn gemeinsam aufräumen und putzen?**" },
+              { witch: Witch.hello , text: `Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi${playerName ? ` ${playerName}` : ""}!` },
+              { witch: Witch.sad , text: "Ich muss unbedingt mein Zimmer putzen, willst du mir dabei helfen? Es tut immer gut, Gesellschaft zu haben! **Lass uns zusammen aufräumen und putzen!**" },
+              { witch: Witch.talk , text: "**Wie lange wollen wir gemeinsam aufräumen und putzen?**" },
             ],
             [HelpTypeInterface.homework]: [
-              { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
-              { witch: Witch.sad , text: "In der Schule haben wir heute ganz viele neue Zaubersprüche gelernt…" },
+              { witch: Witch.hello , text: `Hi${playerName ? ` ${playerName}` : ""}! Schön dass du da bist!` },
+              { witch: Witch.sad , text: "In der Schule haben wir heute einige neue Zaubersprüche gelernt…" },
               { witch: Witch.talk , text: "Jetzt muss ich einen Aufsatz über meinen Lieblingsspruch schreiben. Leiste mir doch **Gesellschaft beim Hausaufgaben machen!**" },
               { witch: Witch.talk , text: "**Wie lange wollen wir zusammen Hausaufgaben machen?**" },
             ],
@@ -126,7 +126,7 @@ const App = () => {
           messages: {
             [HelpTypeInterface.cleaning]: [
               { witch: Witch.hello , text: "Super! Machen wir eine **Herausforderung** daraus: Ich wette mit dir, ich bin schneller fertig als du!" },
-              { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `Wenn du fertig wirst, **bevor die Zeit ausläuft**, dann kriegst du **${timerMinutes < 20 ? "eine Münze" : "zwei Münzen"}** von mir! Sollte der Timer aber auslaufen, dann bin ich vor dir fertig mit dem Putzen und ich habe gewonnen!` },
+              { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `Wenn du fertig wirst, **bevor die Zeit ausläuft**, dann kriegst du **${timerMinutes < 20 ? "eine Münze" : "zwei Münzen"}** von mir! Sollte der Timer aber auslaufen, dann habe ich gewonnen!` },
             ],
             [HelpTypeInterface.homework]: [
               { witch: Witch.hello , text: "Alles klar! Ich habe aber eine **Herausforderung** für dich: Ich wette, ich kann viel länger an meinen Hausaufgaben sitzen als du." },
@@ -191,10 +191,10 @@ const App = () => {
           nextPage: () => setPage(9),
           messages: {
             [HelpTypeInterface.cleaning]: [
-              { witch: Witch.hello , text: "Sehr gut gemacht! Ich kann nicht glauben, dass du mich geschlagen hast… hier! Nimm deinen Preis, **du hast es verdient!**" },
+              { witch: Witch.hello , text: "Sehr gut gemacht! Ich kann nicht glauben, dass du mich geschlagen hast… Hier ist dein Preis, **du hast ihn verdient!**" },
             ],
             [HelpTypeInterface.homework]: [
-              { witch: Witch.hello , text: "Sehr gut gemacht! Ich kann nicht glauben, dass du mich geschlagen hast… hier! Nimm deinen Preis, **du hast es verdient!**" },
+              { witch: Witch.hello , text: "Sehr gut gemacht! Ich kann nicht glauben, dass du mich geschlagen hast… Hier ist dein Preis, **du hast ihn verdient!**" },
             ],
           }[helpType] as Messages,
         },
@@ -207,13 +207,13 @@ const App = () => {
             [HelpTypeInterface.cleaning]: [
               {
                 witch: Witch.sad,
-                text: "Schade! Jetzt bin ich vor dir fertig geworden… Naja, nächstes mal kann du mich bestimmt schlagen!",
+                text: "Schade! Jetzt habe ich gewonnen… Naja, nächstes Mal kann du mich bestimmt schlagen!",
               },
             ],
             [HelpTypeInterface.homework]: [
               {
                 witch: Witch.sad,
-                text: "Schade! Jetzt bin ich vor dir fertig geworden… Naja, nächstes mal kann du mich bestimmt schlagen!",
+                text: "Schade! Jetzt habe ich gewonnen… Naja, nächstes Mal kann du mich bestimmt schlagen!",
               },
             ],
           }[helpType] as Messages,
@@ -229,13 +229,13 @@ const App = () => {
             [HelpTypeInterface.cleaning]: [
               {
                 witch: Witch.talk,
-                text: "Danke, dass du mir Gesellschaft geleistet hast! Bis zum nächsten Mal!",
+                text: `Danke, dass du mir Gesellschaft geleistet hast! Bis zum nächsten Mal${playerName ? `, ${playerName}` : ""}!`,
               },
             ],
             [HelpTypeInterface.homework]: [
               {
                 witch: Witch.talk,
-                text: "Danke, dass du mir Gesellschaft geleistet hast! Bis zum nächsten Mal!",
+                text: `Danke, dass du mir Gesellschaft geleistet hast! Bis zum nächsten Mal${playerName ? `, ${playerName}` : ""}!`,
               },
             ],
           }[helpType] as Messages,
