@@ -54,7 +54,7 @@ const App = () => {
   const [showCoinSpend, setShowCoinSpend] = useState(false);
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
-  const [, setPlayerName] = useState<string>("");
+  const [playerName, setPlayerName] = useState<string>("");
   const [helpType, setHelpType] = useState<HelpTypeInterface>(
     HelpTypeInterface.cleaning
   );
@@ -97,12 +97,12 @@ const App = () => {
           nextPage,
           messages: {
             [HelpTypeInterface.cleaning]: [
-              { witch: Witch.hello , text: "Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi!" },
+              { witch: Witch.hello , text: `Meine Zaubersprüche machen immer so einen Dreck! ... Oh, hi${playerName ? ` ${playerName}` : ""}!` },
               { witch: Witch.sad , text: "Ich muss unbedingt mein Zimmer putzen, willst du mir dabei helfen? Es tut immer gut, Gesellschaft zu haben! **Lass uns zusammen aufräumen und putzen!**" },
               { witch: Witch.talk , text: "**Wie lange wollen wir gemeinsam aufräumen und putzen?**" },
             ],
             [HelpTypeInterface.homework]: [
-              { witch: Witch.hello , text: "Hi! Schön dass du da bist!" },
+              { witch: Witch.hello , text: `Hi${playerName ? ` ${playerName}` : ""}! Schön dass du da bist!` },
               { witch: Witch.sad , text: "In der Schule haben wir heute einige neue Zaubersprüche gelernt…" },
               { witch: Witch.talk , text: "Jetzt muss ich einen Aufsatz über meinen Lieblingsspruch schreiben. Leiste mir doch **Gesellschaft beim Hausaufgaben machen!**" },
               { witch: Witch.talk , text: "**Wie lange wollen wir zusammen Hausaufgaben machen?**" },
@@ -229,13 +229,13 @@ const App = () => {
             [HelpTypeInterface.cleaning]: [
               {
                 witch: Witch.talk,
-                text: "Danke, dass du mir Gesellschaft geleistet hast! Bis zum nächsten Mal!",
+                text: `Danke, dass du mir Gesellschaft geleistet hast! Bis zum nächsten Mal${playerName ? `, ${playerName}` : ""}!`,
               },
             ],
             [HelpTypeInterface.homework]: [
               {
                 witch: Witch.talk,
-                text: "Danke, dass du mir Gesellschaft geleistet hast! Bis zum nächsten Mal!",
+                text: `Danke, dass du mir Gesellschaft geleistet hast! Bis zum nächsten Mal${playerName ? `, ${playerName}` : ""}!`,
               },
             ],
           }[helpType] as Messages,
