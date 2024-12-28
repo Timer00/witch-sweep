@@ -1,6 +1,5 @@
 import { LegalIcon } from "@/assets/icons/LegalIcon";
 import FullScreen from "@/components/FullScreen";
-import Markdown from "react-markdown";
 
 interface LegalInfoButtonProps {
   pageIndex: number;
