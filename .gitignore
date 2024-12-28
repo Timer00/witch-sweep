@@ -60,3 +60,5 @@ dist-ssr
 *.sw?
 .eslintcache
 yarn.lock
+.aider*
+.env

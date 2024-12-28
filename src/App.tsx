@@ -7,6 +7,7 @@ import WhatDoYouNeedHelpWith from "@/pages/WhatDoYouNeedHelpWith.tsx";
 import Coins from "@/components/Coins.tsx";
 import useCoins from "@/hooks/useCoins.ts";
 import Info, { InfoButton } from "@/pages/Info.tsx";
+import LegalInfo, { LegalInfoButton } from "@/components/LegalInfo";
 import SpendCoins from "@/pages/SpendCoins.tsx";
 import FullscreenDisclaimer from "@/pages/FullscreenDisclaimer.tsx";
 import Generic from "@/pages/Generic.tsx";
@@ -51,6 +52,7 @@ const App = () => {
   const { width, height } = useAspectRatio(1920, 1080);
 
   const [showInfo, setShowInfo] = useState(false);
+  const [showLegalInfo, setShowLegalInfo] = useState(false);
   const [showCoinSpend, setShowCoinSpend] = useState(false);
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
@@ -262,8 +264,10 @@ const App = () => {
           onClick={() => setShowCoinSpend(true)}
         />
         <InfoButton pageIndex={page} onClick={() => setShowInfo(true)} />
+        <LegalInfoButton pageIndex={page} onClick={() => setShowLegalInfo(true)} />
       </div>
       {showInfo && <Info onClose={() => setShowInfo(false)} />}
+      {showLegalInfo && <LegalInfo onClose={() => setShowLegalInfo(false)} />}
       {showCoinSpend && <SpendCoins onClose={() => setShowCoinSpend(false)} />}
       {isMobile() && <FullscreenDisclaimer />}
     </div>

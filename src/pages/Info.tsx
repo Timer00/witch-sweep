@@ -72,7 +72,7 @@ const faqs = [
     question: "WAS GIBT ES NOCH ZU BEACHTEN?",
     answer:
       "Es ist wichtig, dass Ihr Kind das Belohnungssystem versteht und dass es ansprechend ist. Bieten Sie verschiedene Belohnungsoptionen an, um das Interesse aufrechtzuerhalten. Prüfen Sie die Belohnungen immer auf Praktikabilität, damit keine falschen Versprechen entstehen! Konsequenz ist der Schlüssel: Belohnen Sie stets, selbst wenn Sie müde oder gestresst sind und achten Sie stets auf eine gute Beziehung zu Ihrem Kind; die Bindung zwischen Ihnen beiden ist unerlässlich.",
-  },
+  }
 ];
 
 interface InfoProps {
