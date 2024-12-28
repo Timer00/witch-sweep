@@ -8,7 +8,7 @@ interface InfoButtonProps {
 }
 
 export const InfoButton = ({ pageIndex, onClick }: InfoButtonProps) => (
-  <button onClick={onClick} className="z-2 absolute left-32 top-[-16px] m-4">
+  <button onClick={onClick} className="z-2 absolute right-4 top-[-16px] m-4">
     <div className="flex items-center space-x-1 p-2 text-white underline underline-offset-[5px]">
       { pageIndex === 0 &&
           <span className="text-xs font-semibold text-white">
