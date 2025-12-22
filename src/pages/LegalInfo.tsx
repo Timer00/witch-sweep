@@ -123,6 +123,27 @@ const legalInfo = [
       </div>
     ),
   },
+  {
+    title: "SOURCES",
+    content: (
+      <div className="prose prose-headings:mb-2 prose-headings:font-bold prose-p:mb-4">
+        <p>
+          Patati
+          <br />
+          Patati's ipad
+          <br />
+          Patati's macbook
+          <br />
+          Patati's iphone
+          <br />
+          Patati's 2 braincells
+          <br />
+          Patati's boyfremdo
+          <br />
+        </p>
+      </div>
+    ),
+  },
 ];
 
 interface LegalInfoProps {
