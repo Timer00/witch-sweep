@@ -111,6 +111,18 @@ const legalInfo = [
       </div>
     ),
   },
+  {
+    title: "CREDITS",
+    content: (
+      <div className="prose prose-headings:mb-2 prose-headings:font-bold prose-p:mb-4">
+        <p>
+          Programmierung: Theo Carrara
+          <br />
+          Design und Animation: Muriel Antoun
+        </p>
+      </div>
+    ),
+  },
 ];
 
 interface LegalInfoProps {
