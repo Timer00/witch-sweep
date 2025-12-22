@@ -5,7 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import DialogBox from "@/components/DialogBox.tsx";
 import { type PageProps, Witch } from "@/App.tsx";
 import Button from "@/components/Button.tsx";
-import { witch1Coin, witch2Coin, witchHello, witchSad, witchTalk } from "@/assets"; //highlight-line
+import {
+  witch1Coin,
+  witch2Coin,
+  witchHello,
+  witchSad,
+  witchTalk,
+} from "@/assets"; //highlight-line
 
 export interface DialogProps extends PageProps {
   hideNextButton?: boolean;
@@ -28,7 +34,7 @@ const Dialog = ({
     [Witch.sad]: witchSad,
     [Witch.coin]: witch1Coin,
     [Witch.coins]: witch2Coin,
-  })
+  });
 
   useEffect(() => {
     if (buttonText.length !== 0 && hideNextButton) {
@@ -70,7 +76,9 @@ const Dialog = ({
         <div className="mb-4 text-center text-xl font-bold lg:text-3xl">
           {"Anabella Declutter"}
         </div>
-        <div className={`flex gap-3 lg:flex-col ${showButton ? "flex-col" : ""}`}>
+        <div
+          className={`flex gap-3 lg:flex-col ${showButton ? "flex-col" : ""}`}
+        >
           <Message message={currentMessage.text} key={currentMessageNumber} />
           <div
             onClick={handleClick}
@@ -93,7 +101,6 @@ const Dialog = ({
         </div>
       </DialogBox>
     </>
-
   );
 };
 export default Dialog;

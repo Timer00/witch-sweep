@@ -12,19 +12,17 @@ export interface HomeProps extends Omit<PageProps, "messages"> {
 }
 
 const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
-  const [username, setUsername] = useState<string>(()=>{
-    const localName = localStorage.getItem('username')
-    if (localName)
-      return localName
-    else
-      return ""
+  const [username, setUsername] = useState<string>(() => {
+    const localName = localStorage.getItem("username");
+    if (localName) return localName;
+    else return "";
   });
   const videoRef = useRef<HTMLVideoElement>(null);
   const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
 
   const handleStart = () => {
     setPlayerName(username);
-    localStorage.setItem('username', username);
+    localStorage.setItem("username", username);
     nextPage();
   };
 
@@ -35,7 +33,7 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
 
   return (
     <PageContainer>
-      <Video videoRef={videoRef} videoProps={videoProps} loading={loading}/>
+      <Video videoRef={videoRef} videoProps={videoProps} loading={loading} />
       <div className="z-2 relative lg:pt-36">
         <div className="flex flex-col text-white">
           <div className="gameTitle flex items-center justify-center">

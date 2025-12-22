@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import FullScreen from "@/components/FullScreen.tsx";
 
 const FullscreenDisclaimer = () => {
-  const [isPortrait, setIsPortrait] = useState(window.matchMedia("(orientation: portrait)").matches);
+  const [isPortrait, setIsPortrait] = useState(
+    window.matchMedia("(orientation: portrait)").matches
+  );
 
   useEffect(() => {
     const handleOrientationChange = (e: MediaQueryListEvent) => {
@@ -18,7 +20,7 @@ const FullscreenDisclaimer = () => {
   }, []);
 
   const goFullScreen = async () => {
-    console.log('Go fullscreen');
+    console.log("Go fullscreen");
     await document.documentElement.requestFullscreen();
   };
 
@@ -32,10 +34,15 @@ const FullscreenDisclaimer = () => {
   }
 
   return (
-    <FullScreen onClose={() => 'void'} hideCloseButton>
-      <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-800 text-amber-50" onClick={handleBannerClick}>
+    <FullScreen onClose={() => "void"} hideCloseButton>
+      <div
+        className="flex h-full w-full flex-col items-center justify-center bg-gray-800 p-4 text-amber-50"
+        onClick={handleBannerClick}
+      >
         <div>Diese Seite funktioniert nur im Querformat.</div>
-        <h2 className="font-bold text-xl border border-amber-50 p-2 mt-2">Bitte drehen Sie ihr Gerät, um die Seite zu nutzen!</h2>
+        <h2 className="mt-2 border border-amber-50 p-2 text-xl font-bold">
+          Bitte drehen Sie ihr Gerät, um die Seite zu nutzen!
+        </h2>
       </div>
     </FullScreen>
   );

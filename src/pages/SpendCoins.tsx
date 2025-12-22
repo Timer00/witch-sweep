@@ -16,11 +16,11 @@ const SpendCoins = ({ onClose }: SpendCoinsProps) => {
 
   return (
     <FullScreen onClose={onClose}>
-      <div className="center h-full">
-        <div className="center flex-col w-1/5">
-          <div className="mb-4 text-lg text-center">Deine Münzen: {coins}</div>
+      <div className="center h-full text-black">
+        <div className="center w-1/5 flex-col">
+          <div className="mb-4 text-center text-lg">Deine Münzen: {coins}</div>
           <button
-            className="w-full mb-4 rounded bg-amber-400 px-6 py-3 text-white hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-200"
+            className="mb-4 w-full rounded bg-amber-400 px-6 py-3 text-white hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-200"
             onClick={handleSpendClick}
           >
             Ausgeben
@@ -31,7 +31,7 @@ const SpendCoins = ({ onClose }: SpendCoinsProps) => {
             max={coins}
             value={spendAmount}
             onChange={(e) => setSpendAmount(parseInt(e.target.value))}
-            className="h-2 w-full accent-black cursor-pointer appearance-none rounded-lg dark:bg-amber-200"
+            className="h-2 w-full cursor-pointer appearance-none rounded-lg accent-black dark:bg-amber-200"
           />
           <div className="mt-2 text-center">Menge: {spendAmount}</div>
         </div>

@@ -120,7 +120,7 @@ interface LegalInfoProps {
 const LegalInfo = ({ onClose }: LegalInfoProps) => {
   return (
     <FullScreen onClose={onClose}>
-      <div className="h-full w-full overflow-y-scroll px-8">
+      <div className="h-full w-full overflow-y-scroll px-8 text-black">
         <h1 className="center mb-4 text-2xl font-bold">
           RECHTLICHE INFORMATIONEN
         </h1>

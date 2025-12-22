@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 type Coins = number;
 
@@ -9,7 +9,9 @@ interface CoinsContextValue {
 
 const defaultCoinAmount = 0;
 
-export const CoinsContext = createContext<CoinsContextValue | undefined>(undefined);
+export const CoinsContext = createContext<CoinsContextValue | undefined>(
+  undefined
+);
 
 interface CoinsProviderProps {
   children: React.ReactNode;
@@ -26,7 +28,7 @@ export const CoinsProvider: React.FC<CoinsProviderProps> = ({ children }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem('coins', coins.toString());
+    localStorage.setItem("coins", coins.toString());
   }, [coins]);
 
   return (
@@ -39,7 +41,7 @@ export const CoinsProvider: React.FC<CoinsProviderProps> = ({ children }) => {
 export const useCoinsContext = () => {
   const context = useContext(CoinsContext);
   if (!context) {
-    throw new Error('useCoinsContext must be used within a CoinsProvider');
+    throw new Error("useCoinsContext must be used within a CoinsProvider");
   }
   return context;
 };

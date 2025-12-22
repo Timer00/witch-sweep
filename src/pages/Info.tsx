@@ -10,12 +10,12 @@ interface InfoButtonProps {
 export const InfoButton = ({ pageIndex, onClick }: InfoButtonProps) => (
   <button onClick={onClick} className="z-2 absolute left-32 top-[-16px] m-4">
     <div className="flex items-center space-x-1 p-2 text-white underline underline-offset-[5px]">
-      { pageIndex === 0 &&
-          <span className="text-xs font-semibold text-white">
-            {"wichtig "}
-          </span>
-      }
-      <span className="text-lg font-semibold text-white"><InfoIcon/></span>
+      {pageIndex === 0 && (
+        <span className="text-xs font-semibold text-white">{"wichtig "}</span>
+      )}
+      <span className="text-lg font-semibold text-white">
+        <InfoIcon />
+      </span>
     </div>
   </button>
 );
@@ -72,7 +72,7 @@ const faqs = [
     question: "WAS GIBT ES NOCH ZU BEACHTEN?",
     answer:
       "Es ist wichtig, dass Ihr Kind das Belohnungssystem versteht und dass es ansprechend ist. Bieten Sie verschiedene Belohnungsoptionen an, um das Interesse aufrechtzuerhalten. Prüfen Sie die Belohnungen immer auf Praktikabilität, damit keine falschen Versprechen entstehen! Konsequenz ist der Schlüssel: Belohnen Sie stets, selbst wenn Sie müde oder gestresst sind und achten Sie stets auf eine gute Beziehung zu Ihrem Kind; die Bindung zwischen Ihnen beiden ist unerlässlich.",
-  }
+  },
 ];
 
 interface InfoProps {
@@ -82,8 +82,8 @@ interface InfoProps {
 const Info = ({ onClose }: InfoProps) => {
   return (
     <FullScreen onClose={onClose}>
-      <div className=" px-8 w-full h-full overflow-y-scroll">
-        <h1 className="mb-4 text-2xl font-bold center">
+      <div className=" h-full w-full overflow-y-scroll px-8 text-black">
+        <h1 className="center mb-4 text-2xl font-bold">
           WICHTIGE INFORMATIONEN FÜR ERZIEHUNGSBERECHTIGE
         </h1>
         {faqs.map((faq, index) => (

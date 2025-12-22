@@ -16,6 +16,10 @@ const Message = ({ message }: { message: string }) => {
   //   [message],
   // );
 
-  return <div><Markdown>{message}</Markdown></div>;
+  return (
+    <div>
+      <Markdown>{message}</Markdown>
+    </div>
+  );
 };
 export default Message;
