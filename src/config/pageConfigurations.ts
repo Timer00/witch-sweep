@@ -62,6 +62,7 @@ function createPageConfigurations({
           nextPage,
           setPlayerName,
           startButton: "Start!",
+          openInfo,
         } as HomeProps,
       },
       {
