@@ -15,7 +15,7 @@ export const InfoButton = ({ pageIndex, onClick }: InfoButtonProps) => {
   return (
     <button onClick={onClick} className="z-2 absolute left-32 top-[-16px] m-4">
       <div className="flex items-center space-x-1 p-2 text-white underline underline-offset-[5px]">
-        {pageIndex === 1 && (
+        {pageIndex === null && (
           <span className="text-2xs font-semibold text-white">
             {"Wie nutze ich HocusFocus? "}
           </span>

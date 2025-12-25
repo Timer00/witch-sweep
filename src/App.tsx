@@ -87,7 +87,7 @@ const App = () => {
           amount={coins}
           onClick={() => setShowCoinSpend(true)}
         />
-        <InfoButton pageIndex={0} onClick={() => setShowInfo(true)} />
+        <InfoButton pageIndex={page} onClick={() => setShowInfo(true)} />
         <LegalInfoButton pageIndex={0} onClick={() => setShowLegalInfo(true)} />
       </div>
       {showInfo && <Info onClose={() => setShowInfo(false)} />}
