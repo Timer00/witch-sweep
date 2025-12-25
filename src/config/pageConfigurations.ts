@@ -20,6 +20,7 @@ export interface PageConfigurationDependencies {
   openStore: () => void;
   openInfo: () => void;
   openLegal: () => void;
+  setIsInHomeView: (isInHomeView: boolean) => void;
 }
 
 function createPageConfigurations({
@@ -29,6 +30,7 @@ function createPageConfigurations({
   openStore,
   openInfo,
   openLegal,
+  setIsInHomeView,
   playerName,
   helpType,
   timerMinutes,
@@ -54,6 +56,7 @@ function createPageConfigurations({
           openInfo,
           openLegal,
           setPlayerName,
+          setIsInHomeView,
           startButton: "Start!",
         } as GameMenuProps,
       },
@@ -279,7 +282,8 @@ export function useGameState(
   addCoins: (amount: number) => void,
   openStore: () => void,
   openInfo: () => void,
-  openLegal: () => void
+  openLegal: () => void,
+  setIsInHomeView: (isInHomeView: boolean) => void
 ) {
   const [playerName, setPlayerName] = useState<string>("");
   const [helpType, setHelpType] = useState<HelpTypeInterface>(
@@ -309,6 +313,7 @@ export function useGameState(
       openStore,
       openInfo,
       openLegal,
+      setIsInHomeView,
       playerName,
       helpType,
       timerMinutes,
@@ -325,6 +330,7 @@ export function useGameState(
     openStore,
     openInfo,
     openLegal,
+    setIsInHomeView,
     playerName,
     helpType,
     timerMinutes,

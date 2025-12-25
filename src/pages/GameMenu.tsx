@@ -12,6 +12,7 @@ export interface GameMenuProps {
   openInfo: () => void;
   openLegal: () => void;
   setPlayerName: (name: string) => void;
+  setIsInHomeView: (isInHomeView: boolean) => void;
   startButton: string;
 }
 
@@ -156,6 +157,7 @@ const GameMenu = ({
   openInfo,
   openLegal,
   setPlayerName,
+  setIsInHomeView,
   startButton,
 }: GameMenuProps) => {
   const [currentView, setCurrentView] = useState<ViewType>("menu");
@@ -167,6 +169,10 @@ const GameMenu = ({
     switchVideo(castleLoop);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setIsInHomeView(currentView === "home");
+  }, [currentView, setIsInHomeView]);
 
   const handleStartMenuClick = () => {
     setCurrentView("home");

@@ -7,6 +7,7 @@ import SpendCoins from "@/pages/SpendCoins.tsx";
 import FullscreenDisclaimer from "@/pages/FullscreenDisclaimer.tsx";
 import useAspectRatio from "@/hooks/useAspectRatio.ts";
 import { useGameState } from "@/config/pageConfigurations.ts";
+import MainMenuButton from "@/components/MainMenuButton.tsx";
 
 function isMobile() {
   let check = false;
@@ -61,17 +62,26 @@ const App = () => {
   const [showCoinSpend, setShowCoinSpend] = useState(false);
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
+  const [isInHomeView, setIsInHomeView] = useState<boolean>(false);
 
   const { pageConfigurations } = useGameState(
     setPage,
     addCoins,
     () => setShowCoinSpend(true),
     () => setShowInfo(true),
-    () => setShowLegalInfo(true)
+    () => setShowLegalInfo(true),
+    setIsInHomeView
   );
 
   const currentConfiguration = pageConfigurations.pages[page];
   const PageToShow = currentConfiguration.page;
+
+  // Reset home view state when navigating away from page 0
+  React.useEffect(() => {
+    if (page !== 0) {
+      setIsInHomeView(false);
+    }
+  }, [page]);
 
   return (
     <div className="flex h-full w-full items-center justify-center bg-black text-white">
@@ -82,6 +92,17 @@ const App = () => {
         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/*// @ts-ignore*/}
         <PageToShow key={page} {...currentConfiguration.props} />
+        <MainMenuButton
+          pageIndex={page}
+          isInHomeView={isInHomeView}
+          onClick={() => {
+            setShowInfo(false);
+            setShowLegalInfo(false);
+            setShowCoinSpend(false);
+            setIsInHomeView(false);
+            setPage(0);
+          }}
+        />
         <Coins
           pageIndex={page + 1}
           amount={coins}

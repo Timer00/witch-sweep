@@ -8,7 +8,7 @@ interface CoinsProps {
 
 const Coins = ({ pageIndex, amount, onClick }: CoinsProps) => {
   return (
-    <div onClick={onClick} className="absolute right-32 top-[-16px] m-4">
+    <div onClick={onClick} className="absolute right-0 top-0">
       <div className="flex items-center space-x-1 p-2">
         {pageIndex === 0 && (
           <span className="w-[100px] text-xs font-semibold text-white">
