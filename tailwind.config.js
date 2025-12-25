@@ -13,6 +13,9 @@ module.exports = {
       fontFamily: {
         pixel: "3by3",
       },
+      fontSize: {
+        "2xs": "0.625rem",
+      },
     },
   },
   plugins: [typography],
