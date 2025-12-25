@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+import React, { useState, useMemo, useCallback, useRef } from "react";
 import GameMenu, { type GameMenuProps } from "@/pages/GameMenu.tsx";
 import Intro from "@/pages/Intro.tsx";
 import HowLong from "@/pages/HowLong.tsx";
@@ -21,6 +21,7 @@ export interface PageConfigurationDependencies {
   openInfo: () => void;
   openLegal: () => void;
   setIsInHomeView: (isInHomeView: boolean) => void;
+  resetGameMenuRef?: React.MutableRefObject<(() => void) | null>;
 }
 
 function createPageConfigurations({
@@ -31,6 +32,7 @@ function createPageConfigurations({
   openInfo,
   openLegal,
   setIsInHomeView,
+  resetGameMenuRef,
   playerName,
   helpType,
   timerMinutes,
@@ -57,6 +59,7 @@ function createPageConfigurations({
           openLegal,
           setPlayerName,
           setIsInHomeView,
+          resetToMenuRef: resetGameMenuRef,
           startButton: "Start!",
         } as GameMenuProps,
       },
@@ -283,7 +286,8 @@ export function useGameState(
   openStore: () => void,
   openInfo: () => void,
   openLegal: () => void,
-  setIsInHomeView: (isInHomeView: boolean) => void
+  setIsInHomeView: (isInHomeView: boolean) => void,
+  resetGameMenuRef?: React.MutableRefObject<(() => void) | null>
 ) {
   const [playerName, setPlayerName] = useState<string>("");
   const [helpType, setHelpType] = useState<HelpTypeInterface>(
@@ -314,6 +318,7 @@ export function useGameState(
       openInfo,
       openLegal,
       setIsInHomeView,
+      resetGameMenuRef,
       playerName,
       helpType,
       timerMinutes,
@@ -331,6 +336,7 @@ export function useGameState(
     openInfo,
     openLegal,
     setIsInHomeView,
+    resetGameMenuRef,
     playerName,
     helpType,
     timerMinutes,

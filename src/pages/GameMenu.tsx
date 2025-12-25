@@ -13,6 +13,7 @@ export interface GameMenuProps {
   openLegal: () => void;
   setPlayerName: (name: string) => void;
   setIsInHomeView: (isInHomeView: boolean) => void;
+  resetToMenuRef?: React.MutableRefObject<(() => void) | null>;
   startButton: string;
 }
 
@@ -158,6 +159,7 @@ const GameMenu = ({
   openLegal,
   setPlayerName,
   setIsInHomeView,
+  resetToMenuRef,
   startButton,
 }: GameMenuProps) => {
   const [currentView, setCurrentView] = useState<ViewType>("menu");
@@ -173,6 +175,21 @@ const GameMenu = ({
   useEffect(() => {
     setIsInHomeView(currentView === "home");
   }, [currentView, setIsInHomeView]);
+
+  // Expose reset function via ref
+  useEffect(() => {
+    if (resetToMenuRef) {
+      resetToMenuRef.current = () => {
+        setCurrentView("menu");
+      };
+    }
+    // Cleanup: clear ref when component unmounts
+    return () => {
+      if (resetToMenuRef) {
+        resetToMenuRef.current = null;
+      }
+    };
+  }, [resetToMenuRef]);
 
   const handleStartMenuClick = () => {
     setCurrentView("home");

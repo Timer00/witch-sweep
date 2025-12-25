@@ -63,6 +63,7 @@ const App = () => {
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
   const [isInHomeView, setIsInHomeView] = useState<boolean>(false);
+  const resetGameMenuRef = React.useRef<(() => void) | null>(null);
 
   const { pageConfigurations } = useGameState(
     setPage,
@@ -70,7 +71,8 @@ const App = () => {
     () => setShowCoinSpend(true),
     () => setShowInfo(true),
     () => setShowLegalInfo(true),
-    setIsInHomeView
+    setIsInHomeView,
+    resetGameMenuRef
   );
 
   const currentConfiguration = pageConfigurations.pages[page];
@@ -100,6 +102,10 @@ const App = () => {
             setShowLegalInfo(false);
             setShowCoinSpend(false);
             setIsInHomeView(false);
+            // Reset GameMenu to menu view before navigating
+            if (resetGameMenuRef.current) {
+              resetGameMenuRef.current();
+            }
             setPage(0);
           }}
         />
