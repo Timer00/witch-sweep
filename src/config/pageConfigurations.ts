@@ -1,6 +1,5 @@
 import { useState, useMemo, useCallback, useRef } from "react";
 import GameMenu, { type GameMenuProps } from "@/pages/GameMenu.tsx";
-import Home, { type HomeProps } from "@/pages/Home.tsx";
 import Intro from "@/pages/Intro.tsx";
 import HowLong from "@/pages/HowLong.tsx";
 import TimerScreen, { type TimerScreenProps } from "@/pages/TimerScreen.tsx";
@@ -54,16 +53,9 @@ function createPageConfigurations({
           openStore,
           openInfo,
           openLegal,
-        } as GameMenuProps,
-      },
-      {
-        page: Home,
-        props: {
-          nextPage,
           setPlayerName,
           startButton: "Start!",
-          openInfo,
-        } as HomeProps,
+        } as GameMenuProps,
       },
       {
         page: WhatDoYouNeedHelpWith,
@@ -188,11 +180,11 @@ function createPageConfigurations({
             helpType: helpType,
             doneButton: "Fertig!",
             onTimeOver: () => {
-              setPage(9);
+              setPage(8);
             },
             onClickButton: (time: number) => {
               addCoins(Math.floor(time / 10));
-              setPage(8);
+              setPage(7);
             },
             timerHeader: "",
           } as TimerScreenProps,
@@ -204,10 +196,10 @@ function createPageConfigurations({
             timerHeader: "",
             onTimeOver: (time: number) => {
               addCoins(Math.floor(time / 10));
-              setPage(8);
+              setPage(7);
             },
             onClickButton: () => {
-              setPage(9);
+              setPage(8);
             },
           } as TimerScreenProps,
         }[helpType],
@@ -215,7 +207,7 @@ function createPageConfigurations({
       {
         page: Generic,
         props: {
-          nextPage: () => setPage(10),
+          nextPage: () => setPage(9),
           messages: {
             [HelpTypeInterface.cleaning]: [
               {
@@ -235,7 +227,7 @@ function createPageConfigurations({
       {
         page: Generic,
         props: {
-          nextPage: () => setPage(10),
+          nextPage: () => setPage(9),
           messages: {
             [HelpTypeInterface.cleaning]: [
               {
@@ -300,7 +292,7 @@ export function useGameState(
 
   const nextPage = useCallback(() => {
     setPage((currentPage) => {
-      const pageCount = pageConfigurationsRef.current?.pages.length ?? 11;
+      const pageCount = pageConfigurationsRef.current?.pages.length ?? 10;
       if (currentPage < pageCount - 1) {
         return currentPage + 1;
       } else {

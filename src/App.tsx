@@ -83,7 +83,7 @@ const App = () => {
         {/*// @ts-ignore*/}
         <PageToShow key={page} {...currentConfiguration.props} />
         <Coins
-          pageIndex={0}
+          pageIndex={page + 1}
           amount={coins}
           onClick={() => setShowCoinSpend(true)}
         />
