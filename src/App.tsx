@@ -83,15 +83,12 @@ const App = () => {
         {/*// @ts-ignore*/}
         <PageToShow key={page} {...currentConfiguration.props} />
         <Coins
-          pageIndex={page}
+          pageIndex={0}
           amount={coins}
           onClick={() => setShowCoinSpend(true)}
         />
-        <InfoButton pageIndex={page} onClick={() => setShowInfo(true)} />
-        <LegalInfoButton
-          pageIndex={page}
-          onClick={() => setShowLegalInfo(true)}
-        />
+        <InfoButton pageIndex={0} onClick={() => setShowInfo(true)} />
+        <LegalInfoButton pageIndex={0} onClick={() => setShowLegalInfo(true)} />
       </div>
       {showInfo && <Info onClose={() => setShowInfo(false)} />}
       {showLegalInfo && <LegalInfo onClose={() => setShowLegalInfo(false)} />}
