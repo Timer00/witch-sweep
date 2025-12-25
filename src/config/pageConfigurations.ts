@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useRef } from "react";
+import GameMenu, { type GameMenuProps } from "@/pages/GameMenu.tsx";
 import Home, { type HomeProps } from "@/pages/Home.tsx";
 import Intro from "@/pages/Intro.tsx";
 import HowLong from "@/pages/HowLong.tsx";
@@ -17,12 +18,18 @@ export interface PageConfigurationDependencies {
   nextPage: nextPage;
   setPage: setPage;
   addCoins: (amount: number) => void;
+  openStore: () => void;
+  openInfo: () => void;
+  openLegal: () => void;
 }
 
 function createPageConfigurations({
   nextPage,
   setPage,
   addCoins,
+  openStore,
+  openInfo,
+  openLegal,
   playerName,
   helpType,
   timerMinutes,
@@ -40,6 +47,15 @@ function createPageConfigurations({
   return {
     witchName: "Anabella Declutter",
     pages: [
+      {
+        page: GameMenu,
+        props: {
+          nextPage,
+          openStore,
+          openInfo,
+          openLegal,
+        } as GameMenuProps,
+      },
       {
         page: Home,
         props: {
@@ -171,11 +187,11 @@ function createPageConfigurations({
             helpType: helpType,
             doneButton: "Fertig!",
             onTimeOver: () => {
-              setPage(8);
+              setPage(9);
             },
             onClickButton: (time: number) => {
               addCoins(Math.floor(time / 10));
-              setPage(7);
+              setPage(8);
             },
             timerHeader: "",
           } as TimerScreenProps,
@@ -187,10 +203,10 @@ function createPageConfigurations({
             timerHeader: "",
             onTimeOver: (time: number) => {
               addCoins(Math.floor(time / 10));
-              setPage(7);
+              setPage(8);
             },
             onClickButton: () => {
-              setPage(8);
+              setPage(9);
             },
           } as TimerScreenProps,
         }[helpType],
@@ -198,7 +214,7 @@ function createPageConfigurations({
       {
         page: Generic,
         props: {
-          nextPage: () => setPage(9),
+          nextPage: () => setPage(10),
           messages: {
             [HelpTypeInterface.cleaning]: [
               {
@@ -218,7 +234,7 @@ function createPageConfigurations({
       {
         page: Generic,
         props: {
-          nextPage: () => setPage(9),
+          nextPage: () => setPage(10),
           messages: {
             [HelpTypeInterface.cleaning]: [
               {
@@ -267,7 +283,10 @@ function createPageConfigurations({
 
 export function useGameState(
   setPage: setPage,
-  addCoins: (amount: number) => void
+  addCoins: (amount: number) => void,
+  openStore: () => void,
+  openInfo: () => void,
+  openLegal: () => void
 ) {
   const [playerName, setPlayerName] = useState<string>("");
   const [helpType, setHelpType] = useState<HelpTypeInterface>(
@@ -280,7 +299,7 @@ export function useGameState(
 
   const nextPage = useCallback(() => {
     setPage((currentPage) => {
-      const pageCount = pageConfigurationsRef.current?.pages.length ?? 10;
+      const pageCount = pageConfigurationsRef.current?.pages.length ?? 11;
       if (currentPage < pageCount - 1) {
         return currentPage + 1;
       } else {
@@ -294,6 +313,9 @@ export function useGameState(
       nextPage,
       setPage,
       addCoins,
+      openStore,
+      openInfo,
+      openLegal,
       playerName,
       helpType,
       timerMinutes,
@@ -307,6 +329,9 @@ export function useGameState(
     nextPage,
     setPage,
     addCoins,
+    openStore,
+    openInfo,
+    openLegal,
     playerName,
     helpType,
     timerMinutes,

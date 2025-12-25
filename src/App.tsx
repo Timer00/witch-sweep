@@ -62,7 +62,13 @@ const App = () => {
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
 
-  const { pageConfigurations } = useGameState(setPage, addCoins);
+  const { pageConfigurations } = useGameState(
+    setPage,
+    addCoins,
+    () => setShowCoinSpend(true),
+    () => setShowInfo(true),
+    () => setShowLegalInfo(true)
+  );
 
   const currentConfiguration = pageConfigurations.pages[page];
   const PageToShow = currentConfiguration.page;

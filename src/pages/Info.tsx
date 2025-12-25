@@ -7,20 +7,26 @@ interface InfoButtonProps {
   onClick: () => void;
 }
 
-export const InfoButton = ({ pageIndex, onClick }: InfoButtonProps) => (
-  <button onClick={onClick} className="z-2 absolute left-32 top-[-16px] m-4">
-    <div className="flex items-center space-x-1 p-2 text-white underline underline-offset-[5px]">
-      {pageIndex === 0 && (
-        <span className="text-2xs font-semibold text-white">
-          {"Wie nutze ich HocusFocus? "}
+export const InfoButton = ({ pageIndex, onClick }: InfoButtonProps) => {
+  if (pageIndex === 0) {
+    return null;
+  }
+
+  return (
+    <button onClick={onClick} className="z-2 absolute left-32 top-[-16px] m-4">
+      <div className="flex items-center space-x-1 p-2 text-white underline underline-offset-[5px]">
+        {pageIndex === 1 && (
+          <span className="text-2xs font-semibold text-white">
+            {"Wie nutze ich HocusFocus? "}
+          </span>
+        )}
+        <span className="text-lg font-semibold text-white">
+          <InfoIcon />
         </span>
-      )}
-      <span className="text-lg font-semibold text-white">
-        <InfoIcon />
-      </span>
-    </div>
-  </button>
-);
+      </div>
+    </button>
+  );
+};
 
 // Collapse.js - Component for individual collapsible item
 const Collapse = ({ question, answer }) => {
