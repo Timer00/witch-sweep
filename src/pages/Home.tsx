@@ -34,7 +34,7 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
   return (
     <PageContainer>
       <Video videoRef={videoRef} videoProps={videoProps} loading={loading} />
-      <div className="z-2 relative lg:pt-36">
+      <div className="z-2 relative mt-[15vh] flex h-full flex-col lg:pt-24">
         <div className="flex flex-col text-white">
           <div className="gameTitle flex items-center justify-center">
             <img
@@ -44,15 +44,13 @@ const Home = ({ nextPage, startButton, setPlayerName }: HomeProps) => {
               alt="Hocus Focus"
             />
           </div>
-          <div className="p-8">
+          <div className="mt-[2.5vh] flex flex-1 flex-col items-center justify-center gap-6 p-8">
             <input
               value={username}
               onChange={({ target: { value } }) => setUsername(value)}
-              className="mt-4 border bg-transparent text-center text-xl"
+              className="border bg-transparent text-center text-xl"
               placeholder="Dein Name…"
             />
-          </div>
-          <div className="lg:mt-28">
             <Button disabled={username.length < 3} onClick={handleStart}>
               {startButton}
             </Button>

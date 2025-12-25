@@ -37,7 +37,7 @@ const GameMenu = ({
   return (
     <PageContainer>
       <Video videoRef={videoRef} videoProps={videoProps} loading={loading} />
-      <div className="z-2 relative lg:pt-36">
+      <div className="z-2 relative mt-[15vh] flex h-full flex-col lg:pt-24">
         <div className="flex flex-col text-white">
           <div className="gameTitle flex items-center justify-center">
             <img
@@ -47,7 +47,7 @@ const GameMenu = ({
               alt="Hocus Focus"
             />
           </div>
-          <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-1 flex-col items-center justify-center gap-6">
             <ul className="flex flex-col items-center gap-6">
               {menuItems.map((item) => (
                 <li key={item.label}>
