@@ -49,6 +49,11 @@ const legalInfo = [
         <p className="mt-4">
           Erstellt im Rahmen einer Masterarbeit an der Universität Greifswald.
         </p>
+        {/* ??? */}
+        <p>
+          <span className="font-bold">Disclaimer:</span> Die Nutzungvon
+          HocusFocus ersetzt keine Therapie
+        </p>
       </div>
     ),
   },
@@ -62,6 +67,10 @@ const legalInfo = [
           Muriel Antoun
           <br />
           muriel.antoun@stud.uni-greifswald.de
+        </p>
+        <p>
+          Konzept & Animation: Muriel Antoun <br />
+          Programmierung: Théo Carrara
         </p>
 
         <p>
@@ -107,6 +116,38 @@ const legalInfo = [
           Diese Website wird von Vercel gehostet. Möglicherweise werden durch
           Vercel Daten wie IP-Adressen oder Zugriffsprotokolle gespeichert.
           Details dazu entnehmen Sie bitte der Datenschutzerklärung von Vercel.
+        </p>
+      </div>
+    ),
+  },
+  {
+    title: "QUELLEN",
+    content: (
+      <div className="prose prose-headings:mb-2 prose-headings:font-bold prose-p:mb-4">
+        <p>
+          {/* ??? */}
+          BLANK
+        </p>
+      </div>
+    ),
+  },
+  {
+    title: "SOURCES",
+    content: (
+      <div className="prose prose-headings:mb-2 prose-headings:font-bold prose-p:mb-4">
+        <p>
+          Patati
+          <br />
+          Patati's ipad
+          <br />
+          Patati's macbook
+          <br />
+          Patati's iphone
+          <br />
+          Patati's 2 braincells
+          <br />
+          Patati's boyfremdo
+          <br />
         </p>
       </div>
     ),
