@@ -13,6 +13,19 @@ module.exports = {
       fontFamily: {
         pixel: "3by3",
       },
+      fontSize: {
+        "2xs": "0.625rem",
+      },
+      keyframes: {
+        shake: {
+          "0%, 100%": { transform: "translateX(0) rotate(0deg)" },
+          "25%": { transform: "translateX(-2px) rotate(-1deg)" },
+          "75%": { transform: "translateX(2px) rotate(1deg)" },
+        },
+      },
+      animation: {
+        shake: "shake 0.3s ease-in-out infinite",
+      },
     },
   },
   plugins: [typography],

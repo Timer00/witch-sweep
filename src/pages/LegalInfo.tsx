@@ -10,7 +10,11 @@ export const LegalInfoButton = ({
   pageIndex,
   onClick,
 }: LegalInfoButtonProps) => {
-  if (pageIndex !== 0) {
+  if (pageIndex === 0) {
+    return null;
+  }
+
+  if (pageIndex !== 1) {
     return null;
   }
 
