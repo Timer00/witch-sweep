@@ -34,8 +34,8 @@ const MenuView = ({
 }: MenuViewProps) => {
   const menuItems = [
     { label: "Start", action: onStartClick },
-    { label: "Laden", action: openStore },
-    { label: "Info", action: openInfo },
+    { label: "Vertrag", action: openStore },
+    { label: "Anleitung", action: openInfo },
     { label: "Impressum", action: openLegal },
   ];
 
@@ -110,7 +110,7 @@ const HomeView = ({
           className="h-4 w-4 cursor-pointer"
         />
         <label htmlFor="info-checkbox" className="cursor-pointer text-white">
-          Ich habe{" "}
+          Ich habe die{" "}
           <button
             type="button"
             onClick={(e) => {
@@ -119,7 +119,7 @@ const HomeView = ({
             }}
             className="underline"
           >
-            "Wie nutze ich HocusFocus ?"
+            Anleitung
           </button>{" "}
           gelesen
         </label>
