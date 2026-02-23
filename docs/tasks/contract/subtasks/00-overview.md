@@ -12,10 +12,11 @@ This folder breaks the contract feature into executable subtasks based on:
 1. `01-foundation-domain-storage.md`
 2. `02-contract-preview-ui.md`
 3. `03-contract-definition-page-form.md`
-4. `04-spend-controls-and-purchase-interactions.md`
-5. `05-flow-orchestration-and-navigation.md`
-6. `06-print-only-contract-output.md`
-7. `07-qa-and-signoff.md`
+4. `03b-contract-preview-real-data-integration.md`
+5. `04-spend-controls-and-purchase-interactions.md`
+6. `05-flow-orchestration-and-navigation.md`
+7. `06-print-only-contract-output.md`
+8. `07-qa-and-signoff.md`
 
 ## Global Constraints (applies to all subtasks)
 
@@ -24,6 +25,7 @@ This folder breaks the contract feature into executable subtasks based on:
 - Any form validation should be done using zod
 - Persist contract data only on explicit save.
 - Use `contract.v1` in local storage.
+- Subtask 02 is static-preview-only; real localStorage wiring belongs to Subtask 03b.
 - Use `react-hook-form` + `zod` for the definition form.
 - Print flow is print-first (`window.print()`), with only the contract sheet visible in print output.
 - Contract editing must be treated as a dedicated page/screen flow (not just inline editing inside preview state).
