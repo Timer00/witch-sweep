@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { Pencil } from "lucide-react";
 import useCoins from "@/hooks/useCoins.ts";
 import FullScreen from "@/components/FullScreen.tsx";
 import ContractPreview from "@/components/contract/ContractPreview.tsx";
+import ContractDefinition from "@/pages/ContractDefinition.tsx";
 import type { ContractReward } from "@/utils/contractValidation";
 
 interface SpendCoinsProps {
   onClose: () => void;
+  onOpenInfo?: () => void;
 }
 
 /** Static fixture for ContractPreview (Subtask 02 – look validation only) */
@@ -19,13 +22,23 @@ const CONTRACT_FIXTURE = {
   ] as ContractReward[],
 };
 
-const SpendCoins = ({ onClose }: SpendCoinsProps) => {
+const SpendCoins = ({ onClose, onOpenInfo }: SpendCoinsProps) => {
   const { coins, spendCoins } = useCoins();
   const [spendAmount, setSpendAmount] = useState(1);
+  const [showContractDefinition, setShowContractDefinition] = useState(false);
 
   const handleSpendClick = () => {
     spendCoins(spendAmount);
   };
+
+  if (showContractDefinition) {
+    return (
+      <ContractDefinition
+        onClose={() => setShowContractDefinition(false)}
+        onOpenInfo={onOpenInfo ?? (() => {})}
+      />
+    );
+  }
 
   return (
     <FullScreen onClose={onClose}>
@@ -57,6 +70,17 @@ const SpendCoins = ({ onClose }: SpendCoinsProps) => {
             rewards={CONTRACT_FIXTURE.rewards}
           />
         </main>
+        <aside className="flex w-24 shrink-0 flex-col items-center justify-start pt-8">
+          <button
+            type="button"
+            onClick={() => setShowContractDefinition(true)}
+            className="flex flex-col items-center gap-1 rounded border-2 border-black px-3 py-2 font-medium hover:bg-black/5"
+            aria-label="Vertrag bearbeiten"
+          >
+            <Pencil className="h-6 w-6" />
+            <span className="text-sm">Bearbeiten</span>
+          </button>
+        </aside>
       </div>
     </FullScreen>
   );

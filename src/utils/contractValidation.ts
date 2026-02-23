@@ -23,11 +23,18 @@ export const contractDataSchema = z.object({
     .array(contractRewardSchema)
     .min(1, "Bitte füge mindestens eine Belohnung hinzu.")
     .max(7, "Maximal 7 Belohnungen möglich."),
-  updatedAt: z.date(),
+  updatedAt: z
+    .union([z.date(), z.string()])
+    .transform((v) => (typeof v === "string" ? new Date(v) : v)),
+});
+
+export const contractFormSchema = contractDataSchema.omit({
+  updatedAt: true,
 });
 
 export type ContractReward = z.infer<typeof contractRewardSchema>;
 export type ContractData = z.infer<typeof contractDataSchema>;
+export type ContractFormData = z.infer<typeof contractFormSchema>;
 
 export type ContractValidationResult =
   | { success: true; data: ContractData }

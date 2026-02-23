@@ -119,7 +119,12 @@ const App = () => {
       </div>
       {showInfo && <Info onClose={() => setShowInfo(false)} />}
       {showLegalInfo && <LegalInfo onClose={() => setShowLegalInfo(false)} />}
-      {showCoinSpend && <SpendCoins onClose={() => setShowCoinSpend(false)} />}
+      {showCoinSpend && (
+        <SpendCoins
+          onClose={() => setShowCoinSpend(false)}
+          onOpenInfo={() => setShowInfo(true)}
+        />
+      )}
       {isMobile() && <FullscreenDisclaimer />}
     </div>
   );
