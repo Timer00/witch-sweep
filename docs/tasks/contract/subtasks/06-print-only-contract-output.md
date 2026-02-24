@@ -19,8 +19,9 @@ Ensure printing outputs only the contract sheet and visually matches the on-scre
    - sensible page margins
    - prevent clipping of title/signatures/witch illustration
    - avoid accidental page breaks inside contract sheet
-3. Hook print action:
-   - preview screen `Drucken` button calls `window.print()`
+3. Print button placement and trigger:
+   - add a `Drucken` (Print) button in `src/pages/SpendCoins.tsx` next to the edit button
+   - button calls `window.print()`
    - optional `requestAnimationFrame` before print for layout stability
 4. Verify print preview parity:
    - structure and copy should match on-screen contract
