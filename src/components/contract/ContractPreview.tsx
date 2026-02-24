@@ -9,16 +9,22 @@ interface ContractPreviewProps {
   parentName: ContractData["parentName"];
   childName: ContractData["childName"];
   rewards: ContractReward[];
+  /** When provided, reward rows become clickable to set spend amount */
+  coins?: number;
+  onRewardClick?: (amount: number) => void;
 }
 
 const ContractPreview = ({
   parentName,
   childName,
   rewards,
+  coins,
+  onRewardClick,
 }: ContractPreviewProps) => {
   const ROWS = 7;
   const filledRows = rewards.slice(0, ROWS);
   const emptyRowCount = Math.max(0, ROWS - filledRows.length);
+  const isInteractive = coins !== undefined && onRewardClick !== undefined;
 
   return (
     <article
@@ -44,23 +50,55 @@ const ContractPreview = ({
       {/* Rewards zone */}
       <section className="mb-6">
         <ul className="space-y-2">
-          {filledRows.map((reward) => (
-            <li
-              key={reward.id}
-              className="flex items-center justify-between border-b border-black/30 pb-1"
-            >
-              <span className="flex-1 truncate pr-2">{reward.description}</span>
-              <span className="flex shrink-0 items-center gap-1">
-                <span className="font-semibold">{reward.amount}</span>
-                <img
-                  src={coin}
-                  alt=""
-                  className="h-5 w-5"
-                  aria-hidden
-                />
-              </span>
-            </li>
-          ))}
+          {filledRows.map((reward) => {
+            const affordable =
+              isInteractive && coins !== undefined && reward.amount <= coins;
+            const unaffordable =
+              isInteractive && coins !== undefined && reward.amount > coins;
+
+            return (
+              <li
+                key={reward.id}
+                data-reward-row
+                role={isInteractive ? "button" : undefined}
+                tabIndex={isInteractive ? 0 : undefined}
+                onClick={
+                  isInteractive && affordable
+                    ? () => onRewardClick?.(reward.amount)
+                    : undefined
+                }
+                onKeyDown={
+                  isInteractive && affordable
+                    ? (e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          onRewardClick?.(reward.amount);
+                        }
+                      }
+                    : undefined
+                }
+                title={unaffordable ? "Du hast nicht genug Münzen." : undefined}
+                className={`flex items-center justify-between border-b border-black/30 pb-1 print:pointer-events-none print:cursor-default ${
+                  affordable
+                    ? "cursor-pointer transition-colors hover:bg-amber-100/80"
+                    : unaffordable
+                      ? "cursor-not-allowed"
+                      : ""
+                }`}
+              >
+                <span className="flex-1 truncate pr-2">{reward.description}</span>
+                <span className="flex shrink-0 items-center gap-1">
+                  <span className="font-semibold">{reward.amount}</span>
+                  <img
+                    src={coin}
+                    alt=""
+                    className="h-5 w-5"
+                    aria-hidden
+                  />
+                </span>
+              </li>
+            );
+          })}
           {Array.from({ length: emptyRowCount }).map((_, i) => (
             <li
               key={`empty-${i}`}

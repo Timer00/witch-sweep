@@ -2,13 +2,13 @@
 
 ## Goal
 
-Refactor spending behavior keeping it simple: use the existing `ContractPreview` rows as the reward picker, and update amount in `src/pages/SpendCoins.tsx` on click. Refactor the spending button and remove slider.
+Refactor spending behavior keeping it simple: use the existing `ContractPreview` rows as the reward picker without affecting printing, and update amount in `src/pages/SpendCoins.tsx` on click. Refactor the spending button and remove slider.
 
 ## Scope
 
 - Keep spend controls (coin balance, amount input, spend button) in `src/pages/SpendCoins.tsx`.
 - Do **not** render a second rewards list in a separate controls component.
-- Add reward hover/click behavior directly to reward rows rendered in `ContractPreview`.
+- Add reward hover/click behavior directly to reward rows rendered in `ContractPreview` without affecting printing
 
 ## Implementation Details
 

@@ -157,6 +157,13 @@ body {
     flex: 1 !important;
   }
 
+  /* Interaction styling must not affect print: rows render as static */
+  [data-print-contract] [data-reward-row] {
+    cursor: default !important;
+    pointer-events: none !important;
+    background: transparent !important;
+  }
+
   /* A4-like layout: sensible margins, prevent clipping */
   @page {
     size: A4;

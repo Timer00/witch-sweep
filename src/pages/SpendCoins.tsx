@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Pencil, Printer } from "lucide-react";
 import useCoins from "@/hooks/useCoins.ts";
 import FullScreen from "@/components/FullScreen.tsx";
+import CoinSpendForm from "@/components/CoinSpendForm.tsx";
 import ContractPreview from "@/components/contract/ContractPreview.tsx";
 import ContractDefinition from "@/pages/ContractDefinition.tsx";
 import { loadContract } from "@/utils/contractStorage.ts";
@@ -11,15 +12,26 @@ interface SpendCoinsProps {
   onOpenInfo?: () => void;
 }
 
+const clampAmount = (value: number, coins: number): number => {
+  if (coins <= 0) return 0;
+  const n = Math.floor(Number(value));
+  if (!Number.isFinite(n)) return 1;
+  return Math.max(1, Math.min(coins, n));
+};
+
 const SpendCoins = ({ onClose, onOpenInfo }: SpendCoinsProps) => {
-  const { coins, spendCoins } = useCoins();
+  const { coins } = useCoins();
   const [spendAmount, setSpendAmount] = useState(1);
   const [showContractDefinition, setShowContractDefinition] = useState(false);
 
   const contract = loadContract();
 
-  const handleSpendClick = () => {
-    spendCoins(spendAmount);
+  useEffect(() => {
+    setSpendAmount((prev) => clampAmount(prev, coins));
+  }, [coins]);
+
+  const setAmount = (value: number) => {
+    setSpendAmount(clampAmount(value, coins));
   };
 
   const openContractDefinition = () => setShowContractDefinition(true);
@@ -42,33 +54,19 @@ const SpendCoins = ({ onClose, onOpenInfo }: SpendCoinsProps) => {
 
   return (
     <FullScreen onClose={onClose}>
-      <div className="flex h-full gap-6 overflow-auto p-4 text-black">
-        <aside className="flex w-48 shrink-0 flex-col">
-          <div className="mb-4 text-center text-lg">
-            Deine Münzen: {coins}
-          </div>
-          <button
-            className="mb-4 w-full rounded bg-amber-400 px-6 py-3 text-white hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-200"
-            onClick={handleSpendClick}
-          >
-            Ausgeben
-          </button>
-          <input
-            type="range"
-            min="1"
-            max={coins}
-            value={spendAmount}
-            onChange={(e) => setSpendAmount(parseInt(e.target.value))}
-            className="h-2 w-full cursor-pointer appearance-none rounded-lg accent-black dark:bg-amber-200"
-          />
-          <div className="mt-2 text-center">Menge: {spendAmount}</div>
-        </aside>
+      <div className="flex h-full gap-6 overflow-auto p-4 lg:px-16 text-black">
+        <CoinSpendForm
+          spendAmount={spendAmount}
+          onSpendAmountChange={setAmount}
+        />
         <main className="flex flex-1 items-start justify-center overflow-auto">
           {contract ? (
             <ContractPreview
               parentName={contract.parentName}
               childName={contract.childName}
               rewards={contract.rewards}
+              coins={coins}
+              onRewardClick={setAmount}
             />
           ) : (
             <div className="flex flex-1 flex-col items-center justify-center gap-4">
