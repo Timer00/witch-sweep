@@ -4,37 +4,31 @@ import useCoins from "@/hooks/useCoins.ts";
 import FullScreen from "@/components/FullScreen.tsx";
 import ContractPreview from "@/components/contract/ContractPreview.tsx";
 import ContractDefinition from "@/pages/ContractDefinition.tsx";
-import type { ContractReward } from "@/utils/contractValidation";
+import { loadContract } from "@/utils/contractStorage.ts";
 
 interface SpendCoinsProps {
   onClose: () => void;
   onOpenInfo?: () => void;
 }
 
-/** Static fixture for ContractPreview (Subtask 02 – look validation only) */
-const CONTRACT_FIXTURE = {
-  parentName: "Muriel Antoun",
-  childName: "Theo Carrara",
-  rewards: [
-    { id: "1", description: "Bubble gum", amount: 3 },
-    { id: "2", description: "Amusement park visit", amount: 20 },
-    { id: "3", description: "Watch a Movie at home", amount: 2 },
-  ] as ContractReward[],
-};
-
 const SpendCoins = ({ onClose, onOpenInfo }: SpendCoinsProps) => {
   const { coins, spendCoins } = useCoins();
   const [spendAmount, setSpendAmount] = useState(1);
   const [showContractDefinition, setShowContractDefinition] = useState(false);
 
+  const contract = loadContract();
+
   const handleSpendClick = () => {
     spendCoins(spendAmount);
   };
 
+  const openContractDefinition = () => setShowContractDefinition(true);
+  const closeContractDefinition = () => setShowContractDefinition(false);
+
   if (showContractDefinition) {
     return (
       <ContractDefinition
-        onClose={() => setShowContractDefinition(false)}
+        onClose={closeContractDefinition}
         onOpenInfo={onOpenInfo ?? (() => {})}
       />
     );
@@ -64,23 +58,40 @@ const SpendCoins = ({ onClose, onOpenInfo }: SpendCoinsProps) => {
           <div className="mt-2 text-center">Menge: {spendAmount}</div>
         </aside>
         <main className="flex flex-1 items-start justify-center overflow-auto">
-          <ContractPreview
-            parentName={CONTRACT_FIXTURE.parentName}
-            childName={CONTRACT_FIXTURE.childName}
-            rewards={CONTRACT_FIXTURE.rewards}
-          />
+          {contract ? (
+            <ContractPreview
+              parentName={contract.parentName}
+              childName={contract.childName}
+              rewards={contract.rewards}
+            />
+          ) : (
+            <div className="flex flex-1 flex-col items-center justify-center gap-4">
+              <p className="text-center text-black/70">
+                Noch kein Vertrag vorhanden.
+              </p>
+              <button
+                type="button"
+                onClick={openContractDefinition}
+                className="rounded border-2 border-black bg-amber-100 px-6 py-3 font-medium hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-200"
+              >
+                Vertrag erstellen
+              </button>
+            </div>
+          )}
         </main>
-        <aside className="flex w-24 shrink-0 flex-col items-center justify-start pt-8">
-          <button
-            type="button"
-            onClick={() => setShowContractDefinition(true)}
-            className="flex flex-col items-center gap-1 rounded border-2 border-black px-3 py-2 font-medium hover:bg-black/5"
-            aria-label="Vertrag bearbeiten"
-          >
-            <Pencil className="h-6 w-6" />
-            <span className="text-sm">Bearbeiten</span>
-          </button>
-        </aside>
+        {contract && (
+          <aside className="flex w-24 shrink-0 flex-col items-center justify-start pt-8">
+            <button
+              type="button"
+              onClick={openContractDefinition}
+              className="flex flex-col items-center gap-1 rounded border-2 border-black px-3 py-2 font-medium hover:bg-black/5"
+              aria-label="Vertrag bearbeiten"
+            >
+              <Pencil className="h-6 w-6" />
+              <span className="text-sm">Bearbeiten</span>
+            </button>
+          </aside>
+        )}
       </div>
     </FullScreen>
   );
