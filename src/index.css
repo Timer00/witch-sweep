@@ -107,3 +107,72 @@ body {
   bottom: 0;
   left: 0;
 }
+
+/* ---- Print: contract only ---- */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Explicitly hide videos and game content (browsers may print video frames despite visibility) */
+  video,
+  source {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Hide all app UI; show only the contract sheet */
+  body * {
+    visibility: hidden;
+  }
+  [data-print-contract],
+  [data-print-contract] * {
+    visibility: visible;
+  }
+  [data-print-contract] {
+    position: fixed !important;
+    inset: 0 !important;
+    left: 0 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 1.5cm !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    page-break-inside: avoid;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Contract content fills the page */
+  [data-print-contract] > section {
+    flex: 1 !important;
+  }
+
+  /* A4-like layout: sensible margins, prevent clipping */
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+
+  html,
+  body {
+    width: auto !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+
+  #root {
+    overflow: visible !important;
+  }
+}

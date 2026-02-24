@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pencil } from "lucide-react";
+import { Pencil, Printer } from "lucide-react";
 import useCoins from "@/hooks/useCoins.ts";
 import FullScreen from "@/components/FullScreen.tsx";
 import ContractPreview from "@/components/contract/ContractPreview.tsx";
@@ -24,6 +24,12 @@ const SpendCoins = ({ onClose, onOpenInfo }: SpendCoinsProps) => {
 
   const openContractDefinition = () => setShowContractDefinition(true);
   const closeContractDefinition = () => setShowContractDefinition(false);
+
+  const handlePrint = () => {
+    requestAnimationFrame(() => {
+      window.print();
+    });
+  };
 
   if (showContractDefinition) {
     return (
@@ -80,7 +86,16 @@ const SpendCoins = ({ onClose, onOpenInfo }: SpendCoinsProps) => {
           )}
         </main>
         {contract && (
-          <aside className="flex w-24 shrink-0 flex-col items-center justify-start pt-8">
+          <aside className="flex w-24 shrink-0 flex-col items-center justify-start gap-4 pt-8">
+            <button
+              type="button"
+              onClick={handlePrint}
+              className="flex flex-col items-center gap-1 rounded border-2 border-black bg-amber-400 px-3 py-2 font-medium hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-200"
+              aria-label="Vertrag drucken"
+            >
+              <Printer className="h-6 w-6" />
+              <span className="text-sm">Drucken</span>
+            </button>
             <button
               type="button"
               onClick={openContractDefinition}
