@@ -17,13 +17,14 @@
     "@capacitor/ios": "^5.5.1",
     "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/typography": "^0.5.15",
+    "clsx": "^2.1.1",
     "lucide-react": "^0.469.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.71.2",
     "react-markdown": "^9.0.1",
     "react-timer-hook": "3.0.6",
-    "tailwind-merge": "1.13.2",
+    "tailwind-merge": "^3.5.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
