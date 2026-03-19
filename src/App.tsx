@@ -117,7 +117,15 @@ const App = () => {
         <InfoButton pageIndex={page} onClick={() => setShowInfo(true)} />
         <LegalInfoButton pageIndex={0} onClick={() => setShowLegalInfo(true)} />
       </div>
-      {showInfo && <Info onClose={() => setShowInfo(false)} />}
+      {showInfo && (
+        <Info
+          onClose={() => setShowInfo(false)}
+          onNavigateToContract={() => {
+            setShowInfo(false);
+            setShowCoinSpend(true);
+          }}
+        />
+      )}
       {showLegalInfo && <LegalInfo onClose={() => setShowLegalInfo(false)} />}
       {showCoinSpend && (
         <SpendCoins
