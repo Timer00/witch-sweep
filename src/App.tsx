@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Coins from "@/components/Coins.tsx";
 import useCoins from "@/hooks/useCoins.ts";
+import { useOverlayClose } from "@/hooks/useOverlayClose.ts";
 import Info, { InfoButton } from "@/pages/Info.tsx";
 import LegalInfo, { LegalInfoButton } from "@/pages/LegalInfo.tsx";
 import SpendCoins from "@/pages/SpendCoins.tsx";
@@ -8,6 +10,7 @@ import FullscreenDisclaimer from "@/pages/FullscreenDisclaimer.tsx";
 import useAspectRatio from "@/hooks/useAspectRatio.ts";
 import { useGameState } from "@/config/pageConfigurations.ts";
 import MainMenuButton from "@/components/MainMenuButton.tsx";
+import { ROUTES } from "@/config/routes.ts";
 
 function isMobile() {
   let check = false;
@@ -56,10 +59,10 @@ export enum HelpTypeInterface {
 
 const App = () => {
   const { width, height } = useAspectRatio(1920, 1080);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const closeOverlay = useOverlayClose();
 
-  const [showInfo, setShowInfo] = useState(false);
-  const [showLegalInfo, setShowLegalInfo] = useState(false);
-  const [showCoinSpend, setShowCoinSpend] = useState(false);
   const { addCoins, coins } = useCoins();
   const [page, setPage] = useState<number>(0);
   const [isInHomeView, setIsInHomeView] = useState<boolean>(false);
@@ -68,12 +71,17 @@ const App = () => {
   const { pageConfigurations } = useGameState(
     setPage,
     addCoins,
-    () => setShowCoinSpend(true),
-    () => setShowInfo(true),
-    () => setShowLegalInfo(true),
+    () => navigate(ROUTES.spend),
+    () => navigate(ROUTES.info),
+    () => navigate(ROUTES.legal),
     setIsInHomeView,
     resetGameMenuRef
   );
+
+  const pathname = location.pathname;
+  const showInfo = pathname === ROUTES.info;
+  const showLegalInfo = pathname === ROUTES.legal;
+  const showCoinSpend = pathname === ROUTES.spend;
 
   const currentConfiguration = pageConfigurations.pages[page];
   const PageToShow = currentConfiguration.page;
@@ -98,9 +106,9 @@ const App = () => {
           pageIndex={page}
           isInHomeView={isInHomeView}
           onClick={() => {
-            setShowInfo(false);
-            setShowLegalInfo(false);
-            setShowCoinSpend(false);
+            if (pathname !== ROUTES.root) {
+              navigate(ROUTES.root, { replace: true });
+            }
             setIsInHomeView(false);
             // Reset GameMenu to menu view before navigating
             if (resetGameMenuRef.current) {
@@ -112,26 +120,23 @@ const App = () => {
         <Coins
           pageIndex={page + 1}
           amount={coins}
-          onClick={() => setShowCoinSpend(true)}
+          onClick={() => navigate(ROUTES.spend)}
         />
-        <InfoButton pageIndex={page} onClick={() => setShowInfo(true)} />
-        <LegalInfoButton pageIndex={0} onClick={() => setShowLegalInfo(true)} />
+        <InfoButton pageIndex={page} onClick={() => navigate(ROUTES.info)} />
+        <LegalInfoButton
+          pageIndex={page}
+          onClick={() => navigate(ROUTES.legal)}
+        />
       </div>
       {showInfo && (
         <Info
-          onClose={() => setShowInfo(false)}
-          onNavigateToContract={() => {
-            setShowInfo(false);
-            setShowCoinSpend(true);
-          }}
+          onClose={closeOverlay}
+          onNavigateToContract={() => navigate(ROUTES.spend)}
         />
       )}
-      {showLegalInfo && <LegalInfo onClose={() => setShowLegalInfo(false)} />}
+      {showLegalInfo && <LegalInfo onClose={closeOverlay} />}
       {showCoinSpend && (
-        <SpendCoins
-          onClose={() => setShowCoinSpend(false)}
-          onOpenInfo={() => setShowInfo(true)}
-        />
+        <SpendCoins onClose={closeOverlay} onOpenInfo={() => navigate(ROUTES.info)} />
       )}
       {isMobile() && <FullscreenDisclaimer />}
     </div>
