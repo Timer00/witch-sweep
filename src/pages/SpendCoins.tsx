@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Pencil, Printer } from "lucide-react";
 import useCoins from "@/hooks/useCoins.ts";
 import FullScreen from "@/components/FullScreen.tsx";
 import CoinSpendForm from "@/components/CoinSpendForm.tsx";
 import ContractPreview from "@/components/contract/ContractPreview.tsx";
-import ContractDefinition from "@/pages/ContractDefinition.tsx";
 import { loadContract } from "@/utils/contractStorage.ts";
+import { ROUTES } from "@/config/routes.ts";
 
 interface SpendCoinsProps {
   onClose: () => void;
-  onOpenInfo?: () => void;
 }
 
 const clampAmount = (value: number, coins: number): number => {
@@ -19,10 +19,10 @@ const clampAmount = (value: number, coins: number): number => {
   return Math.max(1, Math.min(coins, n));
 };
 
-const SpendCoins = ({ onClose, onOpenInfo }: SpendCoinsProps) => {
+const SpendCoins = ({ onClose }: SpendCoinsProps) => {
+  const navigate = useNavigate();
   const { coins } = useCoins();
   const [spendAmount, setSpendAmount] = useState(1);
-  const [showContractDefinition, setShowContractDefinition] = useState(false);
 
   const contract = loadContract();
 
@@ -34,23 +34,13 @@ const SpendCoins = ({ onClose, onOpenInfo }: SpendCoinsProps) => {
     setSpendAmount(clampAmount(value, coins));
   };
 
-  const openContractDefinition = () => setShowContractDefinition(true);
-  const closeContractDefinition = () => setShowContractDefinition(false);
+  const openContractDefinition = () => navigate(ROUTES.spendContractEdit);
 
   const handlePrint = () => {
     requestAnimationFrame(() => {
       window.print();
     });
   };
-
-  if (showContractDefinition) {
-    return (
-      <ContractDefinition
-        onClose={closeContractDefinition}
-        onOpenInfo={onOpenInfo ?? (() => {})}
-      />
-    );
-  }
 
   return (
     <FullScreen onClose={onClose}>

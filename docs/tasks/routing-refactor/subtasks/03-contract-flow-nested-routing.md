@@ -25,7 +25,7 @@ Move contract create/edit navigation from local component state to dedicated nes
    - cancel/discard return behavior remains consistent with existing confirmation dialog
 
 4. Info page integration:
-   - FAQ "Vertrag" action should navigate directly to contract edit route
+   - FAQ "Vertrag" action should navigate directly to spend route
    - preserve Info hash behavior for FAQ sections
 
 ## Acceptance Criteria

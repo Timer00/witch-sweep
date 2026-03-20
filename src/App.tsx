@@ -6,6 +6,7 @@ import { useOverlayClose } from "@/hooks/useOverlayClose.ts";
 import Info, { InfoButton } from "@/pages/Info.tsx";
 import LegalInfo, { LegalInfoButton } from "@/pages/LegalInfo.tsx";
 import SpendCoins from "@/pages/SpendCoins.tsx";
+import ContractDefinition from "@/pages/ContractDefinition.tsx";
 import FullscreenDisclaimer from "@/pages/FullscreenDisclaimer.tsx";
 import useAspectRatio from "@/hooks/useAspectRatio.ts";
 import { useGameState } from "@/config/pageConfigurations.ts";
@@ -81,7 +82,12 @@ const App = () => {
   const pathname = location.pathname;
   const showInfo = pathname === ROUTES.info;
   const showLegalInfo = pathname === ROUTES.legal;
-  const showCoinSpend = pathname === ROUTES.spend;
+  const showSpendPreview = pathname === ROUTES.spend;
+  const showContractEdit = pathname === ROUTES.spendContractEdit;
+
+  const closeContractEdit = React.useCallback(() => {
+    navigate(ROUTES.spend, { replace: true });
+  }, [navigate]);
 
   const currentConfiguration = pageConfigurations.pages[page];
   const PageToShow = currentConfiguration.page;
@@ -135,8 +141,12 @@ const App = () => {
         />
       )}
       {showLegalInfo && <LegalInfo onClose={closeOverlay} />}
-      {showCoinSpend && (
-        <SpendCoins onClose={closeOverlay} onOpenInfo={() => navigate(ROUTES.info)} />
+      {showSpendPreview && <SpendCoins onClose={closeOverlay} />}
+      {showContractEdit && (
+        <ContractDefinition
+          onClose={closeContractEdit}
+          onOpenInfo={() => navigate(ROUTES.info)}
+        />
       )}
       {isMobile() && <FullscreenDisclaimer />}
     </div>

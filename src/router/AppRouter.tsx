@@ -13,6 +13,7 @@ export function AppRouter() {
         <Route path={ROUTES.root} element={<App />} />
         <Route path={ROUTES.info} element={<App />} />
         <Route path={ROUTES.legal} element={<App />} />
+        <Route path={ROUTES.spendContractEdit} element={<App />} />
         <Route path={ROUTES.spend} element={<App />} />
         <Route path="*" element={<Navigate to={ROUTES.root} replace />} />
       </Routes>
