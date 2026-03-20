@@ -169,7 +169,6 @@ const GameMenu = ({
   useEffect(() => {
     setLoop(true);
     switchVideo(castleLoop);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

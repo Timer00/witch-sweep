@@ -102,7 +102,12 @@ const ContractDefinitionForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSave)} className="flex flex-col gap-6">
+    <form
+      onSubmit={(e) => {
+        void handleSubmit(onSave)(e);
+      }}
+      className="flex flex-col gap-6"
+    >
       <section>
         <h2 className="mb-2 text-center font-semibold">
           Belohnungen ({fields.length}/{MAX_REWARDS})

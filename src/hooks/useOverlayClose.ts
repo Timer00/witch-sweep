@@ -12,9 +12,9 @@ export function useOverlayClose() {
   return useCallback(() => {
     const idx = (window.history.state as { idx?: number } | null)?.idx;
     if (typeof idx === "number" && idx > 0) {
-      navigate(-1);
+      void navigate(-1);
     } else {
-      navigate(ROUTES.root, { replace: true });
+      void navigate(ROUTES.root, { replace: true });
     }
   }, [navigate]);
 }

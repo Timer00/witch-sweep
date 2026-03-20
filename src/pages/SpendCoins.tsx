@@ -34,7 +34,7 @@ const SpendCoins = ({ onClose }: SpendCoinsProps) => {
     setSpendAmount(clampAmount(value, coins));
   };
 
-  const openContractDefinition = () => navigate(ROUTES.spendContractEdit);
+  const openContractDefinition = () => void navigate(ROUTES.spendContractEdit);
 
   const handlePrint = () => {
     requestAnimationFrame(() => {

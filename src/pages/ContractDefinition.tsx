@@ -20,7 +20,7 @@ const emptyFormData: ContractFormData = {
 function toFormData(
   loaded: { parentName: string; childName: string; rewards: { id: string; description: string; amount: number }[] } | null
 ): ContractFormData {
-  if (!loaded || !loaded.rewards?.length) return emptyFormData;
+  if (!loaded?.rewards?.length) return emptyFormData;
   return {
     parentName: loaded.parentName,
     childName: loaded.childName,

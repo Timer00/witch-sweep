@@ -72,9 +72,15 @@ const App = () => {
   const { pageConfigurations } = useGameState(
     setPage,
     addCoins,
-    () => navigate(ROUTES.spend),
-    () => navigate(ROUTES.info),
-    () => navigate(ROUTES.legal),
+    () => {
+      void navigate(ROUTES.spend);
+    },
+    () => {
+      void navigate(ROUTES.info);
+    },
+    () => {
+      void navigate(ROUTES.legal);
+    },
     setIsInHomeView,
     resetGameMenuRef
   );
@@ -86,7 +92,7 @@ const App = () => {
   const showContractEdit = pathname === ROUTES.spendContractEdit;
 
   const closeContractEdit = React.useCallback(() => {
-    navigate(ROUTES.spend, { replace: true });
+    void navigate(ROUTES.spend, { replace: true });
   }, [navigate]);
 
   const currentConfiguration = pageConfigurations.pages[page];
@@ -113,7 +119,7 @@ const App = () => {
           isInHomeView={isInHomeView}
           onClick={() => {
             if (pathname !== ROUTES.root) {
-              navigate(ROUTES.root, { replace: true });
+              void navigate(ROUTES.root, { replace: true });
             }
             setIsInHomeView(false);
             // Reset GameMenu to menu view before navigating
@@ -126,18 +132,29 @@ const App = () => {
         <Coins
           pageIndex={page + 1}
           amount={coins}
-          onClick={() => navigate(ROUTES.spend)}
+          onClick={() => {
+            void navigate(ROUTES.spend);
+          }}
         />
-        <InfoButton pageIndex={page} onClick={() => navigate(ROUTES.info)} />
+        <InfoButton
+          pageIndex={page}
+          onClick={() => {
+            void navigate(ROUTES.info);
+          }}
+        />
         <LegalInfoButton
           pageIndex={page}
-          onClick={() => navigate(ROUTES.legal)}
+          onClick={() => {
+            void navigate(ROUTES.legal);
+          }}
         />
       </div>
       {showInfo && (
         <Info
           onClose={closeOverlay}
-          onNavigateToContract={() => navigate(ROUTES.spend)}
+          onNavigateToContract={() => {
+            void navigate(ROUTES.spend);
+          }}
         />
       )}
       {showLegalInfo && <LegalInfo onClose={closeOverlay} />}
@@ -145,7 +162,9 @@ const App = () => {
       {showContractEdit && (
         <ContractDefinition
           onClose={closeContractEdit}
-          onOpenInfo={() => navigate(ROUTES.info)}
+          onOpenInfo={() => {
+            void navigate(ROUTES.info);
+          }}
         />
       )}
       {isMobile() && <FullscreenDisclaimer />}
