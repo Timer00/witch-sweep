@@ -46,7 +46,13 @@ interface CollapseProps {
   id: string;
 }
 
-const Collapse = ({ question, answer, isOpen, onToggle, id }: CollapseProps) => {
+const Collapse = ({
+  question,
+  answer,
+  isOpen,
+  onToggle,
+  id,
+}: CollapseProps) => {
   return (
     <div className="my-2" id={id}>
       <button
@@ -99,7 +105,14 @@ const getFaqs = (onNavigateToContract?: () => void): FaqItem[] => [
         >
           Vertrag
         </button>
-        , in dem Sie festlegen, welche Belohnungen es für eine bestimmte Anzahl gesammelter Münzen gibt. Kurzfristige Belohnungen könnten für 1-3 Münzen ein Sticker oder eine Kleinigkeit sein. Für eine größere Anzahl an Münzen könnten Belohnungen wie ein Kinobesuch, ein neues Paar Schuhe oder zusätzliche Spielzeit vereinbart werden. Stellen Sie sicher, dass die Belohnungen nicht nur materieller Natur sind. Achten Sie vor allem bei der Belohnung mit Süßigkeiten auf Moderation, um ungesunde Gewohnheiten zu vermeiden.
+        , in dem Sie festlegen, welche Belohnungen es für eine bestimmte Anzahl
+        gesammelter Münzen gibt. Kurzfristige Belohnungen könnten für 1-3 Münzen
+        ein Sticker oder eine Kleinigkeit sein. Für eine größere Anzahl an
+        Münzen könnten Belohnungen wie ein Kinobesuch, ein neues Paar Schuhe
+        oder zusätzliche Spielzeit vereinbart werden. Stellen Sie sicher, dass
+        die Belohnungen nicht nur materieller Natur sind. Achten Sie vor allem
+        bei der Belohnung mit Süßigkeiten auf Moderation, um ungesunde
+        Gewohnheiten zu vermeiden.
       </>
     ) : (
       "Erstellen Sie gemeinsam mit Ihrem Kind einen Vertrag, in dem Sie festlegen, welche Belohnungen es für eine bestimmte Anzahl gesammelter Münzen gibt. Kurzfristige Belohnungen könnten für 1-3 Münzen ein Sticker oder eine Kleinigkeit sein. Für eine größere Anzahl an Münzen könnten Belohnungen wie ein Kinobesuch, ein neues Paar Schuhe oder zusätzliche Spielzeit vereinbart werden. Stellen Sie sicher, dass die Belohnungen nicht nur materieller Natur sind. Achten Sie vor allem bei der Belohnung mit Süßigkeiten auf Moderation, um ungesunde Gewohnheiten zu vermeiden."

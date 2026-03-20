@@ -1,7 +1,4 @@
-import {
-  type ContractData,
-  validateContract,
-} from "./contractValidation";
+import { type ContractData, validateContract } from "./contractValidation";
 
 const STORAGE_KEY = "contract.v1";
 

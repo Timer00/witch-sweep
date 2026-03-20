@@ -18,7 +18,11 @@ const emptyFormData: ContractFormData = {
 };
 
 function toFormData(
-  loaded: { parentName: string; childName: string; rewards: { id: string; description: string; amount: number }[] } | null
+  loaded: {
+    parentName: string;
+    childName: string;
+    rewards: { id: string; description: string; amount: number }[];
+  } | null
 ): ContractFormData {
   if (!loaded?.rewards?.length) return emptyFormData;
   return {
@@ -32,7 +36,10 @@ function toFormData(
   };
 }
 
-const ContractDefinition = ({ onClose, onOpenInfo }: ContractDefinitionProps) => {
+const ContractDefinition = ({
+  onClose,
+  onOpenInfo,
+}: ContractDefinitionProps) => {
   const [isDirty, setIsDirty] = useState(false);
   const [showDiscardDialog, setShowDiscardDialog] = useState(false);
 

@@ -13,12 +13,8 @@ export const contractRewardSchema = z.object({
 });
 
 export const contractDataSchema = z.object({
-  parentName: z
-    .string()
-    .min(1, "Bitte gib den Namen des Elternteils ein."),
-  childName: z
-    .string()
-    .min(1, "Bitte gib den Namen des Kindes ein."),
+  parentName: z.string().min(1, "Bitte gib den Namen des Elternteils ein."),
+  childName: z.string().min(1, "Bitte gib den Namen des Kindes ein."),
   rewards: z
     .array(contractRewardSchema)
     .min(1, "Bitte füge mindestens eine Belohnung hinzu.")
@@ -40,9 +36,7 @@ export type ContractValidationResult =
   | { success: true; data: ContractData }
   | { success: false; errors: z.ZodError };
 
-export function validateContract(
-  data: unknown
-): ContractValidationResult {
+export function validateContract(data: unknown): ContractValidationResult {
   const result = contractDataSchema.safeParse(data);
   if (result.success) {
     return { success: true, data: result.data };

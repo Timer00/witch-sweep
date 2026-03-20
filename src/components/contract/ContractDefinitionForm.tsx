@@ -125,13 +125,15 @@ const ContractDefinitionForm = ({
             />
           ) : (
             <div
-              className={`group relative w-full ${atLimit ? "cursor-not-allowed" : ""}`}
+              className={`group relative w-full ${
+                atLimit ? "cursor-not-allowed" : ""
+              }`}
             >
               <button
                 type="button"
                 onClick={startAdd}
                 disabled={atLimit}
-                className="flex h-11 min-h-11 w-full items-center justify-center rounded border-2 border-dashed border-black/50 font-medium hover:border-black hover:bg-black/5 disabled:opacity-60"
+                className="min-h-11 flex h-11 w-full items-center justify-center rounded border-2 border-dashed border-black/50 font-medium hover:border-black hover:bg-black/5 disabled:opacity-60"
               >
                 Neu hinzufügen +
               </button>
@@ -159,18 +161,13 @@ const ContractDefinitionForm = ({
                   autoFocus
                 />
               ) : (
-                <div className="flex h-11 min-h-11 items-center justify-between gap-2 px-3">
+                <div className="min-h-11 flex h-11 items-center justify-between gap-2 px-3">
                   <span className="min-w-0 flex-1 truncate">
                     {rewards[index]?.description}
                   </span>
                   <span className="flex shrink-0 items-center gap-1">
                     {rewards[index]?.amount}
-                    <img
-                      src={coin}
-                      alt=""
-                      className="h-5 w-5"
-                      aria-hidden
-                    />
+                    <img src={coin} alt="" className="h-5 w-5" aria-hidden />
                   </span>
                   <div className="flex shrink-0 gap-1">
                     <button

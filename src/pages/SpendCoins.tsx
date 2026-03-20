@@ -44,7 +44,7 @@ const SpendCoins = ({ onClose }: SpendCoinsProps) => {
 
   return (
     <FullScreen onClose={onClose}>
-      <div className="flex h-full gap-6 overflow-auto p-4 lg:px-16 text-black">
+      <div className="flex h-full gap-6 overflow-auto p-4 text-black lg:px-16">
         <CoinSpendForm
           spendAmount={spendAmount}
           onSpendAmountChange={setAmount}

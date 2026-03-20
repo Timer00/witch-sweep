@@ -36,12 +36,7 @@ const CoinSpendForm = ({
         <div className="text-lg">Deine Münzen</div>
         <div className="mt-1 flex items-center justify-center gap-1">
           <span className="text-2xl font-semibold">{coins}</span>
-          <img
-            src={coin}
-            alt=""
-            className="h-6 w-6"
-            aria-hidden
-          />
+          <img src={coin} alt="" className="h-6 w-6" aria-hidden />
         </div>
       </div>
 
@@ -62,11 +57,9 @@ const CoinSpendForm = ({
             min={1}
             max={coins}
             value={spendAmount}
-            onChange={(e) =>
-              setAmount(parseInt(e.target.value, 10) || 0)
-            }
+            onChange={(e) => setAmount(parseInt(e.target.value, 10) || 0)}
             disabled={coins === 0}
-            className="w-full rounded border-2 border-black px-2 py-1 text-center text-lg [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full rounded border-2 border-black px-2 py-1 text-center text-lg [appearance:textfield] disabled:cursor-not-allowed disabled:opacity-50 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           />
           <button
             type="button"
@@ -79,7 +72,7 @@ const CoinSpendForm = ({
           </button>
         </div>
         <button
-          className="flex items-center justify-center self-stretch rounded bg-amber-400 px-6 text-white shadow-lg transition-all duration-200 ease-out hover:scale-[1.02] hover:bg-amber-300 hover:shadow-xl active:scale-[0.98] active:shadow-inner focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-lg"
+          className="flex items-center justify-center self-stretch rounded bg-amber-400 px-6 text-white shadow-lg transition-all duration-200 ease-out hover:scale-[1.02] hover:bg-amber-300 hover:shadow-xl focus:outline-none active:scale-[0.98] active:shadow-inner disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-lg"
           onClick={handleSpendClick}
           disabled={coins === 0}
         >
