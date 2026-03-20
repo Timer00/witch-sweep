@@ -33,7 +33,7 @@ const RewardEditor = ({
   return (
     <div
       className={cn(
-        "flex h-11 min-h-11 items-center gap-2 rounded bg-white pr-3",
+        "min-h-11 flex h-11 items-center gap-2 rounded bg-white pr-3",
         className
       )}
     >
@@ -45,7 +45,7 @@ const RewardEditor = ({
         }
         onKeyDown={handleKeyDown}
         placeholder="Belohnung…"
-        className="h-full my-1 min-w-0 flex-1 pl-[11px] pr-2"
+        className="my-1 h-full min-w-0 flex-1 pl-[11px] pr-2"
         maxLength={100}
         autoFocus={autoFocus}
       />

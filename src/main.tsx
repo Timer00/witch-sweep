@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import { CoinsProvider } from "@/context/CoinsProvider.tsx";
+import { AppRouter } from "@/router/AppRouter.tsx";
 
 const rootElement = document.getElementById("root")!;
 const root = ReactDOM.createRoot(rootElement);
@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(rootElement);
 root.render(
   <StrictMode>
     <CoinsProvider>
-      <App />
+      <AppRouter />
     </CoinsProvider>
   </StrictMode>
 );

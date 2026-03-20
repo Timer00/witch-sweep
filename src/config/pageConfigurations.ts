@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useCallback, useRef } from "react";
+import type React from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import GameMenu, { type GameMenuProps } from "@/pages/GameMenu.tsx";
 import Intro from "@/pages/Intro.tsx";
 import HowLong from "@/pages/HowLong.tsx";

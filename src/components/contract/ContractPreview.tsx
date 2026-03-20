@@ -1,9 +1,6 @@
 import { Sparkles, Stars, WandSparkles } from "lucide-react";
 import { coin, witchHello } from "@/assets";
-import type {
-  ContractData,
-  ContractReward,
-} from "@/utils/contractValidation";
+import type { ContractData, ContractReward } from "@/utils/contractValidation";
 
 interface ContractPreviewProps {
   parentName: ContractData["parentName"];
@@ -36,9 +33,7 @@ const ContractPreview = ({
         <div className="mb-2 flex items-center justify-center gap-2">
           <Sparkles className="h-5 w-5 text-black/50" aria-hidden />
           <Stars className="h-5 w-5 text-black/60" aria-hidden />
-          <h1 className="font-gothic text-3xl font-bold text-black">
-            Vertrag
-          </h1>
+          <h1 className="font-gothic text-3xl font-bold text-black">Vertrag</h1>
           <WandSparkles className="h-5 w-5 text-black/50" aria-hidden />
           <Stars className="h-5 w-5 text-black/60" aria-hidden />
         </div>
@@ -82,19 +77,16 @@ const ContractPreview = ({
                   affordable
                     ? "cursor-pointer transition-colors hover:bg-amber-100/80"
                     : unaffordable
-                      ? "cursor-not-allowed"
-                      : ""
+                    ? "cursor-not-allowed"
+                    : ""
                 }`}
               >
-                <span className="flex-1 truncate pr-2">{reward.description}</span>
+                <span className="flex-1 truncate pr-2">
+                  {reward.description}
+                </span>
                 <span className="flex shrink-0 items-center gap-1">
                   <span className="font-semibold">{reward.amount}</span>
-                  <img
-                    src={coin}
-                    alt=""
-                    className="h-5 w-5"
-                    aria-hidden
-                  />
+                  <img src={coin} alt="" className="h-5 w-5" aria-hidden />
                 </span>
               </li>
             );
