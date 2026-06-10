@@ -6,7 +6,18 @@ import {
   useRef,
   useMemo,
 } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  AlarmClock,
+  BookOpen,
+  Cat,
+  ChevronLeft,
+  ChevronRight,
+  CloudLightning,
+  Heart,
+  NotebookPen,
+  Presentation,
+  type LucideIcon,
+} from "lucide-react";
 import PageContainer from "@/components/PageContainer.tsx";
 import { storyChapters } from "@/assets/story/eineVerhexteWoche.ts";
 import { paginateChapter, type BookPage } from "@/utils/paginateStory.ts";
@@ -30,40 +41,80 @@ function computeFontSize() {
   return Math.round(Math.max(14, Math.min(22, 8 + stageH * 0.011)));
 }
 
-const STAR_POSITIONS = [
-  { top: "6%", left: "3%", size: "text-base", opacity: "0.18" },
-  { top: "8%", right: "4%", size: "text-sm", opacity: "0.12" },
-  { bottom: "12%", left: "4%", size: "text-sm", opacity: "0.15" },
-  { bottom: "5%", right: "3%", size: "text-base", opacity: "0.18" },
-  { top: "35%", left: "2%", size: "text-xs", opacity: "0.10" },
-  { bottom: "30%", right: "2%", size: "text-xs", opacity: "0.10" },
-  { top: "12%", left: "28%", size: "text-xs", opacity: "0.08" },
-  { bottom: "15%", right: "22%", size: "text-xs", opacity: "0.08" },
-] as const;
+// Aged golden-brown ink, matching the spellbook look
+const STAR_COLOR = "140, 106, 47";
 
-const STAR_CHARS = ["✦", "✧", "✦", "✧", "★", "★", "✧", "✦"];
+interface DecoStar {
+  top?: string;
+  bottom?: string;
+  left?: string;
+  right?: string;
+  size: number;
+  opacity: number;
+  rotate: number;
+  char: string;
+}
+
+// Two rings of stars: the outer ones sit in the page padding (safe on every
+// screen size); the inner ones are offset from the page center so they land
+// in the side margins on wide screens and are clipped away on small ones,
+// never touching the text column (max 672px wide, centered).
+const DECO_STARS: DecoStar[] = [
+  { top: "2%", left: "1%", size: 18, opacity: 0.5, rotate: -15, char: "✦" },
+  { top: "1%", right: "2%", size: 13, opacity: 0.4, rotate: 20, char: "✧" },
+  { top: "20%", right: "0.8%", size: 16, opacity: 0.45, rotate: -10, char: "✦" },
+  { top: "33%", left: "0.9%", size: 12, opacity: 0.35, rotate: 12, char: "✧" },
+  { top: "52%", right: "1.2%", size: 11, opacity: 0.35, rotate: 0, char: "★" },
+  { top: "68%", left: "0.7%", size: 15, opacity: 0.45, rotate: -18, char: "✦" },
+  { bottom: "3%", left: "2%", size: 13, opacity: 0.4, rotate: 8, char: "✧" },
+  { bottom: "2%", right: "1%", size: 17, opacity: 0.5, rotate: 15, char: "✦" },
+  { bottom: "18%", right: "2%", size: 11, opacity: 0.3, rotate: -5, char: "✧" },
+  { top: "42%", left: "2%", size: 10, opacity: 0.3, rotate: 25, char: "★" },
+  { top: "10%", left: "calc(50% - 470px)", size: 14, opacity: 0.4, rotate: -12, char: "✦" },
+  { top: "30%", left: "calc(50% - 395px)", size: 9, opacity: 0.3, rotate: 0, char: "★" },
+  { top: "58%", left: "calc(50% - 430px)", size: 11, opacity: 0.33, rotate: 18, char: "✧" },
+  { top: "80%", left: "calc(50% - 480px)", size: 12, opacity: 0.35, rotate: -8, char: "✧" },
+  { top: "16%", left: "calc(50% + 390px)", size: 12, opacity: 0.35, rotate: 10, char: "✧" },
+  { top: "44%", left: "calc(50% + 455px)", size: 15, opacity: 0.4, rotate: -20, char: "✦" },
+  { top: "70%", left: "calc(50% + 405px)", size: 10, opacity: 0.3, rotate: 5, char: "★" },
+  { top: "88%", left: "calc(50% + 470px)", size: 13, opacity: 0.38, rotate: 22, char: "✦" },
+];
 
 function DecoStars() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden rounded">
-      {STAR_POSITIONS.map((pos, i) => (
+      {DECO_STARS.map((s, i) => (
         <span
           key={i}
-          className={`absolute ${pos.size}`}
+          className="absolute"
           style={{
-            top: "top" in pos ? pos.top : undefined,
-            bottom: "bottom" in pos ? pos.bottom : undefined,
-            left: "left" in pos ? pos.left : undefined,
-            right: "right" in pos ? pos.right : undefined,
-            color: `rgba(196, 169, 106, ${pos.opacity})`,
+            top: s.top,
+            bottom: s.bottom,
+            left: s.left,
+            right: s.right,
+            fontSize: s.size,
+            lineHeight: 1,
+            color: `rgba(${STAR_COLOR}, ${s.opacity})`,
+            transform: `rotate(${s.rotate}deg)`,
           }}
         >
-          {STAR_CHARS[i]}
+          {s.char}
         </span>
       ))}
     </div>
   );
 }
+
+// One little doodle per weekday, shown beside the chapter title
+const CHAPTER_ICONS: Record<string, LucideIcon> = {
+  montag: AlarmClock,
+  dienstag: Presentation,
+  mittwoch: BookOpen,
+  donnerstag: NotebookPen,
+  freitag: CloudLightning,
+  samstag: Cat,
+  sonntag: Heart,
+};
 
 function PageContent({
   page,
@@ -82,13 +133,32 @@ function PageContent({
   nextChapterLabel?: string;
   onNextChapter?: () => void;
 }) {
+  const ChapterIcon = CHAPTER_ICONS[chapter.id];
   return (
     <>
       {page.isChapterStart && (
         <div className="mx-auto mb-4 max-w-2xl text-center">
-          <h2 className="font-tales text-3xl text-[#3a2417]">
-            {chapter.weekday}
-          </h2>
+          <div className="flex items-center justify-center gap-4">
+            {ChapterIcon && (
+              <ChapterIcon
+                size={28}
+                strokeWidth={1.75}
+                className="shrink-0 -rotate-6 text-[#5a3a22]/60"
+                aria-hidden
+              />
+            )}
+            <h2 className="font-tales text-3xl text-[#3a2417]">
+              {chapter.weekday}
+            </h2>
+            {ChapterIcon && (
+              <ChapterIcon
+                size={28}
+                strokeWidth={1.75}
+                className="shrink-0 rotate-6 -scale-x-100 text-[#5a3a22]/60"
+                aria-hidden
+              />
+            )}
+          </div>
           <p
             className="font-dyslexic mt-1 italic text-[#5a3a22]"
             style={{ fontSize: Math.max(12, fontSize - 4) }}
