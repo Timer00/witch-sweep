@@ -1,8 +1,11 @@
 import logo from "@/assets/images/witch_talk.png";
 import { type PageProps, type setTimerMinutes } from "@/App.tsx";
-import DialogBox from "@/components/DialogBox.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
-import { useEffect, useRef } from "react";
+import Button, { softButtonStyle } from "@/components/Button.tsx";
+import TimeClockPicker, {
+  MIN_MINUTES,
+} from "@/components/TimeClockPicker.tsx";
+import { useEffect, useRef, useState } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 import { room } from "@/assets";
 import Video from "@/components/Video.tsx";
@@ -14,17 +17,14 @@ interface HowLongProps extends PageProps {
 const HowLong = ({ setTimerMinutes, nextPage }: HowLongProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
-
-  const handleVideo = () => {
-    setLoop(false);
-    switchVideo(room);
-  };
+  const [minutes, setMinutes] = useState(MIN_MINUTES);
 
   useEffect(() => {
-    handleVideo();
+    setLoop(false);
+    switchVideo(room);
   }, []);
 
-  const setHowLong = (minutes: number) => {
+  const handleConfirm = () => {
     setTimerMinutes(minutes);
     nextPage();
   };
@@ -37,34 +37,17 @@ const HowLong = ({ setTimerMinutes, nextPage }: HowLongProps) => {
         alt="logo"
         className="z-2 absolute left-[-2%] top-[1%] w-1/2"
       />
-      <DialogBox>
-        <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-10">
-          <div
-            onClick={() => setHowLong(10)}
-            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-amber-600"
+      <div className="z-2 relative flex h-full w-full items-center justify-end pr-[6%] lg:pr-[10%]">
+        <div className="flex flex-col items-center gap-3 lg:gap-6">
+          <TimeClockPicker minutes={minutes} onChange={setMinutes} />
+          <Button
+            onClick={handleConfirm}
+            className={`${softButtonStyle} font-dyslexic px-8 py-2 text-lg md:text-xl lg:text-2xl`}
           >
-            <span className="text-center">10:00</span>
-          </div>
-          <div
-            onClick={() => setHowLong(15)}
-            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-amber-700"
-          >
-            <span className="text-center">15:00</span>
-          </div>
-          <div
-            onClick={() => setHowLong(20)}
-            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-orange-400"
-          >
-            <span className="text-center">20:00</span>
-          </div>
-          <div
-            onClick={() => setHowLong(25)}
-            className="center h-[10vmax] w-[10vmax] cursor-pointer rounded bg-orange-500"
-          >
-            <span className="text-center">25:00</span>
-          </div>
+            Weiter
+          </Button>
         </div>
-      </DialogBox>
+      </div>
     </PageContainer>
   );
 };
