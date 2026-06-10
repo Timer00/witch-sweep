@@ -1,6 +1,6 @@
 import { HelpTypeInterface, type PageProps } from "@/App.tsx";
 import Timer from "@/components/Timer.tsx";
-import Button from "@/components/Button.tsx";
+import Button, { softButtonStyle } from "@/components/Button.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import { useEffect, useRef } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
@@ -46,17 +46,21 @@ const TimerScreen = ({
   return (
     <PageContainer>
       <Video videoRef={videoRef} videoProps={videoProps} loading={loading} />
-      <div className="z-0 flex h-screen flex-col justify-between p-5 text-amber-50">
-        {/*<h1 className="text-3xl font-bold">{timerHeader}</h1>*/}
-        <Timer
-          className="text-4xl underline underline-offset-8"
-          expiryTimestamp={time}
-          onExpire={() => onTimeOver(timerMinutes)}
-          autoStart={true}
-        />
+      <div className="z-2 relative flex h-full flex-col items-center justify-between p-6 text-amber-50">
+        <div className="rounded-2xl border-2 border-amber-50/40 bg-black/35 px-10 py-2 backdrop-blur-sm">
+          <Timer
+            className="font-dyslexic text-4xl md:text-5xl"
+            expiryTimestamp={time}
+            onExpire={() => onTimeOver(timerMinutes)}
+            autoStart={true}
+          />
+        </div>
         <Button
-          className="m-3"
-          small={helpType === HelpTypeInterface.homework}
+          className={
+            helpType === HelpTypeInterface.homework
+              ? `${softButtonStyle} border-amber-50/30 bg-white/5 text-base text-white/70 md:text-lg lg:text-xl`
+              : softButtonStyle
+          }
           onClick={() => onClickButton(timerMinutes)}
         >
           {doneButton}

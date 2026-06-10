@@ -106,7 +106,7 @@ function DecoStars() {
 }
 
 // One little doodle per weekday, shown beside the chapter title
-const CHAPTER_ICONS: Record<string, LucideIcon> = {
+const CHAPTER_ICONS: { [id: string]: LucideIcon } = {
   montag: AlarmClock,
   dienstag: Presentation,
   mittwoch: BookOpen,
