@@ -1,4 +1,11 @@
-import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useMemo,
+} from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PageContainer from "@/components/PageContainer.tsx";
 import { storyChapters } from "@/assets/story/eineVerhexteWoche.ts";
@@ -16,19 +23,11 @@ interface StoryReaderProps {
   onGoToChapter?: (index: number) => void;
 }
 
-function computeStoryLayout() {
+function computeFontSize() {
   const w = window.innerWidth;
   const h = window.innerHeight;
-  const stageH = Math.min(h, w * 9 / 16);
-
-  const fontSize = Math.round(Math.max(14, Math.min(22, 8 + stageH * 0.011)));
-  const lineHeight = fontSize * 1.625;
-  const bookH = stageH * 0.9;
-  const textH = bookH - 120;
-  const lines = Math.floor(textH / lineHeight);
-  const wordsPerPage = Math.max(30, Math.round(lines * 7 * 0.65));
-
-  return { fontSize, wordsPerPage };
+  const stageH = Math.min(h, (w * 9) / 16);
+  return Math.round(Math.max(14, Math.min(22, 8 + stageH * 0.011)));
 }
 
 const STAR_POSITIONS = [
@@ -103,7 +102,8 @@ function PageContent({
           block.type === "sceneBreak" ? (
             <p
               key={i}
-              className="py-2 text-center tracking-[0.5em] text-[#8a7a5a]"
+              className="py-2 text-center leading-relaxed tracking-[0.5em] text-[#8a7a5a]"
+              style={{ fontSize }}
             >
               ✦ ✦ ✦
             </p>
@@ -155,45 +155,63 @@ const StoryReader = ({
   onBackToContents,
   onGoToChapter,
 }: StoryReaderProps) => {
-  const [layout] = useState(computeStoryLayout);
+  const [fontSize] = useState(computeFontSize);
   const chapter = storyChapters[chapterIndex];
-  const pages = useMemo(
-    () => paginateChapter(chapter, layout.wordsPerPage),
-    [chapter, layout.wordsPerPage]
+
+  // The real text area is measured after the book frame renders, then the
+  // chapter is laid out into pages that exactly fit it (like an ebook reader).
+  const parchmentRef = useRef<HTMLDivElement>(null);
+  const [box, setBox] = useState<{ width: number; height: number } | null>(
+    null
   );
 
-  const initialPage = () => {
+  useLayoutEffect(() => {
+    const el = parchmentRef.current;
+    if (!el) return;
+    // px-8 / py-5 padding, plus the page-number footer line
+    const width = Math.min(672, el.clientWidth - 64);
+    const height = el.clientHeight - 40 - 32;
+    setBox({ width, height });
+  }, []);
+
+  const pages = useMemo(
+    () => (box ? paginateChapter(chapter, { ...box, fontSize }) : null),
+    [chapter, box, fontSize]
+  );
+
+  const [currentPage, setCurrentPage] = useState(() => {
     const pos = loadReadingPosition();
-    if (pos && pos.chapterIndex === chapterIndex) {
-      return Math.min(pos.pageIndex, pages.length - 1);
-    }
-    return 0;
-  };
-
-  const [currentPage, setCurrentPage] = useState(initialPage);
-
-  // Reset page when chapter changes (component reused via same key, not remounted)
-  const [prevChapter, setPrevChapter] = useState(chapterIndex);
-  if (prevChapter !== chapterIndex) {
-    setPrevChapter(chapterIndex);
-    const pos = loadReadingPosition();
-    if (pos && pos.chapterIndex === chapterIndex) {
-      setCurrentPage(Math.min(pos.pageIndex, pages.length - 1));
-    } else {
-      setCurrentPage(0);
-    }
-  }
-
-  // Save reading position whenever it changes
-  useEffect(() => {
-    saveReadingPosition(chapterIndex, currentPage);
-  }, [chapterIndex, currentPage]);
+    return pos && pos.chapterIndex === chapterIndex ? pos.pageIndex : 0;
+  });
 
   const [flipState, setFlipState] = useState<{
     direction: "forward" | "backward";
     toPage: number;
     animating: boolean;
   } | null>(null);
+
+  // Reset page when chapter changes (component reused via same key, not remounted)
+  const [prevChapter, setPrevChapter] = useState(chapterIndex);
+  if (prevChapter !== chapterIndex) {
+    setPrevChapter(chapterIndex);
+    const pos = loadReadingPosition();
+    setCurrentPage(
+      pos && pos.chapterIndex === chapterIndex ? pos.pageIndex : 0
+    );
+    setFlipState(null);
+  }
+
+  // Saved positions may exceed the page count (page counts change with screen
+  // size, and "previous chapter" jumps save a huge index to land on the last
+  // page) — clamp to what this layout actually has.
+  const pageCount = pages?.length ?? 0;
+  const safePage = pageCount > 0 ? Math.min(currentPage, pageCount - 1) : 0;
+
+  // Save reading position whenever it changes
+  useEffect(() => {
+    if (!pages) return;
+    saveReadingPosition(chapterIndex, safePage);
+  }, [pages, chapterIndex, safePage]);
 
   const prefersReducedMotion = useRef(
     window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -202,10 +220,10 @@ const StoryReader = ({
   const touchStartRef = useRef<number | null>(null);
 
   const isFlipping = flipState !== null;
-  const canGoBack = currentPage > 0;
-  const canGoForward = currentPage < pages.length - 1;
-  const isLastPage = currentPage === pages.length - 1;
-  const isFirstPage = currentPage === 0;
+  const canGoBack = safePage > 0;
+  const canGoForward = safePage < pageCount - 1;
+  const isLastPage = pageCount > 0 && safePage === pageCount - 1;
+  const isFirstPage = safePage === 0;
   const hasNextChapter =
     chapterIndex < storyChapters.length - 1 && !!onGoToChapter;
   const hasPrevChapter = chapterIndex > 0 && !!onGoToChapter;
@@ -236,7 +254,7 @@ const StoryReader = ({
   const goForward = useCallback(() => {
     if (isFlipping) return;
     if (canGoForward) {
-      const next = currentPage + 1;
+      const next = safePage + 1;
       if (prefersReducedMotion.current) {
         setCurrentPage(next);
         return;
@@ -245,12 +263,12 @@ const StoryReader = ({
     } else if (hasNextChapter) {
       goToNextChapter();
     }
-  }, [canGoForward, isFlipping, currentPage, hasNextChapter, goToNextChapter]);
+  }, [canGoForward, isFlipping, safePage, hasNextChapter, goToNextChapter]);
 
   const goBack = useCallback(() => {
     if (isFlipping) return;
     if (canGoBack) {
-      const prev = currentPage - 1;
+      const prev = safePage - 1;
       if (prefersReducedMotion.current) {
         setCurrentPage(prev);
         return;
@@ -259,7 +277,7 @@ const StoryReader = ({
     } else if (hasPrevChapter) {
       goToPrevChapter();
     }
-  }, [canGoBack, isFlipping, currentPage, hasPrevChapter, goToPrevChapter]);
+  }, [canGoBack, isFlipping, safePage, hasPrevChapter, goToPrevChapter]);
 
   // Trigger animation on next frame after flipState is set
   useEffect(() => {
@@ -290,10 +308,10 @@ const StoryReader = ({
 
   // Mark chapter finished
   useEffect(() => {
-    if (isLastPage) {
+    if (pages && isLastPage) {
       markChapterFinished(chapter.id);
     }
-  }, [isLastPage, chapter.id]);
+  }, [pages, isLastPage, chapter.id]);
 
   // Touch/swipe
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -313,12 +331,12 @@ const StoryReader = ({
     [goForward, goBack]
   );
 
-  const page = pages[currentPage];
+  const page = pages?.[safePage];
 
   const pageContentProps = {
     chapter,
-    totalPages: pages.length,
-    fontSize: layout.fontSize,
+    totalPages: pageCount,
+    fontSize,
   };
 
   return (
@@ -369,31 +387,37 @@ const StoryReader = ({
 
           {/* Static parchment (shows destination page during flip) */}
           <div
+            ref={parchmentRef}
             className="absolute inset-2 overflow-hidden rounded px-8 py-5"
             style={parchmentStyle}
           >
             <DecoStars />
-            {flipState ? (
-              <PageContent
-                page={pages[flipState.toPage]}
-                isLast={flipState.toPage === pages.length - 1}
-                nextChapterLabel={nextChapter?.weekday}
-                onNextChapter={goToNextChapter}
-                {...pageContentProps}
-              />
-            ) : (
-              <PageContent
-                page={page}
-                isLast={isLastPage}
-                nextChapterLabel={nextChapter?.weekday}
-                onNextChapter={goToNextChapter}
-                {...pageContentProps}
-              />
-            )}
+            <div className="relative h-full overflow-y-auto">
+              {pages &&
+                (flipState ? (
+                  <PageContent
+                    page={pages[flipState.toPage]}
+                    isLast={flipState.toPage === pageCount - 1}
+                    nextChapterLabel={nextChapter?.weekday}
+                    onNextChapter={goToNextChapter}
+                    {...pageContentProps}
+                  />
+                ) : (
+                  page && (
+                    <PageContent
+                      page={page}
+                      isLast={isLastPage}
+                      nextChapterLabel={nextChapter?.weekday}
+                      onNextChapter={goToNextChapter}
+                      {...pageContentProps}
+                    />
+                  )
+                ))}
+            </div>
           </div>
 
           {/* Animated flip leaf */}
-          {flipState && (
+          {pages && flipState && (
             <div
               className="absolute inset-2 rounded"
               style={{
@@ -425,13 +449,15 @@ const StoryReader = ({
                 }}
               >
                 <DecoStars />
-                <PageContent
-                  page={page}
-                  isLast={isLastPage}
-                  nextChapterLabel={nextChapter?.weekday}
-                  onNextChapter={goToNextChapter}
-                  {...pageContentProps}
-                />
+                {page && (
+                  <PageContent
+                    page={page}
+                    isLast={isLastPage}
+                    nextChapterLabel={nextChapter?.weekday}
+                    onNextChapter={goToNextChapter}
+                    {...pageContentProps}
+                  />
+                )}
               </div>
               {/* Back face */}
               <div
