@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { coin } from "@/assets";
+import { coinsForMinutes } from "@/utils/coinReward.ts";
 
 interface TimeClockPickerProps {
   minutes: number;
@@ -9,10 +10,6 @@ interface TimeClockPickerProps {
 export const MIN_MINUTES = 10;
 export const MAX_MINUTES = 60;
 const STEP = 5;
-
-export function coinsForMinutes(minutes: number): number {
-  return Math.floor(minutes / 10);
-}
 
 const SIZE = 300;
 const CENTER = SIZE / 2;

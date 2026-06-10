@@ -15,6 +15,7 @@ import {
 } from "@/App.tsx";
 import StoryChapterPicker from "@/pages/StoryChapterPicker.tsx";
 import StoryReader from "@/pages/StoryReader.tsx";
+import { coinsForMinutes, coinLabel } from "@/utils/coinReward.ts";
 
 export interface PageConfigurationDependencies {
   nextPage: nextPage;
@@ -54,6 +55,13 @@ function createPageConfigurations({
   storyChapter: number;
   setStoryChapter: (chapter: number) => void;
 }) {
+  // The witch's promise must match the real reward: one coin per started
+  // 10 minutes. She holds one coin in the picture for a 1-coin reward,
+  // several coins for anything more.
+  const rewardCount = coinsForMinutes(timerMinutes);
+  const rewardWitch = rewardCount <= 1 ? Witch.coin : Witch.coins;
+  const rewardLabel = coinLabel(rewardCount);
+
   return {
     witchName: "Anabella Declutter",
     pages: [
@@ -152,10 +160,8 @@ function createPageConfigurations({
                 text: "Super! Machen wir eine **Herausforderung** daraus: Ich wette mit dir, ich bin schneller fertig als du!",
               },
               {
-                witch: timerMinutes < 20 ? Witch.coin : Witch.coins,
-                text: `Wenn du fertig wirst, **bevor die Zeit ausläuft**, dann kriegst du **${
-                  timerMinutes < 20 ? "eine Münze" : "zwei Münzen"
-                }** von mir! Sollte der Timer aber auslaufen, dann habe ich gewonnen!`,
+                witch: rewardWitch,
+                text: `Wenn du fertig wirst, **bevor die Zeit ausläuft**, dann kriegst du **${rewardLabel}** von mir! Sollte der Timer aber auslaufen, dann habe ich gewonnen!`,
               },
             ],
             [HelpTypeInterface.homework]: [
@@ -164,10 +170,8 @@ function createPageConfigurations({
                 text: "Alles klar! Ich habe aber eine **Herausforderung** für dich: Ich wette, ich kann viel länger an meinen Hausaufgaben sitzen als du.",
               },
               {
-                witch: timerMinutes < 20 ? Witch.coin : Witch.coins,
-                text: `Wenn du so lange durchhältst, bis der Timer vorbei ist, dann bekommst du **${
-                  timerMinutes < 20 ? "eine Münze" : "zwei Münzen"
-                }** von mir. Solltest du aber aufgeben, bevor die Zeit rum ist, dann habe ich gewonnen!`,
+                witch: rewardWitch,
+                text: `Wenn du so lange durchhältst, bis der Timer vorbei ist, dann bekommst du **${rewardLabel}** von mir. Solltest du aber aufgeben, bevor die Zeit rum ist, dann habe ich gewonnen!`,
               },
             ],
           }[helpType] as Messages,
@@ -180,10 +184,10 @@ function createPageConfigurations({
           description: "Page asking if player is ready.",
           messages: {
             [HelpTypeInterface.cleaning]: [
-              { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `` },
+              { witch: rewardWitch, text: `` },
             ],
             [HelpTypeInterface.homework]: [
-              { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `` },
+              { witch: rewardWitch, text: `` },
             ],
           }[helpType] as Messages,
           buttonText: "Los geht's!",
