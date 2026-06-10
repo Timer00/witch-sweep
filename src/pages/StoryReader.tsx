@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PageContainer from "@/components/PageContainer.tsx";
 import { storyChapters } from "@/assets/story/eineVerhexteWoche.ts";
@@ -26,16 +26,26 @@ const StoryReader = ({ chapterIndex, onBackToContents }: StoryReaderProps) => {
     if (canGoForward) setCurrentPage((p) => p + 1);
   }, [canGoForward]);
 
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") goForward();
+      if (e.key === "ArrowLeft") goBack();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [goForward, goBack]);
+
   const page = pages[currentPage];
 
   return (
-    <PageContainer className="bg-gradient-to-b from-[#1a0e08] via-[#2a1a10] to-[#0d0705]">
+    <PageContainer className="bg-gradient-radial from-[#1a0e08] via-[#2a1a10] to-[#0d0705]"
+      style={{ background: "radial-gradient(ellipse at center, #2a1a10 0%, #1a0e08 50%, #0d0705 100%)" }}>
       <div className="z-2 relative flex h-full w-full items-center justify-center px-2">
-        {/* Back to contents button */}
+        {/* Back to contents */}
         <button
           type="button"
           onClick={onBackToContents}
-          className="absolute right-2 top-2 z-10 rounded px-3 py-1 text-sm text-amber-200/70 underline underline-offset-4 transition-opacity hover:opacity-80"
+          className="absolute right-3 top-1 z-10 rounded px-3 py-1 text-sm text-amber-200/70 underline underline-offset-4 transition-opacity hover:opacity-80"
         >
           Zur Übersicht
         </button>
@@ -45,54 +55,72 @@ const StoryReader = ({ chapterIndex, onBackToContents }: StoryReaderProps) => {
           type="button"
           onClick={goBack}
           disabled={!canGoBack}
-          className="shrink-0 rounded-full p-2 text-amber-100 transition-opacity disabled:opacity-20"
+          className="shrink-0 rounded-full p-1 text-amber-100 transition-opacity disabled:opacity-20"
           aria-label="Vorherige Seite"
         >
-          <ChevronLeft size={36} />
+          <ChevronLeft size={32} />
         </button>
 
-        {/* Page content */}
+        {/* Book frame */}
         <div
-          className="mx-2 overflow-y-auto rounded-lg bg-[#f5ebcd] px-10 py-5 shadow-xl"
-          style={{ width: "85%", height: "88%" }}
+          className="relative mx-1 flex overflow-hidden rounded-lg border-4 border-[#5a3a22] shadow-2xl"
+          style={{
+            width: "88%",
+            height: "90%",
+            background: "#3a2417",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.7), inset 0 0 20px rgba(0,0,0,0.3)",
+          }}
         >
-          {page.isChapterStart && (
-            <div className="mb-4 text-center">
-              <h2 className="font-dyslexic text-2xl font-bold text-[#3a2417]">
-                {chapter.weekday}
-              </h2>
-              <p className="font-dyslexic mt-1 text-sm italic text-[#5a3a22]">
-                {chapter.title}
-              </p>
-            </div>
-          )}
-          <div className="space-y-3">
-            {page.blocks.map((block, i) =>
-              block.type === "sceneBreak" ? (
-                <p
-                  key={i}
-                  className="py-2 text-center tracking-[0.5em] text-[#8a7a5a]"
-                >
-                  ✦ ✦ ✦
+          {/* Page-stack illusion */}
+          <div className="absolute inset-y-2 left-1 w-1 rounded bg-[#d9c08c]/40" />
+          <div className="absolute inset-y-2 right-1 w-1 rounded bg-[#d9c08c]/40" />
+
+          {/* Parchment page */}
+          <div
+            className="m-2 flex-1 overflow-y-auto rounded px-8 py-5"
+            style={{
+              background: "radial-gradient(ellipse at center, #f5ebcd 0%, #e8d5a8 60%, #d9c08c 100%)",
+              boxShadow: "inset 2px 0 8px rgba(0,0,0,0.15), inset -2px 0 8px rgba(0,0,0,0.1)",
+            }}
+          >
+            {page.isChapterStart && (
+              <div className="mb-4 text-center">
+                <h2 className="font-tales text-3xl text-[#3a2417]">
+                  {chapter.weekday}
+                </h2>
+                <p className="font-dyslexic mt-1 text-sm italic text-[#5a3a22]">
+                  {chapter.title}
                 </p>
-              ) : (
-                <p
-                  key={i}
-                  className="font-dyslexic text-left text-base leading-relaxed text-[#3a2417]"
-                >
-                  {block.text}
-                </p>
-              )
+              </div>
             )}
-          </div>
-          {isLastPage && (
-            <p className="mt-6 text-center text-sm italic text-[#8a7a5a]">
-              — Ende des Kapitels —
+            <div className="space-y-3">
+              {page.blocks.map((block, i) =>
+                block.type === "sceneBreak" ? (
+                  <p
+                    key={i}
+                    className="py-2 text-center tracking-[0.5em] text-[#8a7a5a]"
+                  >
+                    ✦ ✦ ✦
+                  </p>
+                ) : (
+                  <p
+                    key={i}
+                    className="font-dyslexic text-left text-base leading-relaxed text-[#3a2417]"
+                  >
+                    {block.text}
+                  </p>
+                )
+              )}
+            </div>
+            {isLastPage && (
+              <p className="mt-6 text-center text-sm italic text-[#8a7a5a]">
+                — Ende des Kapitels —
+              </p>
+            )}
+            <p className="mt-4 text-center text-xs text-[#8a7a5a]">
+              {page.pageNumber} / {pages.length}
             </p>
-          )}
-          <p className="mt-4 text-center text-xs text-[#8a7a5a]">
-            {page.pageNumber} / {pages.length}
-          </p>
+          </div>
         </div>
 
         {/* Right arrow */}
@@ -100,10 +128,10 @@ const StoryReader = ({ chapterIndex, onBackToContents }: StoryReaderProps) => {
           type="button"
           onClick={goForward}
           disabled={!canGoForward}
-          className="shrink-0 rounded-full p-2 text-amber-100 transition-opacity disabled:opacity-20"
+          className="shrink-0 rounded-full p-1 text-amber-100 transition-opacity disabled:opacity-20"
           aria-label="Nächste Seite"
         >
-          <ChevronRight size={36} />
+          <ChevronRight size={32} />
         </button>
       </div>
     </PageContainer>

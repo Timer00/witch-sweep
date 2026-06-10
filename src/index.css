@@ -56,6 +56,15 @@
   font-family: "OpenDyslexic", serif;
 }
 
+@font-face {
+  font-family: "AncientModernTales";
+  src: url("@/assets/fonts/AncientModernTales-a7Po.ttf") format("truetype");
+}
+
+.font-tales {
+  font-family: "AncientModernTales", serif;
+}
+
 * {
   font-family: OpenDyslexic, serif;
 }

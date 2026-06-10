@@ -32,7 +32,7 @@ export default defineConfig({
       },
       workbox: {
         // workbox options for generating service worker
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,mov,otf}"],
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,mov,otf,ttf}"],
         maximumFileSizeToCacheInBytes: 70000000,
         runtimeCaching: [
           {
