@@ -34,19 +34,19 @@ const MenuView = ({
 }: MenuViewProps) => {
   const menuItems = [
     { label: "Start", action: onStartClick },
-    { label: "Vertrag", action: openStore },
+    { label: "Mein Vertrag", action: openStore },
     { label: "Anleitung", action: openInfo },
     { label: "Impressum", action: openLegal },
   ];
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-6">
-      <ul className="flex flex-col items-center gap-6">
+      <ul className="flex flex-col items-center gap-3 md:gap-4 lg:gap-6">
         {menuItems.map((item) => (
           <li key={item.label}>
             <button
               onClick={item.action}
-              className="cursor-pointer text-2xl text-gray-300 transition-all duration-200 hover:scale-110 hover:animate-shake hover:text-white"
+              className="cursor-pointer text-base text-gray-300 transition-all duration-200 hover:scale-110 hover:animate-shake hover:text-white md:text-xl lg:text-2xl"
             >
               {item.label}
             </button>

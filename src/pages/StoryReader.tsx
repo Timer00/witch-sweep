@@ -20,9 +20,50 @@ function computeStoryLayout() {
   const w = window.innerWidth;
   const h = window.innerHeight;
   const stageH = Math.min(h, w * 9 / 16);
+
   const fontSize = Math.round(Math.max(14, Math.min(22, 8 + stageH * 0.011)));
-  const wordsPerPage = Math.max(40, Math.round(stageH * 0.2));
+  const lineHeight = fontSize * 1.625;
+  const bookH = stageH * 0.9;
+  const textH = bookH - 120;
+  const lines = Math.floor(textH / lineHeight);
+  const wordsPerPage = Math.max(30, Math.round(lines * 7 * 0.65));
+
   return { fontSize, wordsPerPage };
+}
+
+const STAR_POSITIONS = [
+  { top: "6%", left: "3%", size: "text-base", opacity: "0.18" },
+  { top: "8%", right: "4%", size: "text-sm", opacity: "0.12" },
+  { bottom: "12%", left: "4%", size: "text-sm", opacity: "0.15" },
+  { bottom: "5%", right: "3%", size: "text-base", opacity: "0.18" },
+  { top: "35%", left: "2%", size: "text-xs", opacity: "0.10" },
+  { bottom: "30%", right: "2%", size: "text-xs", opacity: "0.10" },
+  { top: "12%", left: "28%", size: "text-xs", opacity: "0.08" },
+  { bottom: "15%", right: "22%", size: "text-xs", opacity: "0.08" },
+] as const;
+
+const STAR_CHARS = ["✦", "✧", "✦", "✧", "★", "★", "✧", "✦"];
+
+function DecoStars() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden rounded">
+      {STAR_POSITIONS.map((pos, i) => (
+        <span
+          key={i}
+          className={`absolute ${pos.size}`}
+          style={{
+            top: "top" in pos ? pos.top : undefined,
+            bottom: "bottom" in pos ? pos.bottom : undefined,
+            left: "left" in pos ? pos.left : undefined,
+            right: "right" in pos ? pos.right : undefined,
+            color: `rgba(196, 169, 106, ${pos.opacity})`,
+          }}
+        >
+          {STAR_CHARS[i]}
+        </span>
+      ))}
+    </div>
+  );
 }
 
 function PageContent({
@@ -164,8 +205,10 @@ const StoryReader = ({
   const canGoBack = currentPage > 0;
   const canGoForward = currentPage < pages.length - 1;
   const isLastPage = currentPage === pages.length - 1;
+  const isFirstPage = currentPage === 0;
   const hasNextChapter =
     chapterIndex < storyChapters.length - 1 && !!onGoToChapter;
+  const hasPrevChapter = chapterIndex > 0 && !!onGoToChapter;
   const nextChapter = hasNextChapter
     ? storyChapters[chapterIndex + 1]
     : undefined;
@@ -175,6 +218,14 @@ const StoryReader = ({
       onGoToChapter(chapterIndex + 1);
     }
   }, [hasNextChapter, onGoToChapter, chapterIndex]);
+
+  const goToPrevChapter = useCallback(() => {
+    if (hasPrevChapter && onGoToChapter) {
+      // Save a very high page index so the reader clamps to the last page
+      saveReadingPosition(chapterIndex - 1, Number.MAX_SAFE_INTEGER);
+      onGoToChapter(chapterIndex - 1);
+    }
+  }, [hasPrevChapter, onGoToChapter, chapterIndex]);
 
   const commitFlip = useCallback(() => {
     if (!flipState) return;
@@ -197,14 +248,18 @@ const StoryReader = ({
   }, [canGoForward, isFlipping, currentPage, hasNextChapter, goToNextChapter]);
 
   const goBack = useCallback(() => {
-    if (!canGoBack || isFlipping) return;
-    const prev = currentPage - 1;
-    if (prefersReducedMotion.current) {
-      setCurrentPage(prev);
-      return;
+    if (isFlipping) return;
+    if (canGoBack) {
+      const prev = currentPage - 1;
+      if (prefersReducedMotion.current) {
+        setCurrentPage(prev);
+        return;
+      }
+      setFlipState({ direction: "backward", toPage: prev, animating: false });
+    } else if (hasPrevChapter) {
+      goToPrevChapter();
     }
-    setFlipState({ direction: "backward", toPage: prev, animating: false });
-  }, [canGoBack, isFlipping, currentPage]);
+  }, [canGoBack, isFlipping, currentPage, hasPrevChapter, goToPrevChapter]);
 
   // Trigger animation on next frame after flipState is set
   useEffect(() => {
@@ -287,9 +342,9 @@ const StoryReader = ({
         <button
           type="button"
           onClick={goBack}
-          disabled={!canGoBack || isFlipping}
+          disabled={(isFirstPage && !hasPrevChapter) || isFlipping}
           className="shrink-0 rounded-full p-1 text-amber-100 transition-opacity disabled:opacity-20"
-          aria-label="Vorherige Seite"
+          aria-label={isFirstPage ? "Vorheriges Kapitel" : "Vorherige Seite"}
         >
           <ChevronLeft size={32} />
         </button>
@@ -314,9 +369,10 @@ const StoryReader = ({
 
           {/* Static parchment (shows destination page during flip) */}
           <div
-            className="absolute inset-2 overflow-y-auto rounded px-8 py-5"
+            className="absolute inset-2 overflow-hidden rounded px-8 py-5"
             style={parchmentStyle}
           >
+            <DecoStars />
             {flipState ? (
               <PageContent
                 page={pages[flipState.toPage]}
@@ -362,12 +418,13 @@ const StoryReader = ({
             >
               {/* Front face: the page we're leaving */}
               <div
-                className="absolute inset-0 overflow-y-auto rounded px-8 py-5"
+                className="absolute inset-0 overflow-hidden rounded px-8 py-5"
                 style={{
                   ...parchmentStyle,
                   backfaceVisibility: "hidden",
                 }}
               >
+                <DecoStars />
                 <PageContent
                   page={page}
                   isLast={isLastPage}
