@@ -6,9 +6,6 @@ export interface BookPage {
   pageNumber: number;
 }
 
-const WORDS_PER_PAGE = 90;
-const CHAPTER_START_BUDGET = 55;
-const SPLIT_THRESHOLD = 130;
 const SCENE_BREAK_COST = 10;
 
 function countWords(text: string): number {
@@ -30,9 +27,13 @@ function splitAtSentence(text: string, targetWords: number): [string, string] {
 
 const cache = new Map<string, BookPage[]>();
 
-export function paginateChapter(chapter: StoryChapter): BookPage[] {
-  const cached = cache.get(chapter.id);
+export function paginateChapter(chapter: StoryChapter, wordsPerPage = 90): BookPage[] {
+  const cacheKey = `${chapter.id}:${wordsPerPage}`;
+  const cached = cache.get(cacheKey);
   if (cached) return cached;
+
+  const chapterStartBudget = Math.round(wordsPerPage * 0.6);
+  const splitThreshold = Math.round(wordsPerPage * 1.45);
 
   const pages: BookPage[] = [];
   let currentBlocks: StoryBlock[] = [];
@@ -40,7 +41,7 @@ export function paginateChapter(chapter: StoryChapter): BookPage[] {
   let isFirstPage = true;
 
   function budget() {
-    return isFirstPage ? CHAPTER_START_BUDGET : WORDS_PER_PAGE;
+    return isFirstPage ? chapterStartBudget : wordsPerPage;
   }
 
   function commitPage() {
@@ -70,7 +71,7 @@ export function paginateChapter(chapter: StoryChapter): BookPage[] {
     if (currentWords + words <= budget()) {
       currentBlocks.push(block);
       currentWords += words;
-    } else if (words > SPLIT_THRESHOLD) {
+    } else if (words > splitThreshold) {
       if (currentBlocks.length > 0) {
         commitPage();
       }
@@ -95,6 +96,6 @@ export function paginateChapter(chapter: StoryChapter): BookPage[] {
 
   commitPage();
 
-  cache.set(chapter.id, pages);
+  cache.set(cacheKey, pages);
   return pages;
 }

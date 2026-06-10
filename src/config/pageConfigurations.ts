@@ -298,6 +298,10 @@ function createPageConfigurations({
             setPage(11);
           },
           onBack: () => setPage(1),
+          onContinue: (chapterIndex: number) => {
+            setStoryChapter(chapterIndex);
+            setPage(11);
+          },
         },
       },
       // Page 11: Story reader
@@ -306,6 +310,9 @@ function createPageConfigurations({
         props: {
           chapterIndex: storyChapter,
           onBackToContents: () => setPage(10),
+          onGoToChapter: (index: number) => {
+            setStoryChapter(index);
+          },
         },
       },
     ],

@@ -1,23 +1,29 @@
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { BookOpen, Star } from "lucide-react";
 import PageContainer from "@/components/PageContainer.tsx";
 import {
   STORY_TITLE,
   STORY_SUBTITLE,
   storyChapters,
 } from "@/assets/story/eineVerhexteWoche.ts";
-import { loadFinishedChapters } from "@/utils/storyProgress.ts";
+import {
+  loadFinishedChapters,
+  loadReadingPosition,
+} from "@/utils/storyProgress.ts";
 
 interface StoryChapterPickerProps {
   onSelectChapter: (index: number) => void;
   onBack: () => void;
+  onContinue?: (chapterIndex: number) => void;
 }
 
 const StoryChapterPicker = ({
   onSelectChapter,
   onBack,
+  onContinue,
 }: StoryChapterPickerProps) => {
   const [finishedChapters] = useState(() => loadFinishedChapters());
+  const [savedPosition] = useState(() => loadReadingPosition());
 
   return (
     <PageContainer
@@ -58,6 +64,16 @@ const StoryChapterPicker = ({
             <p className="font-dyslexic mt-3 text-center text-sm italic text-[#5a3a22] lg:text-base">
               {STORY_SUBTITLE}
             </p>
+            {savedPosition && onContinue && (
+              <button
+                type="button"
+                onClick={() => onContinue(savedPosition.chapterIndex)}
+                className="font-dyslexic mt-6 flex items-center gap-2 rounded-lg border-2 border-[#8a7a5a]/40 bg-[#d9c08c]/30 px-5 py-2 text-base text-[#3a2417] transition-colors hover:bg-[#d9c08c]/60"
+              >
+                <BookOpen size={18} />
+                Weiterlesen
+              </button>
+            )}
           </div>
 
           {/* Spine */}
