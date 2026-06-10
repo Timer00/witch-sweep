@@ -50,7 +50,7 @@ const StoryChapterPicker = ({
 
           {/* Left page: title */}
           <div
-            className="flex flex-1 flex-col items-center justify-center rounded-l p-6"
+            className="flex flex-1 flex-col items-center justify-center rounded-l p-3 lg:p-6"
             style={{
               background:
                 "radial-gradient(ellipse at center, #f5ebcd 0%, #e8d5a8 60%, #d9c08c 100%)",
@@ -58,19 +58,19 @@ const StoryChapterPicker = ({
               margin: "8px 0 8px 8px",
             }}
           >
-            <h1 className="font-tales text-center text-3xl text-[#3a2417] lg:text-4xl">
+            <h1 className="font-tales text-center text-2xl text-[#3a2417] lg:text-4xl">
               {STORY_TITLE}
             </h1>
-            <p className="font-dyslexic mt-3 text-center text-sm italic text-[#5a3a22] lg:text-base">
+            <p className="font-dyslexic mt-2 text-center text-xs italic text-[#5a3a22] lg:mt-3 lg:text-base">
               {STORY_SUBTITLE}
             </p>
             {savedPosition && onContinue && (
               <button
                 type="button"
                 onClick={() => onContinue(savedPosition.chapterIndex)}
-                className="font-dyslexic mt-6 flex items-center gap-2 rounded-lg border-2 border-[#8a7a5a]/40 bg-[#d9c08c]/30 px-5 py-2 text-base text-[#3a2417] transition-colors hover:bg-[#d9c08c]/60"
+                className="font-dyslexic mt-3 flex items-center gap-2 rounded-lg border-2 border-[#8a7a5a]/40 bg-[#d9c08c]/30 px-4 py-1.5 text-sm text-[#3a2417] transition-colors hover:bg-[#d9c08c]/60 lg:mt-6 lg:px-5 lg:py-2 lg:text-base"
               >
-                <BookOpen size={18} />
+                <BookOpen size={16} />
                 Weiterlesen
               </button>
             )}
@@ -90,7 +90,7 @@ const StoryChapterPicker = ({
 
           {/* Right page: table of contents */}
           <div
-            className="flex flex-1 flex-col rounded-r p-5"
+            className="flex flex-1 flex-col rounded-r p-3 lg:p-5"
             style={{
               background:
                 "radial-gradient(ellipse at center, #f5ebcd 0%, #e8d5a8 60%, #d9c08c 100%)",
@@ -98,23 +98,23 @@ const StoryChapterPicker = ({
               margin: "8px 8px 8px 0",
             }}
           >
-            <h2 className="font-tales mb-3 text-center text-xl text-[#3a2417] lg:text-2xl">
+            <h2 className="font-tales mb-1 text-center text-lg text-[#3a2417] lg:mb-3 lg:text-2xl">
               Inhaltsverzeichnis
             </h2>
-            <div className="flex flex-1 flex-col justify-center gap-2">
+            <div className="flex flex-1 flex-col justify-center gap-0.5 lg:gap-2">
               {storyChapters.map((chapter, index) => (
                 <button
                   key={chapter.id}
                   type="button"
                   onClick={() => onSelectChapter(index)}
-                  className="group flex items-center gap-2 rounded px-3 py-1.5 text-left transition-colors hover:bg-[#d9c08c]/50"
+                  className="group flex items-center gap-2 rounded px-2 py-0.5 text-left transition-colors hover:bg-[#d9c08c]/50 lg:px-3 lg:py-1.5"
                 >
-                  <span className="font-tales text-base text-[#3a2417] lg:text-lg">
+                  <span className="font-tales text-sm text-[#3a2417] lg:text-lg">
                     {chapter.weekday}
                   </span>
                   <span className="flex-1 border-b border-dotted border-[#8a7a5a]/50" />
                   <Star
-                    size={16}
+                    size={14}
                     className={
                       finishedChapters.includes(chapter.id)
                         ? "fill-amber-500 text-amber-500"
@@ -132,7 +132,7 @@ const StoryChapterPicker = ({
             <button
               type="button"
               onClick={onBack}
-              className="font-dyslexic mt-2 self-center text-sm text-[#5a3a22] underline underline-offset-4 transition-opacity hover:opacity-70"
+              className="font-dyslexic mt-1 self-center text-xs text-[#5a3a22] underline underline-offset-4 transition-opacity hover:opacity-70 lg:mt-2 lg:text-sm"
             >
               Zurück
             </button>
