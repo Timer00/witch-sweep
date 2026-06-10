@@ -1,5 +1,5 @@
 import { type HelpTypeInterface, type PageProps } from "@/App.tsx";
-import Button from "@/components/Button.tsx";
+import Button, { softButtonStyle } from "@/components/Button.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import { castleLoop } from "@/assets";
 import { useEffect, useRef } from "react";
@@ -13,11 +13,6 @@ interface WhatDoYouNeedHelpWithProps extends Omit<PageProps, "messages"> {
   setHelpType: (type: HelpTypeInterface) => void;
   extraOptions?: { label: string; onSelect: () => void }[];
 }
-
-// Softer look than the default chunky button: thin translucent outline,
-// frosted glass background, calmer text
-const softButtonStyle =
-  "rounded-xl border-2 border-amber-50/50 bg-white/10 px-6 py-3 font-normal text-white/90 backdrop-blur-sm hover:bg-white/25 md:text-2xl lg:text-3xl";
 
 const WhatDoYouNeedHelpWith = ({
   nextPage,

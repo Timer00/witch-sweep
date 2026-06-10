@@ -1,6 +1,6 @@
 import { type nextPage } from "@/App.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
-import Button from "@/components/Button.tsx";
+import Button, { softButtonStyle } from "@/components/Button.tsx";
 import { castleLoop, logo } from "@/assets";
 import { useEffect, useRef, useState } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
@@ -98,7 +98,7 @@ const HomeView = ({
       <input
         value={username}
         onChange={({ target: { value } }) => setUsername(value)}
-        className="border bg-transparent text-center text-xl"
+        className="rounded-xl border-2 border-amber-50/50 bg-white/10 px-4 py-2 text-center text-xl text-white/95 placeholder-white/50 backdrop-blur-sm focus:border-amber-50/80 focus:outline-none"
         placeholder="Dein Name…"
       />
       <div className="flex items-center gap-2">
@@ -107,9 +107,9 @@ const HomeView = ({
           id="info-checkbox"
           checked={hasReadInfo}
           onChange={(e) => handleCheckboxChange(e.target.checked)}
-          className="h-4 w-4 cursor-pointer"
+          className="h-4 w-4 cursor-pointer accent-amber-400"
         />
-        <label htmlFor="info-checkbox" className="cursor-pointer text-white">
+        <label htmlFor="info-checkbox" className="cursor-pointer text-white/90">
           Ich habe die{" "}
           <button
             type="button"
@@ -133,6 +133,7 @@ const HomeView = ({
           <Button
             disabled={username.length < 3 || !hasReadInfo}
             onClick={handleStart}
+            className={softButtonStyle}
           >
             {startButton}
           </Button>
