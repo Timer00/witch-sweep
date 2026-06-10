@@ -129,13 +129,15 @@ const App = () => {
             setPage(0);
           }}
         />
-        <Coins
-          pageIndex={page + 1}
-          amount={coins}
-          onClick={() => {
-            void navigate(ROUTES.spend);
-          }}
-        />
+        {page <= 9 && (
+          <Coins
+            pageIndex={page + 1}
+            amount={coins}
+            onClick={() => {
+              void navigate(ROUTES.spend);
+            }}
+          />
+        )}
         <InfoButton
           pageIndex={page}
           onClick={() => {

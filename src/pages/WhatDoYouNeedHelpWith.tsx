@@ -11,6 +11,7 @@ interface WhatDoYouNeedHelpWithProps extends Omit<PageProps, "messages"> {
   options: HelpTypeInterface[];
   question: string;
   setHelpType: (type: HelpTypeInterface) => void;
+  extraOptions?: { label: string; onSelect: () => void }[];
 }
 
 const WhatDoYouNeedHelpWith = ({
@@ -18,6 +19,7 @@ const WhatDoYouNeedHelpWith = ({
   options,
   question,
   setHelpType,
+  extraOptions,
 }: WhatDoYouNeedHelpWithProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
@@ -47,6 +49,19 @@ const WhatDoYouNeedHelpWith = ({
               </Button>
             ))}
           </div>
+          {extraOptions && (
+            <div className="font-dyslexic mt-8 flex items-center justify-center gap-12 font-medium">
+              {extraOptions.map((opt) => (
+                <Button
+                  key={opt.label}
+                  onClick={opt.onSelect}
+                  className="md:text-2xl lg:text-4xl"
+                >
+                  {opt.label}
+                </Button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </PageContainer>

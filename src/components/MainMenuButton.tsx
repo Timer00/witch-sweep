@@ -21,7 +21,7 @@ const MainMenuButton = ({
   const shouldShow = pageIndex === 0 ? isInHomeView : true;
 
   // Task has started when page >= 6 (TimerScreen and beyond)
-  const hasTaskStarted = pageIndex >= 6;
+  const hasTaskStarted = pageIndex >= 6 && pageIndex <= 9;
 
   const handleClick = () => {
     if (hasTaskStarted) {

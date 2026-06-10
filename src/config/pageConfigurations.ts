@@ -13,6 +13,8 @@ import {
   type nextPage,
   type setPage,
 } from "@/App.tsx";
+import StoryChapterPicker from "@/pages/StoryChapterPicker.tsx";
+import StoryReaderPlaceholder from "@/pages/StoryReaderPlaceholder.tsx";
 
 export interface PageConfigurationDependencies {
   nextPage: nextPage;
@@ -40,6 +42,8 @@ function createPageConfigurations({
   setPlayerName,
   setHelpType,
   setTimerMinutes,
+  storyChapter,
+  setStoryChapter,
 }: PageConfigurationDependencies & {
   playerName: string;
   helpType: HelpTypeInterface;
@@ -47,6 +51,8 @@ function createPageConfigurations({
   setPlayerName: (name: string) => void;
   setHelpType: (type: HelpTypeInterface) => void;
   setTimerMinutes: (minutes: number) => void;
+  storyChapter: number;
+  setStoryChapter: (chapter: number) => void;
 }) {
   return {
     witchName: "Anabella Declutter",
@@ -74,6 +80,12 @@ function createPageConfigurations({
             HelpTypeInterface.cleaning,
             HelpTypeInterface.homework,
           ] as HelpTypeInterface[],
+          extraOptions: [
+            {
+              label: "Geschichte lesen: \"Eine verhexte Woche\"",
+              onSelect: () => setPage(10),
+            },
+          ],
         },
       },
       {
@@ -277,6 +289,25 @@ function createPageConfigurations({
           }[helpType] as Messages,
         },
       },
+      // Page 10: Story chapter picker
+      {
+        page: StoryChapterPicker,
+        props: {
+          onSelectChapter: (index: number) => {
+            setStoryChapter(index);
+            setPage(11);
+          },
+          onBack: () => setPage(1),
+        },
+      },
+      // Page 11: Story reader (placeholder until Step 4)
+      {
+        page: StoryReaderPlaceholder,
+        props: {
+          chapterIndex: storyChapter,
+          onBackToContents: () => setPage(10),
+        },
+      },
     ],
   };
 }
@@ -295,13 +326,14 @@ export function useGameState(
     HelpTypeInterface.cleaning
   );
   const [timerMinutes, setTimerMinutes] = useState(0);
+  const [storyChapter, setStoryChapter] = useState(0);
   const pageConfigurationsRef = useRef<ReturnType<
     typeof createPageConfigurations
   > | null>(null);
 
   const nextPage = useCallback(() => {
     setPage((currentPage) => {
-      const pageCount = pageConfigurationsRef.current?.pages.length ?? 10;
+      const pageCount = pageConfigurationsRef.current?.pages.length ?? 11;
       if (currentPage < pageCount - 1) {
         return currentPage + 1;
       } else {
@@ -326,6 +358,8 @@ export function useGameState(
       setPlayerName,
       setHelpType,
       setTimerMinutes,
+      storyChapter,
+      setStoryChapter,
     });
     pageConfigurationsRef.current = config;
     return config;
@@ -344,6 +378,8 @@ export function useGameState(
     setPlayerName,
     setHelpType,
     setTimerMinutes,
+    storyChapter,
+    setStoryChapter,
   ]);
 
   return {
