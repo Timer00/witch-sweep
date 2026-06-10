@@ -14,6 +14,11 @@ interface WhatDoYouNeedHelpWithProps extends Omit<PageProps, "messages"> {
   extraOptions?: { label: string; onSelect: () => void }[];
 }
 
+// Softer look than the default chunky button: thin translucent outline,
+// frosted glass background, calmer text
+const softButtonStyle =
+  "rounded-xl border-2 border-amber-50/50 bg-white/10 px-6 py-3 font-normal text-white/90 backdrop-blur-sm hover:bg-white/25 md:text-2xl lg:text-3xl";
+
 const WhatDoYouNeedHelpWith = ({
   nextPage,
   options,
@@ -44,7 +49,11 @@ const WhatDoYouNeedHelpWith = ({
           </div>
           <div className="font-dyslexic mt-28 flex items-center justify-center gap-12 font-medium">
             {options.map((text, index) => (
-              <Button key={index} onClick={() => handleSelectOption(text)}>
+              <Button
+                key={index}
+                onClick={() => handleSelectOption(text)}
+                className={softButtonStyle}
+              >
                 {text}
               </Button>
             ))}
@@ -55,7 +64,7 @@ const WhatDoYouNeedHelpWith = ({
                 <Button
                   key={opt.label}
                   onClick={opt.onSelect}
-                  className="md:text-2xl lg:text-4xl"
+                  className={`${softButtonStyle} md:text-xl lg:text-2xl`}
                 >
                   {opt.label}
                 </Button>
