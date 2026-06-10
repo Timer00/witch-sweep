@@ -14,7 +14,7 @@ import {
   type setPage,
 } from "@/App.tsx";
 import StoryChapterPicker from "@/pages/StoryChapterPicker.tsx";
-import StoryReaderPlaceholder from "@/pages/StoryReaderPlaceholder.tsx";
+import StoryReader from "@/pages/StoryReader.tsx";
 
 export interface PageConfigurationDependencies {
   nextPage: nextPage;
@@ -300,9 +300,9 @@ function createPageConfigurations({
           onBack: () => setPage(1),
         },
       },
-      // Page 11: Story reader (placeholder until Step 4)
+      // Page 11: Story reader
       {
-        page: StoryReaderPlaceholder,
+        page: StoryReader,
         props: {
           chapterIndex: storyChapter,
           onBackToContents: () => setPage(10),
