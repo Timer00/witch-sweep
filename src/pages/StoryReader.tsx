@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import PageContainer from "@/components/PageContainer.tsx";
 import { storyChapters } from "@/assets/story/eineVerhexteWoche.ts";
 import { paginateChapter } from "@/utils/paginateStory.ts";
+import { markChapterFinished } from "@/utils/storyProgress.ts";
 
 interface StoryReaderProps {
   chapterIndex: number;
@@ -34,6 +35,12 @@ const StoryReader = ({ chapterIndex, onBackToContents }: StoryReaderProps) => {
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [goForward, goBack]);
+
+  useEffect(() => {
+    if (isLastPage) {
+      markChapterFinished(chapter.id);
+    }
+  }, [isLastPage, chapter.id]);
 
   const page = pages[currentPage];
 

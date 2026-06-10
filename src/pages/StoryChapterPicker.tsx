@@ -1,9 +1,12 @@
+import { useState } from "react";
+import { Star } from "lucide-react";
 import PageContainer from "@/components/PageContainer.tsx";
 import {
   STORY_TITLE,
   STORY_SUBTITLE,
   storyChapters,
 } from "@/assets/story/eineVerhexteWoche.ts";
+import { loadFinishedChapters } from "@/utils/storyProgress.ts";
 
 interface StoryChapterPickerProps {
   onSelectChapter: (index: number) => void;
@@ -14,6 +17,8 @@ const StoryChapterPicker = ({
   onSelectChapter,
   onBack,
 }: StoryChapterPickerProps) => {
+  const [finishedChapters] = useState(() => loadFinishedChapters());
+
   return (
     <PageContainer
       style={{
@@ -92,6 +97,19 @@ const StoryChapterPicker = ({
                     {chapter.weekday}
                   </span>
                   <span className="flex-1 border-b border-dotted border-[#8a7a5a]/50" />
+                  <Star
+                    size={16}
+                    className={
+                      finishedChapters.includes(chapter.id)
+                        ? "fill-amber-500 text-amber-500"
+                        : "text-[#d9c08c]/40"
+                    }
+                    aria-label={
+                      finishedChapters.includes(chapter.id)
+                        ? "Kapitel gelesen"
+                        : "Noch nicht gelesen"
+                    }
+                  />
                 </button>
               ))}
             </div>
