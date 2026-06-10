@@ -15,8 +15,16 @@ const Coins = ({ pageIndex, amount, onClick }: CoinsProps) => {
             {"Klicke hier zum Ausgeben: "}
           </span>
         )}
-        <img width={24} height={24} src={coin} alt="Coin icon" />
-        <span className="text-md font-semibold text-white">{amount}</span>
+        <img
+          id="coin-counter-icon"
+          width={24}
+          height={24}
+          src={coin}
+          alt="Coin icon"
+        />
+        <span key={amount} className="text-md coin-pop font-semibold text-white">
+          {amount}
+        </span>
       </div>
     </div>
   );

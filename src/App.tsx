@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Coins from "@/components/Coins.tsx";
+import CoinFlight from "@/components/CoinFlight.tsx";
 import useCoins from "@/hooks/useCoins.ts";
 import { useOverlayClose } from "@/hooks/useOverlayClose.ts";
 import Info, { InfoButton } from "@/pages/Info.tsx";
@@ -69,9 +70,20 @@ const App = () => {
   const [isInHomeView, setIsInHomeView] = useState<boolean>(false);
   const resetGameMenuRef = React.useRef<(() => void) | null>(null);
 
+  // Earned coins fly to the counter one by one instead of being added silently
+  const [coinFlight, setCoinFlight] = useState<{
+    id: number;
+    amount: number;
+  } | null>(null);
+  const rewardCoins = React.useCallback((amount: number) => {
+    if (amount > 0) {
+      setCoinFlight({ id: Date.now(), amount });
+    }
+  }, []);
+
   const { pageConfigurations } = useGameState(
     setPage,
-    addCoins,
+    rewardCoins,
     () => {
       void navigate(ROUTES.spend);
     },
@@ -136,6 +148,14 @@ const App = () => {
             onClick={() => {
               void navigate(ROUTES.spend);
             }}
+          />
+        )}
+        {coinFlight && (
+          <CoinFlight
+            key={coinFlight.id}
+            amount={coinFlight.amount}
+            onCoinLanded={() => addCoins(1)}
+            onDone={() => setCoinFlight(null)}
           />
         )}
         <InfoButton

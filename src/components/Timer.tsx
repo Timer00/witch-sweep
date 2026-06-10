@@ -15,16 +15,19 @@ export default function Timer({
   autoStart,
   className,
 }: TimerProps) {
-  const { seconds, minutes } = useTimer({
+  const { seconds, minutes, hours } = useTimer({
     expiryTimestamp,
     autoStart,
     onExpire,
   });
 
+  // Show a full 60-minute timer as "60:00" instead of rolling over to hours
+  const totalMinutes = minutes + hours * 60;
+
   return (
     <div className={twMerge("text-center text-8xl", className)}>
       <div>
-        <span>{minutes}</span>:
+        <span>{totalMinutes}</span>:
         <span>{seconds < 10 ? "0" + seconds : seconds}</span>
       </div>
       {/*<button onClick={start}>Start</button>*/}
