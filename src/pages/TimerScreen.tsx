@@ -14,6 +14,9 @@ export interface TimerScreenProps extends Omit<PageProps, "messages"> {
   timerHeader: string;
   onTimeOver: (time: number) => void;
   onClickButton: (time: number) => void;
+  /** Optional subdued second button, e.g. "Aufgeben" while cleaning */
+  secondaryButton?: string;
+  onClickSecondaryButton?: (time: number) => void;
 }
 
 const TimerScreen = ({
@@ -23,6 +26,8 @@ const TimerScreen = ({
   onTimeOver,
   onClickButton,
   helpType,
+  secondaryButton,
+  onClickSecondaryButton,
 }: TimerScreenProps) => {
   const time = new Date();
   time.setSeconds(time.getSeconds() + 60 * timerMinutes); // 10 minutes timer
@@ -55,16 +60,26 @@ const TimerScreen = ({
             autoStart={true}
           />
         </div>
-        <Button
-          className={
-            helpType === HelpTypeInterface.homework
-              ? `${softButtonStyle} border-amber-50/30 bg-white/5 text-base text-white/70 md:text-lg lg:text-xl`
-              : softButtonStyle
-          }
-          onClick={() => onClickButton(timerMinutes)}
-        >
-          {doneButton}
-        </Button>
+        <div className="flex flex-col items-center gap-2 lg:gap-3">
+          <Button
+            className={
+              helpType === HelpTypeInterface.homework
+                ? `${softButtonStyle} border-amber-50/30 bg-white/5 text-base text-white/70 md:text-lg lg:text-xl`
+                : softButtonStyle
+            }
+            onClick={() => onClickButton(timerMinutes)}
+          >
+            {doneButton}
+          </Button>
+          {secondaryButton && onClickSecondaryButton && (
+            <Button
+              className={`${softButtonStyle} border-amber-50/30 bg-white/5 px-4 py-1.5 text-sm text-white/60 md:text-base lg:text-lg`}
+              onClick={() => onClickSecondaryButton(timerMinutes)}
+            >
+              {secondaryButton}
+            </Button>
+          )}
+        </div>
       </div>
     </PageContainer>
   );

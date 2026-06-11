@@ -202,6 +202,10 @@ function createPageConfigurations({
             timerMinutes,
             helpType: helpType,
             doneButton: "Fertig!",
+            secondaryButton: "Aufgeben",
+            onClickSecondaryButton: () => {
+              setPage(8);
+            },
             onTimeOver: () => {
               setPage(8);
             },
