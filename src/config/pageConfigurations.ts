@@ -343,7 +343,7 @@ function createPageConfigurations({
         page: StoryReader,
         props: {
           chapterIndex: storyChapter,
-          onBackToContents: () => setPage(10),
+          onBackToContents: () => setPage(11),
           onGoToChapter: (index: number) => {
             setStoryChapter(index);
           },
