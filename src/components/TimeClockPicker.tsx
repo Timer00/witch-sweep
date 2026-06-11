@@ -79,7 +79,7 @@ const TimeClockPicker = ({ minutes, onChange }: TimeClockPickerProps) => {
   return (
     <div
       className="relative touch-none select-none"
-      style={{ width: "min(52vh, 38vw, 380px)" }}
+      style={{ width: "min(62vh, 46vw, 440px)" }}
       role="slider"
       aria-valuemin={MIN_MINUTES}
       aria-valuemax={MAX_MINUTES}
@@ -187,25 +187,57 @@ const TimeClockPicker = ({ minutes, onChange }: TimeClockPickerProps) => {
           stroke="#5a3a22"
           strokeWidth={3}
         />
-      </svg>
 
-      {/* Minutes + coin reward in the middle of the clock */}
-      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-        <span className="font-tales text-5xl leading-none text-[#3a2417] md:text-6xl">
-          {minutes}
-        </span>
-        <span className="font-dyslexic mt-1 text-sm text-[#5a3a22]">
-          Minuten
-        </span>
-        <div className="mt-2 flex items-center gap-1">
-          {Array.from({ length: coins }, (_, i) => (
-            <img key={i} src={coin} alt="" width={18} height={18} />
-          ))}
-        </div>
-        <span className="font-dyslexic mt-0.5 text-xs text-[#5a3a22]">
-          {coins} {coins === 1 ? "Münze" : "Münzen"}
-        </span>
-      </div>
+        {/* Minutes + coin reward in the middle of the clock; lives inside
+            the SVG so it scales with the clock on small screens */}
+        <g pointerEvents="none">
+          <text
+            x={CENTER}
+            y={132}
+            textAnchor="middle"
+            fill="#3a2417"
+            fontSize={44}
+            style={{ fontFamily: '"AncientModernTales", serif' }}
+          >
+            {minutes}
+          </text>
+          <text
+            x={CENTER}
+            y={154}
+            textAnchor="middle"
+            fill="#5a3a22"
+            fontSize={13}
+            style={{ fontFamily: '"OpenDyslexic", serif' }}
+          >
+            Minuten
+          </text>
+          {Array.from({ length: coins }, (_, i) => {
+            const w = 16;
+            const gap = 3;
+            const total = coins * w + (coins - 1) * gap;
+            return (
+              <image
+                key={i}
+                href={coin}
+                x={CENTER - total / 2 + i * (w + gap)}
+                y={164}
+                width={w}
+                height={w}
+              />
+            );
+          })}
+          <text
+            x={CENTER}
+            y={196}
+            textAnchor="middle"
+            fill="#5a3a22"
+            fontSize={11}
+            style={{ fontFamily: '"OpenDyslexic", serif' }}
+          >
+            {coins} {coins === 1 ? "Münze" : "Münzen"}
+          </text>
+        </g>
+      </svg>
     </div>
   );
 };

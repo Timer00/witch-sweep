@@ -37,8 +37,8 @@ const HowLong = ({ setTimerMinutes, nextPage }: HowLongProps) => {
         alt="logo"
         className="z-2 absolute left-[-2%] top-[1%] w-1/2"
       />
-      <div className="z-2 relative flex h-full w-full items-center justify-end pr-[6%] lg:pr-[10%]">
-        <div className="flex flex-col items-center gap-3 lg:gap-6">
+      <div className="z-2 relative flex h-full w-full items-center justify-end">
+        <div className="flex w-1/2 flex-col items-center gap-3 lg:gap-6">
           <TimeClockPicker minutes={minutes} onChange={setMinutes} />
           <Button
             onClick={handleConfirm}
