@@ -9,64 +9,58 @@
 
 ## WOZU NUTZE ICH „HOCUSFOCUS“?
 
-„HocusFocus“ hilft Ihrem Kind mit ADHS, alltägliche Aufgaben zu meistern — vor allem das Erledigen der Hausaufgaben und das Aufräumen. Dafür tritt Ihr Kind spielerisch gegen die Hexe an:
+Ihr Kind tritt bei Hausaufgaben und Aufräumen spielerisch gegen die Hexe an:
 
-- **Beim Aufräumen** muss es schneller fertig sein, als die Zeit abläuft.
-- **Bei den Hausaufgaben** ist es umgekehrt: Hier soll es bis zum Ende der Zeit durchhalten und dranbleiben.
+- **Aufräumen:** schneller fertig sein, als die Zeit abläuft.
+- **Hausaufgaben:** bis zum Ende der Zeit durchhalten.
 
-Gewinnt Ihr Kind, bekommt es Münzen. Wie viele es zu gewinnen gibt, hängt von der eingestellten Zeit ab — die Hexe verrät es vor jedem Spiel. Verliert Ihr Kind, passiert nichts Schlimmes: Es gibt dann einfach keine Münzen, aber es verliert auch keine.
+Gewinnt Ihr Kind, gibt es Münzen — je länger die Zeit, desto mehr. Die Hexe sagt die Zahl vorher an. Verliert es, passiert nichts: keine neuen Münzen, aber auch kein Verlust.
 
-Wichtig: Ihr Kind tritt immer nur gegen die Hexe an — nie gegen Geschwister oder andere Kinder. Vergleiche mit anderen entmutigen Kinder mit ADHS eher, als dass sie helfen.
+Ihr Kind spielt nur gegen die Hexe — vergleichen Sie es nicht mit Geschwistern oder anderen Kindern.
 
 ## WAS SIND DIE MÜNZEN?
 
-Die Münzen sind kleine, sofortige Belohnungen. Sie sorgen dafür, dass Ihr Kind das Erledigen von Aufgaben mit einem guten Gefühl verbindet. Damit das langfristig funktioniert, müssen aus den Münzen mit Ihrer Hilfe echte Belohnungen werden: Die Münzen sind gleichzeitig ein Punktesystem, das Sie gemeinsam mit Ihrem Kind in greifbare Belohnungen eintauschen.
+Ein Punktesystem: Ihr Kind sammelt Münzen und tauscht sie bei Ihnen gegen echte Belohnungen ein.
 
-Die wichtigste Regel dabei: **Verdiente Münzen werden niemals wieder weggenommen** — auch nicht als Strafe für schlechtes Benehmen. Wenn Ihr Kind sich daneben benimmt, reagieren Sie darauf wie sonst auch, aber lassen Sie die Münzen und bereits versprochene Belohnungen aus dem Spiel. Sonst verliert Ihr Kind das Vertrauen in das ganze System.
+**Wichtigste Regel: Verdiente Münzen werden nie weggenommen** — auch nicht als Strafe. Sonst verliert Ihr Kind das Vertrauen in das ganze System.
 
 ## WIE BELOHNE ICH MEIN KIND?
 
-Erstellen Sie gemeinsam mit Ihrem Kind einen **Vertrag** *(in der App verlinkt)*, in dem festgelegt ist, welche Belohnung es für wie viele Münzen gibt. Lassen Sie Ihr Kind mitentscheiden — Belohnungen wirken am stärksten, wenn das Kind sie sich selbst ausgesucht hat.
+Legen Sie gemeinsam in einem **Vertrag** *(in der App verlinkt)* fest, welche Belohnung es für wie viele Münzen gibt. Lassen Sie Ihr Kind mit aussuchen.
 
-Gute Beispiele:
-
-- **Für wenige Münzen (1–3):** ein Sticker, eine kleine Überraschung, 15 Minuten zusätzliche Spielzeit.
-- **Für viele Münzen:** ein Ausflug in den Zoo, ein Kinobesuch, eine Freundin oder ein Freund darf übernachten, den Familienfilm aussuchen dürfen, ein Nachmittag nur zu zweit.
-
-Zwei Dinge sollten Sie vermeiden:
-
-- Belohnungen sollten immer **etwas Zusätzliches** sein. Dinge, die Ihr Kind ohnehin bekommt oder braucht — Kleidung, gemeinsame Mahlzeiten, Ihre Zuneigung —, gehören nicht in den Vertrag.
-- Setzen Sie Süßigkeiten nur in Maßen ein. Gemeinsame Erlebnisse wirken ohnehin stärker und länger als materielle Dinge.
+- **Wenige Münzen (1–3):** Sticker, kleine Überraschung, 15 Minuten Extra-Spielzeit.
+- **Viele Münzen:** Zoobesuch, Kino, eine Freundin oder ein Freund darf übernachten, den Familienfilm aussuchen.
+- Belohnungen sind immer etwas **Zusätzliches** — nichts, was Ihr Kind ohnehin bekommt oder braucht.
+- Süßigkeiten nur in Maßen — gemeinsame Erlebnisse wirken stärker.
 
 ## WANN SOLLTE ICH MEIN KIND BELOHNEN?
 
-So bald wie möglich. Je schneller die Belohnung auf die Leistung folgt, desto stärker wirkt sie — das gilt für alle Kinder, für Kinder mit ADHS aber ganz besonders. Bei jüngeren Kindern und Kindern, denen das Warten besonders schwerfällt, sollten die Münzen fast sofort eingetauscht werden können. Ältere Kinder halten meist ein bis zwei Tage durch — aber auch hier gilt: Schneller ist besser, eine Belohnung absichtlich hinauszuzögern bringt nichts. Tauschen Sie die Münzen immer gemeinsam mit Ihrem Kind ein und machen Sie einen kleinen, schönen Moment daraus.
+**So bald wie möglich** — je schneller die Belohnung folgt, desto stärker wirkt sie. Jüngere Kinder: fast sofort eintauschen. Ältere Kinder: höchstens ein bis zwei Tage. Tauschen Sie immer gemeinsam ein und machen Sie einen schönen Moment daraus.
 
 ## WELCHE ROLLE SPIELE ICH DABEI?
 
-Die wichtigste! Die App kann motivieren, aber die stärkste Belohnung für Ihr Kind sind Sie selbst.
+Die wichtigste — **Ihr Lob wirkt stärker als jede Münze.**
 
-- **Bleiben Sie in der Nähe**, während Ihr Kind gegen die Hexe antritt.
-- **Loben Sie sofort und konkret:** „Du hast 15 Minuten durchgehalten — das war schwer, und du hast es geschafft!“ wirkt viel stärker als ein allgemeines „Brav!“.
-- **Loben Sie die Anstrengung, nicht nur den Sieg.** Auch ein verlorenes Spiel kann ein großer Schritt gewesen sein.
-- **Schauen Sie sich das Ergebnis gemeinsam an.** Der Timer sieht nicht, ob die Hausaufgaben wirklich fertig sind oder die Spielsachen wirklich in der Kiste liegen. Werfen Sie freundlich und ohne Verhör einen Blick darauf, bevor die Münzen zählen.
+- Bleiben Sie in der Nähe, während Ihr Kind spielt.
+- Loben Sie sofort und konkret: „15 Minuten durchgehalten — stark!“
+- Loben Sie die Anstrengung, nicht nur den Sieg.
+- Schauen Sie das Ergebnis kurz gemeinsam an — der Timer sieht nicht, ob die Hausaufgaben wirklich fertig sind.
 
-## WIE WÄHLE ICH AUFGABE UND ZEIT RICHTIG?
+## WIE WÄHLE ICH AUFGABE UND ZEIT?
 
-Vereinbaren Sie die Aufgabe immer, **bevor** der Timer startet — so ist hinterher klar, was zählt.
-
-- **Klein und konkret:** „Räum die Legosteine in die Kiste“ funktioniert. „Räum dein Zimmer auf“ überfordert.
-- **Kurz anfangen:** Für jüngere Kinder reichen 10–15 Minuten Hausaufgabenzeit völlig. Lieber zwei kurze Runden mit einer Pause dazwischen als eine lange.
-- **Ihr Kind sollte deutlich öfter gewinnen als verlieren** — gerade am Anfang. Verliert es mehrmals hintereinander, machen Sie die nächste Runde leichter: kürzere Zeit, kleinere Aufgabe. Erfolgserlebnisse halten die Motivation am Leben.
+- Aufgabe **vor** dem Start festlegen — so ist klar, was zählt.
+- Klein und konkret: „Legos in die Kiste“ statt „Zimmer aufräumen“.
+- Kurz anfangen: 10–15 Minuten reichen für jüngere Kinder.
+- **Ihr Kind sollte meistens gewinnen.** Wenn nicht: kürzere Zeit, kleinere Aufgabe.
 
 ## WAS MACHE ICH, WENN MEIN KIND VERLIERT?
 
-Ruhig bleiben und nicht schimpfen. Kinder mit ADHS nehmen Niederlagen oft besonders schwer. Sätze wie „Siehst du, du warst zu langsam“ helfen nicht — sie führen nur dazu, dass Ihr Kind nicht mehr spielen will. Besser: kurz trösten, das Verlieren klein halten („Die Hexe hatte heute einfach Glück!“) und beim nächsten Mal die Aufgabe etwas leichter machen, damit wieder ein Erfolg gelingt.
+Ruhig bleiben, nicht schimpfen. Kurz trösten („Die Hexe hatte heute einfach Glück!“) und die nächste Runde leichter machen, damit wieder ein Erfolg gelingt.
 
 ## WAS GIBT ES NOCH ZU BEACHTEN?
 
-- **Verlässlichkeit:** Halten Sie sich an den Vertrag — auch wenn es gerade ungelegen kommt. Das gilt in beide Richtungen: Was verdient wurde, wird ausgezahlt. Was nicht verdient wurde, gibt es nicht — auch nicht nach Quengeln.
-- **Einigkeit:** Alle Erwachsenen im Haushalt sollten dieselben Regeln anwenden.
-- **Frisch halten:** Nach einigen Wochen verlieren Belohnungen ihren Reiz. Schauen Sie den Vertrag regelmäßig gemeinsam an und tauschen Sie Belohnungen aus, wenn die Luft raus ist.
-- **Langsam loslassen:** Das Ziel ist, dass Routinen irgendwann von selbst klappen. Läuft es eine Weile gut, können Sie das System schrittweise zurückfahren — aber beenden Sie es nicht abrupt.
-- **Und schließlich:** „HocusFocus“ unterstützt Sie im Alltag, ersetzt aber keine Behandlung. Wenn Sie das Gefühl haben, nicht weiterzukommen, sprechen Sie mit Ihrer Kinderärztin, Ihrem Kinderarzt oder Ihrer therapeutischen Praxis.
+- **Verlässlich bleiben:** Der Vertrag gilt — in beide Richtungen. Verdientes wird ausgezahlt, Unverdientes gibt es nicht, auch nicht nach Quengeln.
+- **Einig sein:** Alle Erwachsenen im Haushalt wenden dieselben Regeln an.
+- **Frisch halten:** Belohnungen gemeinsam austauschen, wenn die Luft raus ist.
+- **Langsam loslassen:** Läuft es gut, das System schrittweise zurückfahren — nicht abrupt beenden.
+- Die App unterstützt im Alltag, **ersetzt aber keine Behandlung**. Bei Sorgen: Kinderarztpraxis oder therapeutische Praxis ansprechen.
