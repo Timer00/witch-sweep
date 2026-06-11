@@ -1,6 +1,6 @@
-// One coin per started 10 minutes: 10–19 → 1, 20–29 → 2, … 60 → 6
+// One coin per full 10 minutes, but never less than one: 5–19 → 1, 20–29 → 2, … 60 → 6
 export function coinsForMinutes(minutes: number): number {
-  return Math.floor(minutes / 10);
+  return Math.max(1, Math.floor(minutes / 10));
 }
 
 const NUMBER_WORDS = ["null", "eine", "zwei", "drei", "vier", "fünf", "sechs"];

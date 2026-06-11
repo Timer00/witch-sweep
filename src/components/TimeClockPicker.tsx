@@ -7,7 +7,7 @@ interface TimeClockPickerProps {
   onChange: (minutes: number) => void;
 }
 
-export const MIN_MINUTES = 10;
+export const MIN_MINUTES = 5;
 export const MAX_MINUTES = 60;
 const STEP = 5;
 
@@ -26,7 +26,7 @@ function polar(radius: number, minutes: number): { x: number; y: number } {
 
 /**
  * A clock face with a circular slider around it. Dragging the golden knob
- * (or tapping the ring) sets the minutes, in 5-minute steps from 10 to 60.
+ * (or tapping the ring) sets the minutes, in 5-minute steps from 5 to 60.
  */
 const TimeClockPicker = ({ minutes, onChange }: TimeClockPickerProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
