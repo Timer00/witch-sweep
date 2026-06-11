@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BookOpen, Star } from "lucide-react";
 import PageContainer from "@/components/PageContainer.tsx";
+import DecoStars from "@/components/DecoStars.tsx";
 import {
   STORY_TITLE,
   STORY_SUBTITLE,
@@ -50,7 +51,7 @@ const StoryChapterPicker = ({
 
           {/* Left page: title */}
           <div
-            className="flex flex-1 flex-col items-center justify-center rounded-l p-3 lg:p-6"
+            className="relative flex flex-1 flex-col items-center justify-center overflow-hidden rounded-l p-3 lg:p-6"
             style={{
               background:
                 "radial-gradient(ellipse at center, #f5ebcd 0%, #e8d5a8 60%, #d9c08c 100%)",
@@ -58,17 +59,18 @@ const StoryChapterPicker = ({
               margin: "8px 0 8px 8px",
             }}
           >
-            <h1 className="font-tales text-center text-2xl text-[#3a2417] lg:text-4xl">
+            <DecoStars dense />
+            <h1 className="relative font-tales text-center text-2xl text-[#3a2417] lg:text-4xl">
               {STORY_TITLE}
             </h1>
-            <p className="font-dyslexic mt-2 text-center text-xs italic text-[#5a3a22] lg:mt-3 lg:text-base">
+            <p className="relative font-dyslexic mt-2 text-center text-xs italic text-[#5a3a22] lg:mt-3 lg:text-base">
               {STORY_SUBTITLE}
             </p>
             {savedPosition && onContinue && (
               <button
                 type="button"
                 onClick={() => onContinue(savedPosition.chapterIndex)}
-                className="font-dyslexic mt-3 flex items-center gap-2 rounded-lg border-2 border-[#8a7a5a]/40 bg-[#d9c08c]/30 px-4 py-1.5 text-sm text-[#3a2417] transition-colors hover:bg-[#d9c08c]/60 lg:mt-6 lg:px-5 lg:py-2 lg:text-base"
+                className="relative font-dyslexic mt-3 flex items-center gap-2 rounded-lg border-2 border-[#8a7a5a]/40 bg-[#d9c08c]/30 px-4 py-1.5 text-sm text-[#3a2417] transition-colors hover:bg-[#d9c08c]/60 lg:mt-6 lg:px-5 lg:py-2 lg:text-base"
               >
                 <BookOpen size={16} />
                 Weiterlesen
@@ -90,7 +92,7 @@ const StoryChapterPicker = ({
 
           {/* Right page: table of contents */}
           <div
-            className="flex flex-1 flex-col rounded-r p-3 lg:p-5"
+            className="relative flex flex-1 flex-col overflow-hidden rounded-r p-3 lg:p-5"
             style={{
               background:
                 "radial-gradient(ellipse at center, #f5ebcd 0%, #e8d5a8 60%, #d9c08c 100%)",
@@ -98,10 +100,11 @@ const StoryChapterPicker = ({
               margin: "8px 8px 8px 0",
             }}
           >
-            <h2 className="font-tales mb-1 text-center text-lg text-[#3a2417] lg:mb-3 lg:text-2xl">
+            <DecoStars dense />
+            <h2 className="relative font-tales mb-1 text-center text-lg text-[#3a2417] lg:mb-3 lg:text-2xl">
               Inhaltsverzeichnis
             </h2>
-            <div className="flex flex-1 flex-col justify-center gap-0.5 lg:gap-2">
+            <div className="relative flex flex-1 flex-col justify-center gap-0.5 lg:gap-2">
               {storyChapters.map((chapter, index) => (
                 <button
                   key={chapter.id}
@@ -132,7 +135,7 @@ const StoryChapterPicker = ({
             <button
               type="button"
               onClick={onBack}
-              className="font-dyslexic mt-1 self-center text-xs text-[#5a3a22] underline underline-offset-4 transition-opacity hover:opacity-70 lg:mt-2 lg:text-sm"
+              className="relative font-dyslexic mt-1 self-center text-xs text-[#5a3a22] underline underline-offset-4 transition-opacity hover:opacity-70 lg:mt-2 lg:text-sm"
             >
               Zurück
             </button>
