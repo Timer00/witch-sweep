@@ -3,8 +3,11 @@ import { twMerge } from "tailwind-merge";
 
 const DialogBox = ({ children }: { children: ReactNode }) => {
   const mergedClassName = twMerge(
-    "z-0 mb-5 ml-[10%] max-w-[68%] md:max-w-[60%] lg:ml-0 lg:max-w-3xl xl:max-w-4xl",
-    "rounded-2xl border-2 border-[#5a3a22]/70 bg-amber-50/95 backdrop-blur-sm",
+    // Width/height caps keep the box clear of the witch (left side of the
+    // screen): never wider than ~2/3 of the stage, never taller than half.
+    "z-0 mb-5 max-w-[64%] lg:max-w-[52%]",
+    "max-h-[55%] overflow-y-auto",
+    "rounded-2xl border-2 border-[#5a3a22]/70 bg-amber-50/80 backdrop-blur-md",
     "px-4 py-3 md:px-6 md:py-4 lg:px-8 lg:py-5",
     "shadow-[0_8px_28px_rgba(0,0,0,0.45)]",
     "font-gothic text-black",

@@ -74,7 +74,7 @@ const Dialog = ({
       </div>
       <DialogBox>
         {/*TODO: Replace with name from configuration*/}
-        <div className="font-tales mb-2 border-b border-[#5a3a22]/20 pb-1 text-center text-lg tracking-wide text-[#5a3a22] md:mb-3 md:text-xl lg:text-2xl">
+        <div className="mb-2 border-b border-[#5a3a22]/20 pb-1 text-center text-base font-bold text-[#5a3a22] md:mb-3 md:text-xl lg:text-2xl">
           {"Anabella Declutter"}
         </div>
         <div
