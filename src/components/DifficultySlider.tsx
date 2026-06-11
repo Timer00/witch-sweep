@@ -9,19 +9,21 @@ interface DifficultySliderProps {
 export const MIN_POINTS = 1;
 export const MAX_POINTS = 12;
 
-// One word per point, climbing from easy to hard (index = points − 1)
+// One word per point, climbing from easy to hard (index = points − 1).
+// Deliberately starts at plain "leicht", not "super leicht": a task that
+// sounds like a baby step makes failing it feel worse.
 const DIFFICULTY_LABELS = [
-  "super leicht",
-  "sehr leicht",
   "leicht",
+  "noch leicht",
   "okay",
   "machbar",
-  "nicht so schwer",
   "mittel",
-  "mittel-schwer",
+  "knifflig",
+  "fast schwer",
   "schwer",
+  "ganz schön schwer",
   "sehr schwer",
-  "super schwer",
+  "verhext schwer",
   "Extrem!",
 ];
 
@@ -65,8 +67,12 @@ const DifficultySlider = ({ points, onChange }: DifficultySliderProps) => {
 
   const handlePointerDown = (e: React.PointerEvent) => {
     draggingRef.current = true;
-    e.currentTarget.setPointerCapture(e.pointerId);
     onChange(pointsFromPointer(e));
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // Capture is a nice-to-have for dragging; the tap already counted
+    }
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {

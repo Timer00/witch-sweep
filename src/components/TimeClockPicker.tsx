@@ -47,8 +47,12 @@ const TimeClockPicker = ({ minutes, onChange, coins }: TimeClockPickerProps) => 
 
   const handlePointerDown = (e: React.PointerEvent) => {
     draggingRef.current = true;
-    e.currentTarget.setPointerCapture(e.pointerId);
     onChange(minutesFromPointer(e));
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // Capture is a nice-to-have for dragging; the tap already counted
+    }
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
