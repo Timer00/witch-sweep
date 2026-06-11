@@ -255,13 +255,13 @@ function createPageConfigurations({
             [HelpTypeInterface.cleaning]: [
               {
                 witch: Witch.sad,
-                text: "Schade! Jetzt habe ich gewonnen… Naja, nächstes Mal kann du mich bestimmt schlagen!",
+                text: "Schade! Jetzt habe ich gewonnen… Naja, nächstes Mal kannst du mich bestimmt schlagen!",
               },
             ],
             [HelpTypeInterface.homework]: [
               {
                 witch: Witch.sad,
-                text: "Schade! Jetzt habe ich gewonnen… Naja, nächstes Mal kann du mich bestimmt schlagen!",
+                text: "Schade! Jetzt habe ich gewonnen… Naja, nächstes Mal kannst du mich bestimmt schlagen!",
               },
             ],
           }[helpType] as Messages,
