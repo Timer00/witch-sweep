@@ -19,11 +19,11 @@ const DIFFICULTY_LABELS = [
   "machbar",
   "mittel",
   "knifflig",
-  "fast schwer",
   "schwer",
   "ganz schön schwer",
   "sehr schwer",
-  "verhext schwer",
+  "super schwer",
+  "verhext schwer!",
   "Extrem!",
 ];
 
