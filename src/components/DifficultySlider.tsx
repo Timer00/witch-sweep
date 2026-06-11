@@ -9,18 +9,27 @@ interface DifficultySliderProps {
 export const MIN_POINTS = 1;
 export const MAX_POINTS = 12;
 
-// One word per two increments: 0–1 sehr leicht, 2–3 okay, … 10–12 Extrem!
+// One word per point, climbing from easy to hard (index = points − 1)
 const DIFFICULTY_LABELS = [
+  "super leicht",
   "sehr leicht",
+  "leicht",
   "okay",
+  "machbar",
+  "nicht so schwer",
   "mittel",
+  "mittel-schwer",
   "schwer",
   "sehr schwer",
+  "super schwer",
   "Extrem!",
 ];
 
 export function difficultyLabel(points: number): string {
-  const index = Math.min(DIFFICULTY_LABELS.length - 1, Math.floor(points / 2));
+  const index = Math.min(
+    DIFFICULTY_LABELS.length - 1,
+    Math.max(0, points - 1)
+  );
   return DIFFICULTY_LABELS[index];
 }
 
@@ -173,16 +182,16 @@ const DifficultySlider = ({ points, onChange }: DifficultySliderProps) => {
           strokeLinecap="round"
         />
 
-        {/* Tick marks, stronger where the difficulty word changes */}
+        {/* Tick marks, one per step */}
         {Array.from({ length: MAX_POINTS + 1 }, (_, p) => (
           <line
             key={p}
             x1={TRACK_X + 12}
-            x2={TRACK_X + (p % 2 === 0 ? 20 : 16)}
+            x2={TRACK_X + 18}
             y1={yForPoints(p)}
             y2={yForPoints(p)}
             stroke="#5a3a22"
-            strokeWidth={p % 2 === 0 ? 3 : 2}
+            strokeWidth={2}
             strokeLinecap="round"
             opacity={0.6}
           />
@@ -244,11 +253,11 @@ const DifficultySlider = ({ points, onChange }: DifficultySliderProps) => {
         {/* Difficulty word at the bottom */}
         <text
           x={W / 2}
-          y={290}
+          y={288}
           textAnchor="middle"
           fill="#3a2417"
-          fontSize={26}
-          style={{ fontFamily: '"AncientModernTales", serif' }}
+          fontSize={20}
+          style={{ fontFamily: '"OpenDyslexic", serif' }}
         >
           {difficultyLabel(points)}
         </text>
