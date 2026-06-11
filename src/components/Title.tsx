@@ -5,7 +5,7 @@ interface TitleProps {
 }
 
 const Title = ({ children }: TitleProps) => (
-  <p id={"gameTitle"} className="font-dyslexic md:text-4xl lg:text-6xl">
+  <p id={"gameTitle"} className="font-dyslexic text-white/95 md:text-3xl lg:text-5xl">
     {children}
   </p>
 );

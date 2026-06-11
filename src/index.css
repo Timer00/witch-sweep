@@ -56,6 +56,15 @@
   font-family: "OpenDyslexic", serif;
 }
 
+@font-face {
+  font-family: "AncientModernTales";
+  src: url("@/assets/fonts/AncientModernTales-a7Po.ttf") format("truetype");
+}
+
+.font-tales {
+  font-family: "AncientModernTales", serif;
+}
+
 * {
   font-family: OpenDyslexic, serif;
 }
@@ -182,4 +191,35 @@ body {
   #root {
     overflow: visible !important;
   }
+}
+
+/* Coin reward animations: coins pop in near the witch, and the counter
+   number bounces each time a coin lands */
+@keyframes coinIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes coinPop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.5);
+    color: #fbbf24;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.coin-pop {
+  display: inline-block;
+  animation: coinPop 0.35s ease-out;
 }

@@ -13,6 +13,10 @@ import {
   type nextPage,
   type setPage,
 } from "@/App.tsx";
+import StoryChapterPicker from "@/pages/StoryChapterPicker.tsx";
+import StoryReader from "@/pages/StoryReader.tsx";
+import TaskDifficulty from "@/pages/TaskDifficulty.tsx";
+import { coinsForHomeworkMinutes, coinLabel } from "@/utils/coinReward.ts";
 
 export interface PageConfigurationDependencies {
   nextPage: nextPage;
@@ -40,6 +44,10 @@ function createPageConfigurations({
   setPlayerName,
   setHelpType,
   setTimerMinutes,
+  storyChapter,
+  setStoryChapter,
+  taskCoins,
+  setTaskCoins,
 }: PageConfigurationDependencies & {
   playerName: string;
   helpType: HelpTypeInterface;
@@ -47,7 +55,22 @@ function createPageConfigurations({
   setPlayerName: (name: string) => void;
   setHelpType: (type: HelpTypeInterface) => void;
   setTimerMinutes: (minutes: number) => void;
+  storyChapter: number;
+  setStoryChapter: (chapter: number) => void;
+  taskCoins: number;
+  setTaskCoins: (coins: number) => void;
 }) {
+  // The witch's promise must match the real reward. Homework: one coin
+  // per 5 minutes. Cleaning: the difficulty slider decides (taskCoins).
+  // She holds one coin in the picture for a 1-coin reward, several
+  // coins for anything more.
+  const rewardCount =
+    helpType === HelpTypeInterface.homework
+      ? coinsForHomeworkMinutes(timerMinutes)
+      : taskCoins;
+  const rewardWitch = rewardCount <= 1 ? Witch.coin : Witch.coins;
+  const rewardLabel = coinLabel(rewardCount);
+
   return {
     witchName: "Anabella Declutter",
     pages: [
@@ -74,6 +97,12 @@ function createPageConfigurations({
             HelpTypeInterface.cleaning,
             HelpTypeInterface.homework,
           ] as HelpTypeInterface[],
+          extraOptions: [
+            {
+              label: "Geschichte lesen: \"Eine verhexte Woche\"",
+              onSelect: () => setPage(11),
+            },
+          ],
         },
       },
       {
@@ -123,9 +152,25 @@ function createPageConfigurations({
       {
         page: HowLong,
         props: {
-          nextPage,
+          // Cleaning continues to the difficulty slider; homework skips it
+          nextPage:
+            helpType === HelpTypeInterface.cleaning ? nextPage : () => setPage(5),
           setTimerMinutes,
+          coinsForTime:
+            helpType === HelpTypeInterface.homework
+              ? coinsForHomeworkMinutes
+              : undefined,
           description: "The amount of time for the timer is chosen here.",
+        },
+      },
+      // Page 4 (cleaning only): how hard is the task — decides the coins
+      {
+        page: TaskDifficulty,
+        props: {
+          nextPage,
+          setTaskCoins,
+          description:
+            "Cleaning only: task difficulty slider that sets the coin reward.",
         },
       },
       {
@@ -140,10 +185,8 @@ function createPageConfigurations({
                 text: "Super! Machen wir eine **Herausforderung** daraus: Ich wette mit dir, ich bin schneller fertig als du!",
               },
               {
-                witch: timerMinutes < 20 ? Witch.coin : Witch.coins,
-                text: `Wenn du fertig wirst, **bevor die Zeit ausläuft**, dann kriegst du **${
-                  timerMinutes < 20 ? "eine Münze" : "zwei Münzen"
-                }** von mir! Sollte der Timer aber auslaufen, dann habe ich gewonnen!`,
+                witch: rewardWitch,
+                text: `Wenn du fertig wirst, **bevor die Zeit ausläuft**, dann kriegst du **${rewardLabel}** von mir! Sollte der Timer aber auslaufen, dann habe ich gewonnen!`,
               },
             ],
             [HelpTypeInterface.homework]: [
@@ -152,10 +195,8 @@ function createPageConfigurations({
                 text: "Alles klar! Ich habe aber eine **Herausforderung** für dich: Ich wette, ich kann viel länger an meinen Hausaufgaben sitzen als du.",
               },
               {
-                witch: timerMinutes < 20 ? Witch.coin : Witch.coins,
-                text: `Wenn du so lange durchhältst, bis der Timer vorbei ist, dann bekommst du **${
-                  timerMinutes < 20 ? "eine Münze" : "zwei Münzen"
-                }** von mir. Solltest du aber aufgeben, bevor die Zeit rum ist, dann habe ich gewonnen!`,
+                witch: rewardWitch,
+                text: `Wenn du so lange durchhältst, bis der Timer vorbei ist, dann bekommst du **${rewardLabel}** von mir. Solltest du aber aufgeben, bevor die Zeit rum ist, dann habe ich gewonnen!`,
               },
             ],
           }[helpType] as Messages,
@@ -168,10 +209,10 @@ function createPageConfigurations({
           description: "Page asking if player is ready.",
           messages: {
             [HelpTypeInterface.cleaning]: [
-              { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `` },
+              { witch: rewardWitch, text: `` },
             ],
             [HelpTypeInterface.homework]: [
-              { witch: timerMinutes < 20 ? Witch.coin : Witch.coins, text: `` },
+              { witch: rewardWitch, text: `` },
             ],
           }[helpType] as Messages,
           buttonText: "Los geht's!",
@@ -186,12 +227,17 @@ function createPageConfigurations({
             timerMinutes,
             helpType: helpType,
             doneButton: "Fertig!",
-            onTimeOver: () => {
-              setPage(8);
+            doneButtonDelaySeconds: 60,
+            secondaryButton: "Aufgeben",
+            onClickSecondaryButton: () => {
+              setPage(9);
             },
-            onClickButton: (time: number) => {
-              addCoins(Math.floor(time / 10));
-              setPage(7);
+            onTimeOver: () => {
+              setPage(9);
+            },
+            onClickButton: () => {
+              addCoins(taskCoins);
+              setPage(8);
             },
             timerHeader: "",
           } as TimerScreenProps,
@@ -202,11 +248,11 @@ function createPageConfigurations({
             doneButton: "Aufgeben",
             timerHeader: "",
             onTimeOver: (time: number) => {
-              addCoins(Math.floor(time / 10));
-              setPage(7);
+              addCoins(coinsForHomeworkMinutes(time));
+              setPage(8);
             },
             onClickButton: () => {
-              setPage(8);
+              setPage(9);
             },
           } as TimerScreenProps,
         }[helpType],
@@ -214,7 +260,7 @@ function createPageConfigurations({
       {
         page: Generic,
         props: {
-          nextPage: () => setPage(9),
+          nextPage: () => setPage(10),
           messages: {
             [HelpTypeInterface.cleaning]: [
               {
@@ -234,18 +280,18 @@ function createPageConfigurations({
       {
         page: Generic,
         props: {
-          nextPage: () => setPage(9),
+          nextPage: () => setPage(10),
           messages: {
             [HelpTypeInterface.cleaning]: [
               {
                 witch: Witch.sad,
-                text: "Schade! Jetzt habe ich gewonnen… Naja, nächstes Mal kann du mich bestimmt schlagen!",
+                text: "Schade! Jetzt habe ich gewonnen… Naja, nächstes Mal kannst du mich bestimmt schlagen!",
               },
             ],
             [HelpTypeInterface.homework]: [
               {
                 witch: Witch.sad,
-                text: "Schade! Jetzt habe ich gewonnen… Naja, nächstes Mal kann du mich bestimmt schlagen!",
+                text: "Schade! Jetzt habe ich gewonnen… Naja, nächstes Mal kannst du mich bestimmt schlagen!",
               },
             ],
           }[helpType] as Messages,
@@ -277,6 +323,32 @@ function createPageConfigurations({
           }[helpType] as Messages,
         },
       },
+      // Page 11: Story chapter picker
+      {
+        page: StoryChapterPicker,
+        props: {
+          onSelectChapter: (index: number) => {
+            setStoryChapter(index);
+            setPage(12);
+          },
+          onBack: () => setPage(1),
+          onContinue: (chapterIndex: number) => {
+            setStoryChapter(chapterIndex);
+            setPage(12);
+          },
+        },
+      },
+      // Page 12: Story reader
+      {
+        page: StoryReader,
+        props: {
+          chapterIndex: storyChapter,
+          onBackToContents: () => setPage(11),
+          onGoToChapter: (index: number) => {
+            setStoryChapter(index);
+          },
+        },
+      },
     ],
   };
 }
@@ -295,13 +367,15 @@ export function useGameState(
     HelpTypeInterface.cleaning
   );
   const [timerMinutes, setTimerMinutes] = useState(0);
+  const [taskCoins, setTaskCoins] = useState(1);
+  const [storyChapter, setStoryChapter] = useState(0);
   const pageConfigurationsRef = useRef<ReturnType<
     typeof createPageConfigurations
   > | null>(null);
 
   const nextPage = useCallback(() => {
     setPage((currentPage) => {
-      const pageCount = pageConfigurationsRef.current?.pages.length ?? 10;
+      const pageCount = pageConfigurationsRef.current?.pages.length ?? 13;
       if (currentPage < pageCount - 1) {
         return currentPage + 1;
       } else {
@@ -326,6 +400,10 @@ export function useGameState(
       setPlayerName,
       setHelpType,
       setTimerMinutes,
+      storyChapter,
+      setStoryChapter,
+      taskCoins,
+      setTaskCoins,
     });
     pageConfigurationsRef.current = config;
     return config;
@@ -344,6 +422,10 @@ export function useGameState(
     setPlayerName,
     setHelpType,
     setTimerMinutes,
+    storyChapter,
+    setStoryChapter,
+    taskCoins,
+    setTaskCoins,
   ]);
 
   return {

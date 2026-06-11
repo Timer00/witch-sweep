@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { coin } from "@/assets";
 import useCoins from "@/hooks/useCoins.ts";
@@ -19,6 +20,8 @@ const CoinSpendForm = ({
   onSpendAmountChange,
 }: CoinSpendFormProps) => {
   const { coins, spendCoins } = useCoins();
+  // Amount waiting for a yes/no in the confirmation popup, null = closed
+  const [confirmAmount, setConfirmAmount] = useState<number | null>(null);
 
   const setAmount = (value: number) => {
     onSpendAmountChange(clampAmount(value, coins));
@@ -26,7 +29,12 @@ const CoinSpendForm = ({
 
   const handleSpendClick = () => {
     const amount = clampAmount(spendAmount, coins);
-    if (amount > 0) spendCoins(amount);
+    if (amount > 0) setConfirmAmount(amount);
+  };
+
+  const handleConfirmSpend = () => {
+    if (confirmAmount != null) spendCoins(confirmAmount);
+    setConfirmAmount(null);
   };
 
   return (
@@ -79,6 +87,52 @@ const CoinSpendForm = ({
           Ausgeben
         </button>
       </div>
+
+      {/* Confirmation popup before any coins actually leave the purse */}
+      {confirmAmount != null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 print:hidden"
+          onClick={() => setConfirmAmount(null)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Münzen ausgeben bestätigen"
+            className="mx-4 flex max-w-sm flex-col items-center gap-5 rounded-xl border-2 border-black bg-amber-50 px-8 py-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-center text-lg">
+              Möchtest du wirklich{" "}
+              <strong>
+                {confirmAmount} {confirmAmount === 1 ? "Münze" : "Münzen"}
+              </strong>{" "}
+              <img
+                src={coin}
+                alt=""
+                className="inline h-5 w-5 align-text-bottom"
+                aria-hidden
+              />{" "}
+              ausgeben?
+            </p>
+            <div className="flex gap-4">
+              <button
+                type="button"
+                onClick={() => setConfirmAmount(null)}
+                className="rounded border-2 border-black px-5 py-2 font-medium hover:bg-black/5"
+              >
+                Abbrechen
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmSpend}
+                className="rounded border-2 border-black bg-amber-400 px-5 py-2 font-medium shadow hover:bg-amber-300"
+              >
+                Ja, ausgeben
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </aside>
   );
 };

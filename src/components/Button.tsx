@@ -1,6 +1,11 @@
 import { type ButtonHTMLAttributes, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
+// Softer look than the default chunky button: thin translucent outline,
+// frosted glass background, calmer text
+export const softButtonStyle =
+  "rounded-xl border-2 border-amber-50/50 bg-white/10 px-6 py-3 font-normal text-white/90 backdrop-blur-sm hover:bg-white/25 md:text-2xl lg:text-3xl";
+
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   onClick: () => void;

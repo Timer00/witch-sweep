@@ -1,5 +1,5 @@
 import { type HelpTypeInterface, type PageProps } from "@/App.tsx";
-import Button from "@/components/Button.tsx";
+import Button, { softButtonStyle } from "@/components/Button.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import { castleLoop } from "@/assets";
 import { useEffect, useRef } from "react";
@@ -11,6 +11,7 @@ interface WhatDoYouNeedHelpWithProps extends Omit<PageProps, "messages"> {
   options: HelpTypeInterface[];
   question: string;
   setHelpType: (type: HelpTypeInterface) => void;
+  extraOptions?: { label: string; onSelect: () => void }[];
 }
 
 const WhatDoYouNeedHelpWith = ({
@@ -18,6 +19,7 @@ const WhatDoYouNeedHelpWith = ({
   options,
   question,
   setHelpType,
+  extraOptions,
 }: WhatDoYouNeedHelpWithProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
@@ -42,11 +44,28 @@ const WhatDoYouNeedHelpWith = ({
           </div>
           <div className="font-dyslexic mt-28 flex items-center justify-center gap-12 font-medium">
             {options.map((text, index) => (
-              <Button key={index} onClick={() => handleSelectOption(text)}>
+              <Button
+                key={index}
+                onClick={() => handleSelectOption(text)}
+                className={softButtonStyle}
+              >
                 {text}
               </Button>
             ))}
           </div>
+          {extraOptions && (
+            <div className="font-dyslexic mt-8 flex items-center justify-center gap-12 font-medium">
+              {extraOptions.map((opt) => (
+                <Button
+                  key={opt.label}
+                  onClick={opt.onSelect}
+                  className={`${softButtonStyle} md:text-xl lg:text-2xl`}
+                >
+                  {opt.label}
+                </Button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </PageContainer>
