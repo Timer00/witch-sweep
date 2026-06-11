@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import type { ReactNode } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Info as InfoIcon } from "lucide-react";
 import FullScreen from "@/components/FullScreen.tsx";
-import { InfoIcon } from "@/assets/icons/InfoIcon.tsx";
 
 const FAQ_HASH_PREFIX = "faq-";
 const FAQ_SLUGS = [
@@ -27,16 +26,13 @@ export const InfoButton = ({ pageIndex, onClick }: InfoButtonProps) => {
   }
 
   return (
-    <button onClick={onClick} className="z-2 absolute left-32 top-[-16px] m-4">
-      <div className="flex items-center space-x-1 p-2 text-white underline underline-offset-[5px]">
-        {pageIndex === null && (
-          <span className="text-2xs font-semibold text-white">
-            {"Wie nutze ich HocusFocus? "}
-          </span>
-        )}
-        <span className="text-lg font-semibold text-white">
-          <InfoIcon />
-        </span>
+    <button
+      onClick={onClick}
+      aria-label="Wie nutze ich HocusFocus?"
+      className="z-2 absolute left-16 top-0 m-2 sm:left-28"
+    >
+      <div className="flex items-center rounded-full border border-white/25 bg-black/35 p-1.5 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/55">
+        <InfoIcon size={16} />
       </div>
     </button>
   );

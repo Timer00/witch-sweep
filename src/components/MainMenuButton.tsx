@@ -48,11 +48,11 @@ const MainMenuButton = ({
         type="button"
         onClick={handleClick}
         aria-label="Zurück zum Hauptmenü"
-        className="z-2 absolute left-0 top-0"
+        className="z-2 absolute left-0 top-0 m-2"
       >
-        <div className="flex items-center space-x-2 p-2 text-white underline underline-offset-[5px] transition-opacity hover:opacity-80">
-          <Home size={22} />
-          <span className="text-md hidden font-semibold sm:inline">Menü</span>
+        <div className="flex items-center gap-1.5 rounded-full border border-white/25 bg-black/35 px-2.5 py-1.5 text-white/90 backdrop-blur-sm transition-colors hover:bg-black/55">
+          <Home size={16} />
+          <span className="hidden text-xs font-semibold sm:inline">Menü</span>
         </div>
       </button>
       {showConfirmDialog && (

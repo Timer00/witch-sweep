@@ -21,13 +21,13 @@ export const LegalInfoButton = ({
   return (
     <button
       onClick={onClick}
-      className="z-2 absolute bottom-[-16px] left-32 m-4"
+      className="z-2 absolute bottom-0 left-32 m-2"
     >
-      <div className="flex items-center space-x-1 p-2 text-white underline underline-offset-[5px]">
-        <span className="text-[0.5rem] font-semibold text-white">
-          {"Impressum & Datenschutz "}
-        </span>
+      <div className="flex items-center gap-1.5 rounded-full border border-white/25 bg-black/35 px-2.5 py-1.5 text-white/80 backdrop-blur-sm transition-colors hover:bg-black/55">
         <Scale size={12} />
+        <span className="text-2xs font-semibold">
+          {"Impressum & Datenschutz"}
+        </span>
       </div>
     </button>
   );
