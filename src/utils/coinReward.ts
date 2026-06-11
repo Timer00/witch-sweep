@@ -1,9 +1,25 @@
-// One coin per full 10 minutes, but never less than one: 5–19 → 1, 20–29 → 2, … 60 → 6
-export function coinsForMinutes(minutes: number): number {
-  return Math.max(1, Math.floor(minutes / 10));
+// Homework: one coin per 5 minutes — 5 → 1, 30 → 6, 60 → 12.
+// Cleaning rewards are NOT time-based; they come from the difficulty
+// slider (see DifficultySlider), because more time must not mean more coins.
+export function coinsForHomeworkMinutes(minutes: number): number {
+  return Math.floor(minutes / 5);
 }
 
-const NUMBER_WORDS = ["null", "eine", "zwei", "drei", "vier", "fünf", "sechs"];
+const NUMBER_WORDS = [
+  "null",
+  "eine",
+  "zwei",
+  "drei",
+  "vier",
+  "fünf",
+  "sechs",
+  "sieben",
+  "acht",
+  "neun",
+  "zehn",
+  "elf",
+  "zwölf",
+];
 
 // "eine Münze", "drei Münzen", … for the witch's dialogue
 export function coinLabel(count: number): string {

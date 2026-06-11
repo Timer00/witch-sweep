@@ -1,10 +1,11 @@
 import { useRef } from "react";
 import { coin } from "@/assets";
-import { coinsForMinutes } from "@/utils/coinReward.ts";
 
 interface TimeClockPickerProps {
   minutes: number;
   onChange: (minutes: number) => void;
+  /** Coin reward to show in the middle; null hides coins (cleaning: time earns nothing) */
+  coins: number | null;
 }
 
 export const MIN_MINUTES = 5;
@@ -28,7 +29,7 @@ function polar(radius: number, minutes: number): { x: number; y: number } {
  * A clock face with a circular slider around it. Dragging the golden knob
  * (or tapping the ring) sets the minutes, in 5-minute steps from 5 to 60.
  */
-const TimeClockPicker = ({ minutes, onChange }: TimeClockPickerProps) => {
+const TimeClockPicker = ({ minutes, onChange, coins }: TimeClockPickerProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const draggingRef = useRef(false);
   const minutesRef = useRef(minutes);
@@ -74,7 +75,6 @@ const TimeClockPicker = ({ minutes, onChange }: TimeClockPickerProps) => {
   };
 
   const knob = polar(TRACK_R, minutes);
-  const coins = coinsForMinutes(minutes);
 
   return (
     <div
@@ -211,31 +211,38 @@ const TimeClockPicker = ({ minutes, onChange }: TimeClockPickerProps) => {
           >
             Minuten
           </text>
-          {Array.from({ length: coins }, (_, i) => {
-            const w = 16;
-            const gap = 3;
-            const total = coins * w + (coins - 1) * gap;
-            return (
-              <image
-                key={i}
-                href={coin}
-                x={CENTER - total / 2 + i * (w + gap)}
-                y={164}
-                width={w}
-                height={w}
-              />
-            );
-          })}
-          <text
-            x={CENTER}
-            y={196}
-            textAnchor="middle"
-            fill="#5a3a22"
-            fontSize={11}
-            style={{ fontFamily: '"OpenDyslexic", serif' }}
-          >
-            {coins} {coins === 1 ? "Münze" : "Münzen"}
-          </text>
+          {coins != null && (
+            <>
+              {Array.from({ length: coins }, (_, i) => {
+                const w = 15;
+                const gap = 3;
+                const perRow = 6;
+                const row = Math.floor(i / perRow);
+                const rowCount = Math.min(perRow, coins - row * perRow);
+                const total = rowCount * w + (rowCount - 1) * gap;
+                return (
+                  <image
+                    key={i}
+                    href={coin}
+                    x={CENTER - total / 2 + (i % perRow) * (w + gap)}
+                    y={162 + row * 18}
+                    width={w}
+                    height={w}
+                  />
+                );
+              })}
+              <text
+                x={CENTER}
+                y={coins > 6 ? 212 : 196}
+                textAnchor="middle"
+                fill="#5a3a22"
+                fontSize={11}
+                style={{ fontFamily: '"OpenDyslexic", serif' }}
+              >
+                {coins} {coins === 1 ? "Münze" : "Münzen"}
+              </text>
+            </>
+          )}
         </g>
       </svg>
     </div>

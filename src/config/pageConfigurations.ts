@@ -15,7 +15,8 @@ import {
 } from "@/App.tsx";
 import StoryChapterPicker from "@/pages/StoryChapterPicker.tsx";
 import StoryReader from "@/pages/StoryReader.tsx";
-import { coinsForMinutes, coinLabel } from "@/utils/coinReward.ts";
+import TaskDifficulty from "@/pages/TaskDifficulty.tsx";
+import { coinsForHomeworkMinutes, coinLabel } from "@/utils/coinReward.ts";
 
 export interface PageConfigurationDependencies {
   nextPage: nextPage;
@@ -45,6 +46,8 @@ function createPageConfigurations({
   setTimerMinutes,
   storyChapter,
   setStoryChapter,
+  taskCoins,
+  setTaskCoins,
 }: PageConfigurationDependencies & {
   playerName: string;
   helpType: HelpTypeInterface;
@@ -54,11 +57,17 @@ function createPageConfigurations({
   setTimerMinutes: (minutes: number) => void;
   storyChapter: number;
   setStoryChapter: (chapter: number) => void;
+  taskCoins: number;
+  setTaskCoins: (coins: number) => void;
 }) {
-  // The witch's promise must match the real reward: one coin per started
-  // 10 minutes. She holds one coin in the picture for a 1-coin reward,
-  // several coins for anything more.
-  const rewardCount = coinsForMinutes(timerMinutes);
+  // The witch's promise must match the real reward. Homework: one coin
+  // per 5 minutes. Cleaning: the difficulty slider decides (taskCoins).
+  // She holds one coin in the picture for a 1-coin reward, several
+  // coins for anything more.
+  const rewardCount =
+    helpType === HelpTypeInterface.homework
+      ? coinsForHomeworkMinutes(timerMinutes)
+      : taskCoins;
   const rewardWitch = rewardCount <= 1 ? Witch.coin : Witch.coins;
   const rewardLabel = coinLabel(rewardCount);
 
@@ -91,7 +100,7 @@ function createPageConfigurations({
           extraOptions: [
             {
               label: "Geschichte lesen: \"Eine verhexte Woche\"",
-              onSelect: () => setPage(10),
+              onSelect: () => setPage(11),
             },
           ],
         },
@@ -143,9 +152,25 @@ function createPageConfigurations({
       {
         page: HowLong,
         props: {
-          nextPage,
+          // Cleaning continues to the difficulty slider; homework skips it
+          nextPage:
+            helpType === HelpTypeInterface.cleaning ? nextPage : () => setPage(5),
           setTimerMinutes,
+          coinsForTime:
+            helpType === HelpTypeInterface.homework
+              ? coinsForHomeworkMinutes
+              : undefined,
           description: "The amount of time for the timer is chosen here.",
+        },
+      },
+      // Page 4 (cleaning only): how hard is the task — decides the coins
+      {
+        page: TaskDifficulty,
+        props: {
+          nextPage,
+          setTaskCoins,
+          description:
+            "Cleaning only: task difficulty slider that sets the coin reward.",
         },
       },
       {
@@ -204,14 +229,14 @@ function createPageConfigurations({
             doneButton: "Fertig!",
             secondaryButton: "Aufgeben",
             onClickSecondaryButton: () => {
-              setPage(8);
+              setPage(9);
             },
             onTimeOver: () => {
-              setPage(8);
+              setPage(9);
             },
-            onClickButton: (time: number) => {
-              addCoins(Math.floor(time / 10));
-              setPage(7);
+            onClickButton: () => {
+              addCoins(taskCoins);
+              setPage(8);
             },
             timerHeader: "",
           } as TimerScreenProps,
@@ -222,11 +247,11 @@ function createPageConfigurations({
             doneButton: "Aufgeben",
             timerHeader: "",
             onTimeOver: (time: number) => {
-              addCoins(Math.floor(time / 10));
-              setPage(7);
+              addCoins(coinsForHomeworkMinutes(time));
+              setPage(8);
             },
             onClickButton: () => {
-              setPage(8);
+              setPage(9);
             },
           } as TimerScreenProps,
         }[helpType],
@@ -234,7 +259,7 @@ function createPageConfigurations({
       {
         page: Generic,
         props: {
-          nextPage: () => setPage(9),
+          nextPage: () => setPage(10),
           messages: {
             [HelpTypeInterface.cleaning]: [
               {
@@ -254,7 +279,7 @@ function createPageConfigurations({
       {
         page: Generic,
         props: {
-          nextPage: () => setPage(9),
+          nextPage: () => setPage(10),
           messages: {
             [HelpTypeInterface.cleaning]: [
               {
@@ -297,22 +322,22 @@ function createPageConfigurations({
           }[helpType] as Messages,
         },
       },
-      // Page 10: Story chapter picker
+      // Page 11: Story chapter picker
       {
         page: StoryChapterPicker,
         props: {
           onSelectChapter: (index: number) => {
             setStoryChapter(index);
-            setPage(11);
+            setPage(12);
           },
           onBack: () => setPage(1),
           onContinue: (chapterIndex: number) => {
             setStoryChapter(chapterIndex);
-            setPage(11);
+            setPage(12);
           },
         },
       },
-      // Page 11: Story reader
+      // Page 12: Story reader
       {
         page: StoryReader,
         props: {
@@ -341,6 +366,7 @@ export function useGameState(
     HelpTypeInterface.cleaning
   );
   const [timerMinutes, setTimerMinutes] = useState(0);
+  const [taskCoins, setTaskCoins] = useState(1);
   const [storyChapter, setStoryChapter] = useState(0);
   const pageConfigurationsRef = useRef<ReturnType<
     typeof createPageConfigurations
@@ -348,7 +374,7 @@ export function useGameState(
 
   const nextPage = useCallback(() => {
     setPage((currentPage) => {
-      const pageCount = pageConfigurationsRef.current?.pages.length ?? 11;
+      const pageCount = pageConfigurationsRef.current?.pages.length ?? 13;
       if (currentPage < pageCount - 1) {
         return currentPage + 1;
       } else {
@@ -375,6 +401,8 @@ export function useGameState(
       setTimerMinutes,
       storyChapter,
       setStoryChapter,
+      taskCoins,
+      setTaskCoins,
     });
     pageConfigurationsRef.current = config;
     return config;
@@ -395,6 +423,8 @@ export function useGameState(
     setTimerMinutes,
     storyChapter,
     setStoryChapter,
+    taskCoins,
+    setTaskCoins,
   ]);
 
   return {

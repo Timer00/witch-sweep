@@ -1,25 +1,23 @@
 import logo from "@/assets/images/witch_talk.png";
-import { type PageProps, type setTimerMinutes } from "@/App.tsx";
+import { type PageProps } from "@/App.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
 import Button, { softButtonStyle } from "@/components/Button.tsx";
-import TimeClockPicker, {
-  MIN_MINUTES,
-} from "@/components/TimeClockPicker.tsx";
+import DifficultySlider, {
+  MIN_POINTS,
+} from "@/components/DifficultySlider.tsx";
 import { useEffect, useRef, useState } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 import { room } from "@/assets";
 import Video from "@/components/Video.tsx";
 
-interface HowLongProps extends PageProps {
-  setTimerMinutes: setTimerMinutes;
-  /** Maps minutes to the coin reward; omit to hide coins on the clock (cleaning) */
-  coinsForTime?: (minutes: number) => number;
+interface TaskDifficultyProps extends PageProps {
+  setTaskCoins: (coins: number) => void;
 }
 
-const HowLong = ({ setTimerMinutes, nextPage, coinsForTime }: HowLongProps) => {
+const TaskDifficulty = ({ setTaskCoins, nextPage }: TaskDifficultyProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
-  const [minutes, setMinutes] = useState(MIN_MINUTES);
+  const [points, setPoints] = useState(MIN_POINTS);
 
   useEffect(() => {
     setLoop(false);
@@ -27,7 +25,7 @@ const HowLong = ({ setTimerMinutes, nextPage, coinsForTime }: HowLongProps) => {
   }, []);
 
   const handleConfirm = () => {
-    setTimerMinutes(minutes);
+    setTaskCoins(points);
     nextPage();
   };
 
@@ -41,11 +39,7 @@ const HowLong = ({ setTimerMinutes, nextPage, coinsForTime }: HowLongProps) => {
       />
       <div className="z-2 relative flex h-full w-full items-center justify-end">
         <div className="flex w-1/2 flex-col items-center gap-3 lg:gap-6">
-          <TimeClockPicker
-            minutes={minutes}
-            onChange={setMinutes}
-            coins={coinsForTime ? coinsForTime(minutes) : null}
-          />
+          <DifficultySlider points={points} onChange={setPoints} />
           <Button
             onClick={handleConfirm}
             className={`${softButtonStyle} font-dyslexic px-8 py-2 text-lg md:text-xl lg:text-2xl`}
@@ -58,4 +52,4 @@ const HowLong = ({ setTimerMinutes, nextPage, coinsForTime }: HowLongProps) => {
   );
 };
 
-export default HowLong;
+export default TaskDifficulty;

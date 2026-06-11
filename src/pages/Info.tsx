@@ -122,9 +122,11 @@ const getFaqs = (onNavigateToContract?: () => void): FaqItem[] => [
           </li>
         </List>
         <p>
-          Gewinnt Ihr Kind, gibt es als Belohnung Münzen. Je länger die Zeit,
-          desto mehr. Verliert es, passiert nichts, es entstehen keine
-          Verluste.
+          Gewinnt Ihr Kind, gibt es als Belohnung Münzen. Bei Hausaufgaben
+          gilt: je länger die Zeit, desto mehr. Beim Aufräumen entscheidet
+          nicht die Zeit, sondern wie schwer die Aufgabe ist — das stellt Ihr
+          Kind vorher selbst ein. Verliert es, passiert nichts, es entstehen
+          keine Verluste.
         </p>
         <p>
           Zusätzlich kann Ihr Kind eine Geschichte lesen, die verschiedene
