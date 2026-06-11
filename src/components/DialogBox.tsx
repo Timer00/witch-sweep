@@ -7,7 +7,7 @@ const DialogBox = ({ children }: { children: ReactNode }) => {
     // screen): never wider than ~2/3 of the stage, never taller than half.
     "z-0 mb-5 max-w-[64%] lg:max-w-[52%]",
     "max-h-[55%] overflow-y-auto",
-    "rounded-2xl border-2 border-[#5a3a22]/70 bg-amber-50/80 backdrop-blur-md",
+    "rounded-lg border-[6px] border-double border-[#5a3a22]/70 bg-amber-50/70 backdrop-blur-md",
     "px-4 py-3 md:px-6 md:py-4 lg:px-8 lg:py-5",
     "shadow-[0_8px_28px_rgba(0,0,0,0.45)]",
     "font-gothic text-black",
