@@ -227,6 +227,7 @@ function createPageConfigurations({
             timerMinutes,
             helpType: helpType,
             doneButton: "Fertig!",
+            doneButtonDelaySeconds: 60,
             secondaryButton: "Aufgeben",
             onClickSecondaryButton: () => {
               setPage(9);

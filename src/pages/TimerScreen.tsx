@@ -2,7 +2,7 @@ import { HelpTypeInterface, type PageProps } from "@/App.tsx";
 import Timer from "@/components/Timer.tsx";
 import Button, { softButtonStyle } from "@/components/Button.tsx";
 import PageContainer from "@/components/PageContainer.tsx";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useVideo } from "@/hooks/useVideo.ts";
 import { cleaning, homework } from "@/assets";
 import Video from "@/components/Video.tsx";
@@ -17,6 +17,9 @@ export interface TimerScreenProps extends Omit<PageProps, "messages"> {
   /** Optional subdued second button, e.g. "Aufgeben" while cleaning */
   secondaryButton?: string;
   onClickSecondaryButton?: (time: number) => void;
+  /** Keeps the done button locked for the first N seconds (cleaning:
+      no instant "Fertig!" before any real work could have happened) */
+  doneButtonDelaySeconds?: number;
 }
 
 const TimerScreen = ({
@@ -28,11 +31,24 @@ const TimerScreen = ({
   helpType,
   secondaryButton,
   onClickSecondaryButton,
+  doneButtonDelaySeconds,
 }: TimerScreenProps) => {
   const time = new Date();
   time.setSeconds(time.getSeconds() + 60 * timerMinutes); // 10 minutes timer
   const videoRef = useRef<HTMLVideoElement>(null);
   const { loading, switchVideo, videoProps, setLoop } = useVideo(videoRef);
+  const [doneLocked, setDoneLocked] = useState(
+    (doneButtonDelaySeconds ?? 0) > 0
+  );
+
+  useEffect(() => {
+    if (!doneButtonDelaySeconds) return;
+    const id = setTimeout(
+      () => setDoneLocked(false),
+      doneButtonDelaySeconds * 1000
+    );
+    return () => clearTimeout(id);
+  }, []);
 
   const handleVideo = () => {
     setLoop(true);
@@ -68,6 +84,7 @@ const TimerScreen = ({
                 : softButtonStyle
             }
             onClick={() => onClickButton(timerMinutes)}
+            disabled={doneLocked}
           >
             {doneButton}
           </Button>
