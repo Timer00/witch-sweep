@@ -1,9 +1,8 @@
-# Entwurf: Wichtige Informationen für Erziehungsberechtigte
+# Wichtige Informationen für Erziehungsberechtigte
 
-> Dieser Text ist ein Entwurf für die Eltern-Info-Seite in der App.
-> Muri kann hier direkt Änderungen machen — danach wird der Text in die App eingebaut.
-> Die Überschrift behebt nebenbei einen Tippfehler der alten Version
-> („ERZIEHUNGSBERECHTIGE" → „ERZIEHUNGSBERECHTIGTE").
+> Dieser Text ist in der App eingebaut (Stand: Juni 2026, Text von Muri).
+> Wenn du hier etwas änderst, sag Claude Bescheid — dann wird die Änderung
+> in die App übernommen.
 
 ---
 
@@ -14,53 +13,57 @@ Ihr Kind tritt bei Hausaufgaben und Aufräumen spielerisch gegen die Hexe an:
 - **Aufräumen:** schneller fertig sein, als die Zeit abläuft.
 - **Hausaufgaben:** bis zum Ende der Zeit durchhalten.
 
-Gewinnt Ihr Kind, gibt es Münzen — je länger die Zeit, desto mehr. Die Hexe sagt die Zahl vorher an. Verliert es, passiert nichts: keine neuen Münzen, aber auch kein Verlust.
+Gewinnt Ihr Kind, gibt es als Belohnung Münzen. Je länger die Zeit, desto mehr. Verliert es, passiert nichts, es entstehen keine Verluste.
 
-Ihr Kind spielt nur gegen die Hexe — vergleichen Sie es nicht mit Geschwistern oder anderen Kindern.
+Zusätzlich kann Ihr Kind eine Geschichte lesen, die verschiedene ADHS-bezogene Themen beinhaltet, und somit ein wenig mehr über seine Diagnose lernen.
 
 ## WAS SIND DIE MÜNZEN?
 
-Ein Punktesystem: Ihr Kind sammelt Münzen und tauscht sie bei Ihnen gegen echte Belohnungen ein.
+Die Münzen sind kurzfristige Belohnungen für Ihr Kind, die es motivieren sollen, seine Aufgaben zu erledigen. So verknüpft es die Erfüllung von Aufgaben mit einem positiven Gefühl.
 
-**Wichtigste Regel: Verdiente Münzen werden nie weggenommen** — auch nicht als Strafe. Sonst verliert Ihr Kind das Vertrauen in das ganze System.
+Die Münzen stellen aber auch ein Punktesystem dar: Ihr Kind sammelt sie und tauscht sie langfristig bei Ihnen gegen echte Belohnungen ein.
+
+Verdiente Münzen sollten nie weggenommen werden, auch nicht als Strafe. Sonst verliert Ihr Kind das Vertrauen in das ganze System.
 
 ## WIE BELOHNE ICH MEIN KIND?
 
-Legen Sie gemeinsam in einem **Vertrag** *(in der App verlinkt)* fest, welche Belohnung es für wie viele Münzen gibt. Lassen Sie Ihr Kind mit aussuchen.
+Erstellen Sie mit Ihrem Kind einen Vertrag (in der App verlinkt), welcher festlegt, welche Belohnung es für wie viele Münzen gibt. Lassen Sie Ihr Kind mit aussuchen. Einige Beispiele sind hier aufgelistet:
 
-- **Wenige Münzen (1–3):** Sticker, kleine Überraschung, 15 Minuten Extra-Spielzeit.
-- **Viele Münzen:** Zoobesuch, Kino, eine Freundin oder ein Freund darf übernachten, den Familienfilm aussuchen.
-- Belohnungen sind immer etwas **Zusätzliches** — nichts, was Ihr Kind ohnehin bekommt oder braucht.
-- Süßigkeiten nur in Maßen — gemeinsame Erlebnisse wirken stärker.
+- **Wenige Münzen:** Sticker, 15 Minuten Extra-Spielzeit
+- **Viele Münzen:** Zoobesuch, Kino, die nächste Familienaktivität aussuchen
+- Belohnungen sind immer etwas Zusätzliches, nichts, was Ihr Kind ohnehin bekommt oder braucht
+- Achten Sie darauf, dass die Belohnung nicht immer nur materieller Natur ist
+- Belohnung mit Süßigkeiten nur in Maßen, um ungesunde Gewohnheiten zu vermeiden
 
 ## WANN SOLLTE ICH MEIN KIND BELOHNEN?
 
-**So bald wie möglich** — je schneller die Belohnung folgt, desto stärker wirkt sie. Jüngere Kinder: fast sofort eintauschen. Ältere Kinder: höchstens ein bis zwei Tage. Tauschen Sie immer gemeinsam ein und machen Sie einen schönen Moment daraus.
+So bald wie möglich, denn je schneller die Belohnung folgt, desto stärker wirkt sie. Bei jüngeren Kindern und Kindern mit besonders schwerer Symptomatik: fast sofort eintauschen. Bei älteren Kindern: höchstens ein bis zwei Tage warten.
+
+Die schnelle, positive Rückmeldung ist besonders wertvoll und wichtig für die verstärkende Wirkung der Belohnung.
 
 ## WELCHE ROLLE SPIELE ICH DABEI?
 
-Die wichtigste — **Ihr Lob wirkt stärker als jede Münze.**
+Die wichtigste! Die App kann motivieren, aber die stärkste Belohnung für Ihr Kind sind Sie selbst.
 
-- Bleiben Sie in der Nähe, während Ihr Kind spielt.
-- Loben Sie sofort und konkret: „15 Minuten durchgehalten — stark!“
-- Loben Sie die Anstrengung, nicht nur den Sieg.
-- Schauen Sie das Ergebnis kurz gemeinsam an — der Timer sieht nicht, ob die Hausaufgaben wirklich fertig sind.
+- Bleiben Sie in der Nähe, wenn Ihr Kind die App benutzt
+- Loben Sie Ihr Kind nach dem Arbeiten sofort und konkret
+- Loben Sie die Anstrengung, nicht nur den Sieg
+- Schauen Sie sich das Ergebnis gemeinsam an. Der Timer sieht nicht, ob die Hausaufgaben wirklich fertig sind oder die Spielsachen wirklich in der Kiste liegen
 
 ## WIE WÄHLE ICH AUFGABE UND ZEIT?
 
-- Aufgabe **vor** dem Start festlegen — so ist klar, was zählt.
-- Klein und konkret: „Legos in die Kiste“ statt „Zimmer aufräumen“.
-- Kurz anfangen: 10–15 Minuten reichen für jüngere Kinder.
-- **Ihr Kind sollte meistens gewinnen.** Wenn nicht: kürzere Zeit, kleinere Aufgabe.
+- Die Aufgabe wird am besten **vor** dem Start festgelegt.
+- Gerade bei ADHS ist es wichtig, Aufgaben klein und konkret zu halten, z. B. „Legos in die Kiste“ statt „Zimmer aufräumen“.
+- **Ihr Kind sollte meistens gewinnen.** Wenn nicht: Kürzen Sie die Zeit für die Hausaufgaben bzw. verlängern Sie diese fürs Aufräumen oder gestalten Sie die Aufgaben kleinschrittiger.
 
 ## WAS MACHE ICH, WENN MEIN KIND VERLIERT?
 
-Ruhig bleiben, nicht schimpfen. Kurz trösten („Die Hexe hatte heute einfach Glück!“) und die nächste Runde leichter machen, damit wieder ein Erfolg gelingt.
+Ruhig bleiben, nicht schimpfen, aufbauen und die nächste Runde leichter machen, damit wieder ein Erfolg gelingt.
 
 ## WAS GIBT ES NOCH ZU BEACHTEN?
 
-- **Verlässlich bleiben:** Der Vertrag gilt — in beide Richtungen. Verdientes wird ausgezahlt, Unverdientes gibt es nicht, auch nicht nach Quengeln.
-- **Einig sein:** Alle Erwachsenen im Haushalt wenden dieselben Regeln an.
-- **Frisch halten:** Belohnungen gemeinsam austauschen, wenn die Luft raus ist.
-- **Langsam loslassen:** Läuft es gut, das System schrittweise zurückfahren — nicht abrupt beenden.
-- Die App unterstützt im Alltag, **ersetzt aber keine Behandlung**. Bei Sorgen: Kinderarztpraxis oder therapeutische Praxis ansprechen.
+- **Verlässlich bleiben:** Prüfen Sie die Belohnungen auf Praktikabilität, damit keine falschen Versprechen entstehen! Geben Sie Belohnungen nicht unverdient aus und behalten Sie verdiente Belohnungen nicht ein, auch wenn es gerade ungelegen kommt.
+- Belohnungen sollten gemeinsam regelmäßig ausgetauscht werden, gerade dann, wenn die Luft raus ist. Es ist wichtig, dass Ihr Kind das Belohnungssystem versteht und dass es ansprechend ist.
+- **Langsam loslassen:** Läuft es gut, kann das System schrittweise zurückgefahren werden, aber nicht abrupt beendet werden.
+- Die Bindung zwischen Ihnen und Ihrem Kind spielt die zentralste Rolle. Achten Sie auf eine vertraute, liebevolle, unterstützende Beziehung.
+- Die App unterstützt im Alltag, ersetzt aber niemals eine Behandlung. Wenden Sie sich bei Sorgen an eine/n Psychiater*in, Psycholog*in oder Kinderärzt*in.
